@@ -21,13 +21,13 @@ class MyTheme {
               backgroundColor: MaterialStateProperty.all(lightPurple),
               elevation: MaterialStateProperty.all(0),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20))),
+                  borderRadius: BorderRadius.circular(15))),
               textStyle: MaterialStateProperty.all(const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: offWhite)
               )
-          )
+          ),
       ),
       textTheme: const TextTheme(
         displaySmall: TextStyle(

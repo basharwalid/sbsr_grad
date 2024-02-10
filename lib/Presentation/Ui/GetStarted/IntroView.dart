@@ -21,74 +21,111 @@ class _IntroViewState extends BaseState<IntroView, IntroViewModel>
     var theme = Theme.of(context);
     super.build(context);
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: IntroductionScreen(
-        pages: [
-          PageViewModel(
-            title: "Welcome Abroad",
-            body: "we are here to connect you to Any Bus ",
+        body: IntroductionScreen(
+      bodyPadding: const EdgeInsets.all(12),
+      pages: [
+        PageViewModel(
+            title: "Welcome Abroad!",
             decoration: PageDecoration(
-              titleTextStyle: theme.textTheme.displayLarge!
-                  .copyWith(fontWeight: FontWeight.bold, fontSize: 24),
-              bodyTextStyle: theme.textTheme.displayLarge!
-                  .copyWith(fontWeight: FontWeight.bold),
+              bodyAlignment: Alignment.center,
+              titleTextStyle: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 24),
             ),
-            image: Lottie.asset('assets/json/bus1.json'),
-          ),
-          PageViewModel(
+            bodyWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset("assets/json/bus1.json"),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "SBSR is your daily Application to catch your bus and never get late to work again",
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 22),
+                )
+              ],
+            )),
+        PageViewModel(
             title: "Live notifications!",
-            body:
-                "Never miss your bus again! Receive instant alerts when your bus is approaching, so you can say goodbye to frantic dashes and hello to relaxed waiting",
             decoration: PageDecoration(
-              titleTextStyle: theme.textTheme.displayLarge!
-                  .copyWith(fontWeight: FontWeight.bold, fontSize: 24),
-              bodyTextStyle: theme.textTheme.displayLarge!
-                  .copyWith(fontWeight: FontWeight.bold),
+              bodyAlignment: Alignment.center,
+              titleTextStyle: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 24),
             ),
-            image: Lottie.asset('assets/json/bell.json'),
-          ),
-          PageViewModel(
+            bodyWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset("assets/json/bell.json"),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Never miss your bus again! Receive instant alerts when your bus is approaching, so you can say goodbye to frantic dashes and hello to relaxed waiting",
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 22),
+                )
+              ],
+            )),
+        PageViewModel(
             title: "Got A favourite bus Ride?",
-            body: "save your steps! Bookmark your go-to bus routes and stops for instant access With a simple tap, get updates and directions straight to your favorite destinations",
             decoration: PageDecoration(
-              titleTextStyle: theme.textTheme.displayLarge!
-                  .copyWith(fontWeight: FontWeight.bold, fontSize: 24),
-              bodyTextStyle: theme.textTheme.displayLarge!
-                  .copyWith(fontWeight: FontWeight.bold),
+              bodyAlignment: Alignment.center,
+              titleTextStyle: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontSize: 24),
             ),
-            image: Center(
-              child: Lottie.asset('assets/json/Favortie.json'),
-            ),
-          ),
-        ],
-        done: const Text("Done"),
-        onDone: goToLoginScreen,
-        next: const Text("Next"),
-        onSkip: goToLoginScreen,
-        back: const Text("Back"),
-        nextStyle: ButtonStyle(
-            textStyle: MaterialStateProperty.all(
-                const TextStyle(color: MyTheme.offWhite, fontSize: 18)),
-            foregroundColor: MaterialStateProperty.all(MyTheme.offWhite)),
-        doneStyle: ButtonStyle(
-            textStyle: MaterialStateProperty.all(
-                const TextStyle(color: MyTheme.offWhite, fontSize: 18)),
-            foregroundColor: MaterialStateProperty.all(MyTheme.offWhite)),
-        backStyle: ButtonStyle(
-            textStyle: MaterialStateProperty.all(
-                const TextStyle(color: MyTheme.offWhite, fontSize: 18)),
-            foregroundColor: MaterialStateProperty.all(MyTheme.offWhite)),
-        dotsDecorator: DotsDecorator(
-          size: const Size.square(10),
-          activeSize: const Size(10, 10),
-          activeShape:
-              BeveledRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: MyTheme.offWhite,
-          spacing: const EdgeInsets.symmetric(horizontal: 5),
-        ),
-        showBackButton: true,
+            bodyWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset("assets/json/Favortie.json"),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "save your steps! Bookmark your go-to bus routes and stops for instant access With a simple tap, get updates and directions straight to your favorite destinations",
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(fontSize: 22),
+                )
+              ],
+            )),
+      ],
+      done: const Text("Done"),
+      onDone: goToLoginScreen,
+      next: const Text("Next"),
+      onSkip: goToLoginScreen,
+      back: const Text("Back"),
+      nextStyle: ButtonStyle(
+          textStyle: MaterialStateProperty.all(
+              const TextStyle(color: MyTheme.offWhite, fontSize: 18)),
+          foregroundColor: MaterialStateProperty.all(MyTheme.offWhite)),
+      doneStyle: ButtonStyle(
+          textStyle: MaterialStateProperty.all(
+              const TextStyle(color: MyTheme.offWhite, fontSize: 18)),
+          foregroundColor: MaterialStateProperty.all(MyTheme.offWhite)),
+      backStyle: ButtonStyle(
+          textStyle: MaterialStateProperty.all(
+              const TextStyle(color: MyTheme.offWhite, fontSize: 18)),
+          foregroundColor: MaterialStateProperty.all(MyTheme.offWhite)),
+      dotsDecorator: DotsDecorator(
+        size: const Size.square(10),
+        activeSize: const Size(10, 10),
+        activeShape:
+            BeveledRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: MyTheme.offWhite,
+        spacing: const EdgeInsets.symmetric(horizontal: 5),
       ),
+      showBackButton: true,
     ));
   }
 
