@@ -6,5 +6,7 @@ class IntroViewModel extends BaseViewModel<IntroNavigator>{
 
     Future<void> onDoneClick()async{
         navigator!.goToLoginScreen();
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setBool("firstTime", false);
     }
 }

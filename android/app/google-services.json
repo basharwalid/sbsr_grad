@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "104780306420",
+    "project_id": "sbsr-g",
+    "storage_bucket": "sbsr-g.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104780306420:android:8d3468ee1517f70f0f8ba1",
+        "android_client_info": {
+          "package_name": "com.example.sbsr_grad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104780306420-crghrbp2v6s73m4l1a8rj57g6l1hcdko.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmfEl9I9R4VwV1rDH0cfBigLFf3MYfQIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104780306420-crghrbp2v6s73m4l1a8rj57g6l1hcdko.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

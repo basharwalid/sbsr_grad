@@ -42,6 +42,7 @@ class _IntroViewState extends BaseState<IntroView, IntroViewModel>
                 ),
                 Text(
                   "SBSR is your daily Application to catch your bus and never get late to work again",
+                  textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
                       .displayLarge!

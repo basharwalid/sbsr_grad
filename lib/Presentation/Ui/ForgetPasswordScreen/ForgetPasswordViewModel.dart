@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
-import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginNavigator.dart';
+import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordNavigator.dart';
 
-class LoginViewModel extends BaseViewModel<LoginNavigator> {
+class ForgetPasswordViewModel extends BaseViewModel<ForgetPasswordNavigator> {
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
 
   String? emailValidation(String email) {
     if (email.isEmpty) {
@@ -19,19 +17,5 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
     } else {
       return null;
     }
-  }
-
-  String? passwordValidation(String password) {
-    if (password.trim().isEmpty) {
-      return "Password must not be empty";
-    }
-    return null;
-  }
-
-  void goToSignUp() {
-    navigator!.goToSignUp();
-  }
-  void goToForgetPasswordScreen(){
-    navigator!.goToForgetPasswordScreen();
   }
 }
