@@ -9,6 +9,8 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator>{
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmationController = TextEditingController();
+  CreateAccountUseCase useCase;
+  SignUpViewModel({required this.useCase});
   final formKey = GlobalKey<FormState>();
 
   String? emailValidation(String email) {
@@ -56,5 +58,19 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator>{
 
   void goToLoginScreen(){
     navigator!.goToLoginScreen();
+  }
+
+  void register()async{
+    if(formKey.currentState!.validate()){
+        if(passwordController.text == passwordConfirmationController.text){
+          try{
+            var response = await useCase.invoke(email: emailController.text, name: nameController.text, password: passwordController.text, phoneNumber: phoneController.text);
+            provider!.updateUser(user: response);
+        }catch(e){
+              e.toString();
+          }
+        
+      }
+    }
   }
 }
