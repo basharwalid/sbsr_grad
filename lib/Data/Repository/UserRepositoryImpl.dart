@@ -1,9 +1,20 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:sbsr_grad/Data/DataSource/FirebaseUserAuthRemoteDataSourceImpl.dart';
+import 'package:sbsr_grad/Data/DataSource/UsersDatabaseRemoteDataSourceImpl.dart';
 import 'package:sbsr_grad/Domain/DataSource/FirebaseUserAuthRemoteDataSource.dart';
 import 'package:sbsr_grad/Domain/DataSource/UsersDatabaseRemoteDataSource.dart';
 import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 import 'package:sbsr_grad/Domain/Repository/UserRepository.dart';
+
+UserRepository injectUserRepository(){
+  return UserRepositoryImpl(
+      firebaseUserAuthRemoteDataSource: getFirebaseUserAuthRemoteDataSource(),
+      databaseRemoteDataSource: getUsersDatabaseRemoteDataSource()
+  );
+}
 
 class UserRepositoryImpl implements UserRepository{
   FirebaseUserAuthRemoteDataSource firebaseUserAuthRemoteDataSource;
@@ -17,4 +28,18 @@ class UserRepositoryImpl implements UserRepository{
     await databaseRemoteDataSource.addUser(user.toDataSource());
     return response;
   }
+
+  @override
+  Future<User> signInWithEmailAndPassword({required String email, required String password})async{
+    var response = await firebaseUserAuthRemoteDataSource.loginWithEmailAndPassword(email: email, password: password);
+    return response;
+  }
+
+  @override
+  Future<bool> userExist({required String uid}) async{
+      var response = await databaseRemoteDataSource.userExist(uid: uid);
+      return response;
+  }
+
+
 }

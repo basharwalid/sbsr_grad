@@ -1,1 +1,3 @@
-abstract class BaseNavigator {}
+abstract class BaseNavigator {
+
+}

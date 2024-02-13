@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/UseCase/CreateAccountUseCase.dart';
-import 'package:sbsr_grad/Presentation/Di/DependencyInjection.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginView.dart';
 import 'package:sbsr_grad/Presentation/Ui/SignUpScreen/SignUpNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/SignUpScreen/SignUpViewModel.dart';
@@ -101,7 +100,7 @@ class _SignUpViewState extends BaseState<SignUpView , SignUpViewModel> implement
                       const SizedBox(
                         height: 30,
                       ),
-                      ElevatedButto2n(
+                      ElevatedButton(
                           onPressed: value.register,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -152,7 +151,7 @@ class _SignUpViewState extends BaseState<SignUpView , SignUpViewModel> implement
 
   @override
   SignUpViewModel initViewModel() {
-    return SignUpViewModel(useCase: CreateAccountUseCase(injectAuthRepo()));
+    return SignUpViewModel(useCase: injectCreateAccountUseCase());
   }
 
   @override

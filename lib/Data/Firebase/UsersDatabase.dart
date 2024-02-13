@@ -2,6 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sbsr_grad/Data/Models/UserDTO.dart';
 
+
+UsersDatabase getUsersDatabase(){
+  return UsersDatabase.getUserDatabase();
+}
+
 class UsersDatabase {
   UsersDatabase._();
 
@@ -21,4 +26,9 @@ class UsersDatabase {
   Future<void> addUser(UserDTO userDTO)async{
     await getCollectionReference().doc(userDTO.uid).set(userDTO);
   }
+  Future<bool> userExist({required String uid})async{
+    var doc = await getCollectionReference().doc(uid).get();
+    return doc.exists;
+  }
+
 }

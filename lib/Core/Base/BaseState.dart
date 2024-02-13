@@ -4,8 +4,7 @@ import 'package:sbsr_grad/Core/Base/BaseNavigator.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
 import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 
-abstract class BaseState<T extends StatefulWidget, VM extends BaseViewModel>
-    extends State<T> implements BaseNavigator {
+abstract class BaseState<T extends StatefulWidget, VM extends BaseViewModel> extends State<T> implements BaseNavigator {
   VM? viewModel;
 
   VM initViewModel();
