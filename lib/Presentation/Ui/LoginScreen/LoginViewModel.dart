@@ -46,6 +46,10 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
     navigator!.goToForgetPasswordScreen();
   }
 
+  void goToHomeScreen(){
+    navigator!.goToHomeScreen();
+  }
+
   Future<void> signInWithEmailAndPassword() async {
     if (formKey.currentState!.validate()) {
       try {
@@ -56,21 +60,17 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
         provider!.updateUser(user: response);
         if(exist){
           navigator!.goBack();
-          if(response.emailVerified){
             navigator!.showSuccessMessage(message: "Welcome",
                 backgroundColor: MyTheme.lightPurple,
                 posActionTitle: "Ok",
-                posAction: goToSignUp
+                posAction: goToHomeScreen,
             );
-          }else {
-            navigator!.showFailMessage(message: "Try again",
-                backgroundColor: MyTheme.red,
-                posActionTitle: "cancel",
-                posAction: goToForgetPasswordScreen
-            );
-          }
         }else{
-          print("user Doesn't Exist");
+          navigator!.showFailMessage(message: "Try again",
+              backgroundColor: MyTheme.red,
+              posActionTitle: "cancel",
+              posAction: goToForgetPasswordScreen
+          );
         }
         } catch (e) {
         print(e);

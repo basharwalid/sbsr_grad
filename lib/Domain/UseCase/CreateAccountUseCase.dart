@@ -18,13 +18,14 @@ class CreateAccountUseCase {
       {required String email,
       required String name,
       required String password,
-      required String phoneNumber}) async {
+      required String phoneNumber,}) async {
     var response = await repository.createUserFirebaseFireStore(MyUser(
         uid: '',
         email: email,
         password: password,
         phoneNumber: phoneNumber,
-        name: name));
+        name: name,
+        imageURL: ''));
     return response;
   }
 }

@@ -50,7 +50,7 @@ class MyTheme {
           elevation: 0,
           titleTextStyle: TextStyle(
             color: offWhite,
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
           iconTheme: IconThemeData(
