@@ -13,9 +13,7 @@ class SignInWithGoogleUseCase {
   SignInWithGoogleUseCase({required this.repository});
 
   Future<User> invoke() async {
-    print("before response in usecase");
     var response = await repository.signInWithGoogle();
-    print("after response in usecase");
     return response;
   }
 }

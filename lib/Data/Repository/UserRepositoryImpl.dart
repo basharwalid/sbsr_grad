@@ -48,9 +48,7 @@ class UserRepositoryImpl implements UserRepository{
 
   @override
   Future<User> signInWithGoogle() async{
-    print("before response in repo");
     var response = await firebaseUserAuthRemoteDataSource.signInWithGoogle();
-    print("after response in repo");
     return response;
   }
 

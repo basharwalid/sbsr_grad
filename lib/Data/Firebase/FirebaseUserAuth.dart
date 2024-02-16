@@ -31,20 +31,18 @@ class FireBaseUserAuth{
   }
 
   Future<User> signInWithGoogle()async{
-    GoogleSignIn().signOut();
-    print("1");
+    await _firebase.signOut();
+    await GoogleSignIn().signOut();
       final GoogleSignInAccount? googleSignIn = await GoogleSignIn().signIn();
-    print("2");
       final GoogleSignInAuthentication googleAuth = await googleSignIn!.authentication;
-    print("3");
       final user = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken
       );
-    print("4");
-     _firebase.signInWithCredential(user);
+     await _firebase.signInWithCredential(user);
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setBool("LoggedIn", true);
+    print(_firebase.currentUser!.uid);
       return _firebase.currentUser!;
   }
 }

@@ -122,7 +122,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
         navigator!.showFailMessage(message: "cancel",
             backgroundColor: MyTheme.red,
             posActionTitle: "cancel",
-            posAction: goToSignUp
+            posAction: goToForgetPasswordScreen
         );
       }
   }
