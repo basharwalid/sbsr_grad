@@ -3,9 +3,7 @@ import 'package:sbsr_grad/Data/Repository/UserRepositoryImpl.dart';
 import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 import 'package:sbsr_grad/Domain/Repository/UserRepository.dart';
 
-
-
-CreateAccountUseCase injectCreateAccountUseCase(){
+CreateAccountUseCase injectCreateAccountUseCase() {
   return CreateAccountUseCase(repository: injectUserRepository());
 }
 
@@ -14,17 +12,13 @@ class CreateAccountUseCase {
 
   CreateAccountUseCase({required this.repository});
 
-  Future<User> invoke(
-      {required String email,
-      required String name,
-      required String password,
-      required String phoneNumber}) async {
-    var response = await repository.createUserFirebaseFireStore(MyUser(
-        uid: '',
-        email: email,
-        password: password,
-        phoneNumber: phoneNumber,
-        name: name));
-    return response;
+  Future<User> invoke({required MyUser user}) async {
+    User? response;
+    if (user.uid.isEmpty) {
+      response = await repository.createUserInFirebaseAuth(user);
+      user.uid = response.uid;
+    }
+    await repository.addUserToFirebaseFireStore(user: user);
+    return response!;
   }
 }
