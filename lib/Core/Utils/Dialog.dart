@@ -8,7 +8,7 @@ class MyDialog {
   static Future<void> showLoadingDialog(
       {required BuildContext context,
       required String message,
-      required Color backgroundColor}) async {
+       Color? backgroundColor}) async {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -103,7 +103,7 @@ class MyDialog {
                             topLeft: Radius.circular(20),
                           )
                       ),
-                      child: Center(child: Lottie.asset("Assets/Animations/error.json" ,width: 120 ,fit: BoxFit.cover )),
+                      child: Center(child: Lottie.asset("assets/json/error.json" ,width: 120 ,fit: BoxFit.cover )),
                     ),
                   ),
                 ],
@@ -190,7 +190,7 @@ class MyDialog {
                               topLeft: Radius.circular(20),
                             )
                         ),
-                        child: Center(child: Lottie.asset("Assets/Animations/check.json" ,width: 120 ,fit: BoxFit.cover ))
+                        child: Center(child: Lottie.asset("assets/json/Animation.json" ,width: 120 ,fit: BoxFit.cover ))
                     ),
                   ),
                 ],

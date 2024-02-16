@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sbsr_grad/Core/Providers/AppConfigProvider.dart';
 import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordView.dart';
@@ -20,9 +21,12 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   var firstTime = prefs.getBool("firstTime");
-  runApp(ChangeNotifierProvider(
-      create: (BuildContext context) => ThemeProvider(),
-      child: MyApp(firsTime: firstTime ?? true)));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => ThemeProvider(),),
+    ChangeNotifierProvider(create: (context) => AppConfigProvider(),)
+  ],
+    child: MyApp(firsTime: firstTime ?? true),
+  ));
 }
 
 class MyApp extends StatelessWidget {

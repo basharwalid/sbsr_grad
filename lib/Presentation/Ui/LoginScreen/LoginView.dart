@@ -26,15 +26,16 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
   Widget build(BuildContext context) {
     super.build(context);
     return ChangeNotifierProvider<LoginViewModel>(
-      create: (context) =>viewModel!,
+      create: (context) =>viewModel,
       child: Consumer<LoginViewModel>(
         builder: (context, value, child) => SafeArea(
           child: Scaffold(
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: SingleChildScrollView(
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Form(
-                  key: viewModel!.formKey,
+                  key: viewModel.formKey,
                   child: Column(
                     children: [
                       const SizedBox(
@@ -59,19 +60,19 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                         height: 30,
                       ),
                       CustomTextFormField(
-                          controller: viewModel!.emailController,
+                          controller: viewModel.emailController,
                           hintText: "Enter your Email",
                           prefixIcon: const Icon(Icons.email_outlined),
-                          validator: viewModel!.emailValidation,
+                          validator: viewModel.emailValidation,
                           inputType: TextInputType.emailAddress),
                       const SizedBox(
                         height: 20,
                       ),
                       CustomTextFormField(
-                          controller: viewModel!.passwordController,
+                          controller: viewModel.passwordController,
                           hintText: "Enter your Password",
                           prefixIcon: const Icon(Icons.lock_outline),
-                          validator: viewModel!.passwordValidation,
+                          validator: viewModel.passwordValidation,
                           inputType: TextInputType.visiblePassword),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -196,4 +197,5 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
   goToForgetPasswordScreen() {
     Navigator.pushNamed(context, ForgetPasswordView.routeName);
   }
+
 }

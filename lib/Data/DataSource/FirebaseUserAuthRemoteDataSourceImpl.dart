@@ -5,6 +5,9 @@ import 'package:sbsr_grad/Data/Firebase/FirebaseUserAuth.dart';
 import 'package:sbsr_grad/Data/Models/UserDTO.dart';
 import 'package:sbsr_grad/Domain/DataSource/FirebaseUserAuthRemoteDataSource.dart';
 import 'package:sbsr_grad/Domain/Exceptions/FirebaseAuthException.dart';
+import 'package:sbsr_grad/Domain/Exceptions/FirebaseLoginException.dart';
+import 'package:sbsr_grad/Domain/Exceptions/TimeOutOperationsException.dart';
+import 'package:sbsr_grad/Domain/Exceptions/UnknownException.dart';
 
 FirebaseUserAuthRemoteDataSource getFirebaseUserAuthRemoteDataSource(){
   return FirebaseUserAuthRemoteDataSourceImpl(
@@ -35,10 +38,14 @@ class FirebaseUserAuthRemoteDataSourceImpl
     try{
       var response = await fireBaseUserAuth.signInWithEmailAndPassword(email: email, password: password);
       return response;
-    }on FirebaseAuthException catch (e) {
-      throw FirebaseUserAuthException(errorMessage: e.code);
-    } on FirebaseException catch (e) {
-      throw FirebaseUserAuthException(errorMessage: e.code);
+    }on FirebaseAuthException catch(e){
+      throw FirebaseLoginException(errorMessage: e.code);
+    }on FirebaseException catch(e){
+      throw FirebaseLoginException(errorMessage: e.code);
+    }on TimeoutException catch(e){
+      throw TimeOutOperationsException(errorMessage: "User Auth Timed Out");
+    }catch(e){
+      throw UnknownException(errorMessage: "Unknown Error");
     }
   }
 }
