@@ -64,4 +64,9 @@ class FirebaseUserAuthRemoteDataSourceImpl
       throw UnknownException(errorMessage: e.toString());
     }
   }
+
+  @override
+  Future<void> resetPassword({required String email}) async{
+    await fireBaseUserAuth.resetPassword(email: email);
+  }
 }

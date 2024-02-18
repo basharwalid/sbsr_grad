@@ -66,14 +66,13 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
             email: emailController.text, password: passwordController.text);
         var userExist = await checkIfUserExistUseCase.invoke(uid: response.uid);
         provider!.updateUser(user: response);
-        
         navigator!.goBack();
         if (userExist) {
           navigator!.showSuccessMessage(
               message: "Welcome",
               backgroundColor: MyTheme.lightPurple,
               posActionTitle: "ok",
-              posAction: goToSignUp);
+              posAction: goToHomeScreen);
         } else {
           await createAccountUseCase.invoke(
               user: MyUser(
@@ -89,14 +88,13 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
             message: "user doesn't exist",
             backgroundColor: MyTheme.red,
             posActionTitle: "cancel",
-            posAction: goToForgetPasswordScreen);
+            posAction: goToSignUp);
       }
     }
   }
 
   void signInWithGoogle()async{
       try{
-        print("first");
         var response = await signInWithGoogleUseCase.invoke();
         provider!.updateUser(user: response);
         try{
@@ -120,15 +118,13 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
             navigator!.showFailMessage(message: "Cancel",
                 backgroundColor: MyTheme.red,
                 posActionTitle: "cancel",
-              posAction: goToForgetPasswordScreen
             );
 
         }
       }catch (e){
         navigator!.showFailMessage(message: "cancel",
             backgroundColor: MyTheme.red,
-            posActionTitle: "cancel",
-            posAction: goToForgetPasswordScreen
+            posActionTitle: "cancel"
         );
       }
   }

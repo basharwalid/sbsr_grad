@@ -52,5 +52,10 @@ class UserRepositoryImpl implements UserRepository{
     return response;
   }
 
+  @override
+  Future<void> resetPassword({required String email})async{
+    await firebaseUserAuthRemoteDataSource.resetPassword(email: email);
+  }
+
 
 }

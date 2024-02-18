@@ -7,4 +7,5 @@ abstract class UserRepository{
   Future<bool> userExist({required String uid});
   Future<void> addUserToFirebaseFireStore({required MyUser user});
   Future<User> signInWithGoogle();
+  Future<void> resetPassword({required String email});
 }

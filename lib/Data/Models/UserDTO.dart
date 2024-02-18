@@ -44,6 +44,6 @@ class UserDTO {
         name: name,
         password: password,
         phoneNumber: phoneNumber,
-        imageURL: imageURL!);
+        imageURL: imageURL);
   }
 }

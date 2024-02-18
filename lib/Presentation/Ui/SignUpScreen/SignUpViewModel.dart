@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
+import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 import 'package:sbsr_grad/Domain/UseCase/CreateAccountUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/SignUpScreen/SignUpNavigator.dart';
@@ -68,6 +69,7 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
     if (formKey.currentState!.validate()) {
       if (passwordController.text == passwordConfirmationController.text) {
         try {
+          navigator!.showLoadingMessage(message: "signing you up");
           var response = await useCase.invoke(
               user: MyUser(
                   uid: "",
@@ -76,10 +78,19 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
                   password: passwordController.text,
                   phoneNumber: phoneController.text));
           provider!.updateUser(user: response);
+          navigator!.goBack();
+          navigator!.showSuccessMessage(message: "signed up sucessfully", backgroundColor: MyTheme.lightPurple,
+          posActionTitle: "ok",
+            posAction: goToLoginScreen
+          );
         } catch (e) {
-          e.toString();
+          navigator!.goBack();
+          navigator!.showFailMessage(message: e.toString(), backgroundColor: MyTheme.red,
+            negAction: goToLoginScreen,
+            negActionTitle: "Cancel"
+          );
         }
       }
     }
-  }
+    }
 }
