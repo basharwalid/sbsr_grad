@@ -48,4 +48,20 @@ class FirebaseUserAuthRemoteDataSourceImpl
       throw UnknownException(errorMessage: "Unknown Error");
     }
   }
+
+  @override
+  Future<User> signInWithGoogle() async{
+    try{
+      var response = await fireBaseUserAuth.signInWithGoogle().timeout(const Duration(seconds: 60));
+      return response;
+    }on FirebaseAuthException catch(e){
+      throw FirebaseLoginException(errorMessage: e.code);
+    }on FirebaseException catch(e){
+      throw FirebaseLoginException(errorMessage: e.code);
+    }on TimeoutException catch(e){
+      throw TimeOutOperationsException(errorMessage: "Timeout");
+    }catch(e){
+      throw UnknownException(errorMessage: e.toString());
+    }
+  }
 }

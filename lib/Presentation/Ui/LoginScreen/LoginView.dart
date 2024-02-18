@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseNavigator.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
+import 'package:sbsr_grad/Domain/UseCase/CreateAccountUseCase.dart';
+import 'package:sbsr_grad/Domain/UseCase/SignInWithGoogleUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/SigninWithEmailandPassswordUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/checkUserExistUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordView.dart';
@@ -27,14 +29,15 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
   Widget build(BuildContext context) {
     super.build(context);
     return ChangeNotifierProvider<LoginViewModel>(
-      create: (context) =>viewModel,
+      create: (context) => viewModel,
       child: Consumer<LoginViewModel>(
         builder: (context, value, child) => SafeArea(
           child: Scaffold(
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: SingleChildScrollView(
-                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Form(
                   key: viewModel.formKey,
                   child: Column(
@@ -55,7 +58,8 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                         style: Theme.of(context)
                             .textTheme
                             .displayLarge!
-                            .copyWith(fontSize: 26, fontWeight: FontWeight.bold),
+                            .copyWith(
+                                fontSize: 26, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 30,
@@ -86,7 +90,8 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                                     .textTheme
                                     .displaySmall!
                                     .copyWith(
-                                        color: MyTheme.lightPurple, fontSize: 14),
+                                        color: MyTheme.lightPurple,
+                                        fontSize: 14),
                               )),
                         ],
                       ),
@@ -102,7 +107,8 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                                 padding: const EdgeInsets.all(12.0),
                                 child: Text(
                                   "Login",
-                                  style: Theme.of(context).textTheme.displayLarge,
+                                  style:
+                                      Theme.of(context).textTheme.displayLarge,
                                 ),
                               ),
                             ],
@@ -136,7 +142,8 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                         children: [
                           const SizedBox(
                             width: 100,
-                            child: Divider(thickness: 2, color: MyTheme.offWhite),
+                            child:
+                                Divider(thickness: 2, color: MyTheme.offWhite),
                           ),
                           const SizedBox(
                             width: 15,
@@ -148,7 +155,8 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                           ),
                           const SizedBox(
                             width: 100,
-                            child: Divider(thickness: 2, color: MyTheme.offWhite),
+                            child:
+                                Divider(thickness: 2, color: MyTheme.offWhite),
                           ),
                         ],
                       ),
@@ -168,7 +176,7 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                       InkWell(
                           highlightColor: Colors.transparent,
                           splashColor: Colors.transparent,
-                          onTap: () {},
+                          onTap: value.signInWithGoogle,
                           child: SignInWith(
                             text: "Sign in with Google",
                             image: "assets/images/googleLogo.png",
@@ -186,7 +194,11 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
 
   @override
   LoginViewModel initViewModel() {
-    return LoginViewModel(signInWithEmailAndPasswordUseCase: injectSignInWithEmailAndPasswordUseCase() , checkIfUserExistUseCase: inejctCheckIfUserExistUseCase() );
+    return LoginViewModel(
+        signInWithEmailAndPasswordUseCase:
+            injectSignInWithEmailAndPasswordUseCase(),
+        checkIfUserExistUseCase: inejctCheckIfUserExistUseCase(),
+        createAccountUseCase: injectCreateAccountUseCase() , signInWithGoogleUseCase: injectSignInWithGoogleUseCase());
   }
 
   @override

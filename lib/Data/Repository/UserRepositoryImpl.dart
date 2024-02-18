@@ -22,10 +22,10 @@ class UserRepositoryImpl implements UserRepository{
   UserRepositoryImpl({required this.firebaseUserAuthRemoteDataSource ,required this.databaseRemoteDataSource});
 
   @override
-  Future<User> createUserFirebaseFireStore(MyUser user) async{
-    var response = await firebaseUserAuthRemoteDataSource.createUser(userDTO: user.toDataSource());
+  Future<User> createUserInFirebaseAuth(MyUser user) async {
+    var response = await firebaseUserAuthRemoteDataSource.createUser(
+        userDTO: user.toDataSource());
     user.uid = response.uid;
-    await databaseRemoteDataSource.addUser(user.toDataSource());
     return response;
   }
 
@@ -39,6 +39,17 @@ class UserRepositoryImpl implements UserRepository{
   Future<bool> userExist({required String uid}) async{
       var response = await databaseRemoteDataSource.userExist(uid: uid);
       return response;
+  }
+
+  @override
+  Future<void> addUserToFirebaseFireStore({required MyUser user})async{
+    await databaseRemoteDataSource.addUser(user.toDataSource());
+  }
+
+  @override
+  Future<User> signInWithGoogle() async{
+    var response = await firebaseUserAuthRemoteDataSource.signInWithGoogle();
+    return response;
   }
 
 

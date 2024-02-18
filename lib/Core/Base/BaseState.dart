@@ -6,7 +6,8 @@ import 'package:sbsr_grad/Core/Providers/AppConfigProvider.dart';
 import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Utils/Dialog.dart';
 
-abstract class BaseState<T extends StatefulWidget, VM extends BaseViewModel> extends State<T> implements BaseNavigator {
+abstract class BaseState<T extends StatefulWidget, VM extends BaseViewModel>
+    extends State<T> implements BaseNavigator {
   late VM viewModel;
 
   VM initViewModel();
@@ -31,20 +32,50 @@ abstract class BaseState<T extends StatefulWidget, VM extends BaseViewModel> ext
     viewModel.theme = Theme.of(context);
     return const SizedBox();
   }
+
   @override
   goBack() {
     Navigator.pop(context);
   }
+
   @override
   showLoadingMessage({required String message}) {
     MyDialog.showLoadingDialog(context: context, message: message);
   }
+
   @override
-  showSuccessMessage({required String message,String? posActionTitle,VoidCallback? posAction,String? negActionTitle,VoidCallback? negAction, required Color backgroundColor}) {
-    MyDialog.showSuccessMessage(context: context, message: message , posActionTitle: posActionTitle , posAction: posAction , negativeActionTitle: negActionTitle ,negativeAction: negAction ,backgroundColor: backgroundColor);
+  showSuccessMessage(
+      {required String message,
+      String? posActionTitle,
+      VoidCallback? posAction,
+      String? negActionTitle,
+      VoidCallback? negAction,
+      required Color backgroundColor}) {
+    MyDialog.showSuccessMessage(
+        context: context,
+        message: message,
+        posActionTitle: posActionTitle,
+        posAction: posAction,
+        negativeActionTitle: negActionTitle,
+        negativeAction: negAction,
+        backgroundColor: backgroundColor);
   }
+
   @override
-  showFailMessage({required String message,String? posActionTitle,VoidCallback? posAction,String? negActionTitle,VoidCallback? negAction,required Color backgroundColor}) {
-    MyDialog.showFailMessage(context: context, message: message, backgroundColor: backgroundColor ,posActionTitle: posActionTitle , posAction: posAction , negativeActionTitle: negActionTitle , negativeAction: negAction);
+  showFailMessage(
+      {required String message,
+      String? posActionTitle,
+      VoidCallback? posAction,
+      String? negActionTitle,
+      VoidCallback? negAction,
+      required Color backgroundColor}) {
+    MyDialog.showFailMessage(
+        context: context,
+        message: message,
+        backgroundColor: backgroundColor,
+        posActionTitle: posActionTitle,
+        posAction: posAction,
+        negativeActionTitle: negActionTitle,
+        negativeAction: negAction);
   }
 }

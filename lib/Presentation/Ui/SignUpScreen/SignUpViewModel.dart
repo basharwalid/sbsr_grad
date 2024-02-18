@@ -1,25 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
+import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 import 'package:sbsr_grad/Domain/UseCase/CreateAccountUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/SignUpScreen/SignUpNavigator.dart';
 
-class SignUpViewModel extends BaseViewModel<SignUpNavigator>{
+class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController passwordConfirmationController = TextEditingController();
+  TextEditingController passwordConfirmationController =
+      TextEditingController();
   CreateAccountUseCase useCase;
+
   SignUpViewModel({required this.useCase});
+
   final formKey = GlobalKey<FormState>();
 
   String? emailValidation(String email) {
     if (email.isEmpty) {
       return "Email field can't be empty";
     } else if (!RegExp(r"^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+"
-    r"@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-    r"{0,253}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-    r"{0,253}[a-zA-Z0-9])?)$")
+            r"@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+            r"{0,253}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+            r"{0,253}[a-zA-Z0-9])?)$")
         .hasMatch(email)) {
       return "Please enter a valid email";
     } else {
@@ -33,43 +37,48 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator>{
     }
     return null;
   }
+
   // String passwordConfirmValidation(){
   //   if(passwordController.text != passwordConfirmationController.text){
   //     return "Password Doesn't Match";
   //   }
   //   return "Password Match";
   // }
-  String? nameValidation(String name){
-    if(name.isEmpty){
+  String? nameValidation(String name) {
+    if (name.isEmpty) {
       return "Name Can't be empty";
-    }
-    else{
+    } else {
       return null;
     }
   }
 
-  String? phoneValidation(String phoneNumber){
-    if(phoneNumber.trim().isEmpty){
+  String? phoneValidation(String phoneNumber) {
+    if (phoneNumber.trim().isEmpty) {
       return "Please Enter Phone Number";
-    }else{
+    } else {
       return null;
     }
   }
 
-  void goToLoginScreen(){
+  void goToLoginScreen() {
     navigator!.goToLoginScreen();
   }
 
-  void register()async{
-    if(formKey.currentState!.validate()){
-        if(passwordController.text == passwordConfirmationController.text){
-          try{
-            var response = await useCase.invoke(email: emailController.text, name: nameController.text, password: passwordController.text, phoneNumber: phoneController.text);
-            provider!.updateUser(user: response);
-        }catch(e){
-              e.toString();
-          }
-        
+  void register() async {
+    if (formKey.currentState!.validate()) {
+      if (passwordController.text == passwordConfirmationController.text) {
+        try {
+          var response = await useCase.invoke(
+              user: MyUser(
+                  uid: "",
+                  email: emailController.text,
+                  name: nameController.text,
+                  password: passwordController.text,
+                  phoneNumber: phoneController.text));
+          provider!.updateUser(user: response);
+        } catch (e) {
+          e.toString();
+        }
       }
     }
   }
