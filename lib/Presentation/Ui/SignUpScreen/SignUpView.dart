@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
@@ -11,16 +14,18 @@ import 'package:sbsr_grad/Presentation/Ui/Widget/CustomTextFormField.dart';
 
 class SignUpView extends StatefulWidget {
   static const String routeName = 'Signup';
+
   @override
   State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _SignUpViewState extends BaseState<SignUpView , SignUpViewModel> implements SignUpNavigator {
+class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
+    implements SignUpNavigator {
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return ChangeNotifierProvider<SignUpViewModel>(
-      create: (context) => viewModel!,
+      create: (context) => viewModel,
       child: Consumer<SignUpViewModel>(
         builder: (context, value, child) => SafeArea(
           child: Scaffold(
@@ -28,71 +33,93 @@ class _SignUpViewState extends BaseState<SignUpView , SignUpViewModel> implement
               padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(
                 child: Form(
-                  key: viewModel!.formKey,
+                  key: viewModel.formKey,
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 50,
+                      AppBar(
+                        title: Text("Sign Up"),
                       ),
-                      Image.asset(
-                        "assets/images/logo.png",
-                        width: double.infinity,
-                        height: 120,
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Stack(
+                        children: [
+                          Container(
+                            clipBehavior: Clip.antiAlias,
+                            width: MediaQuery.sizeOf(context).width * 0.4,
+                            height: MediaQuery.sizeOf(context).width * 0.4,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(1000),
+                                color: MyTheme.offWhite),
+                            child: viewModel.image == null
+                                ? Lottie.asset("assets/json/UserNotFound.json")
+                                : Image.file(File(viewModel.image!.path),
+                                    fit: BoxFit.cover),
+                          ),
+                          Positioned(
+                            bottom: 10,
+                            left: 120,
+                            child: InkWell(
+                              onTap: viewModel.pickImageFromGallery,
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                child: Icon(Icons.linked_camera_sharp),
+                                decoration: BoxDecoration(
+                                    color: MyTheme.lightPurple,
+                                    borderRadius: BorderRadius.circular(25)),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                       const SizedBox(
                         height: 30,
-                      ),
-                      Text(
-                        "Sign Up",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
-                            .copyWith(fontSize: 26, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
                       CustomTextFormField(
-                          controller: viewModel!.emailController,
+                          controller: viewModel.emailController,
                           hintText: "Email address",
                           prefixIcon: const Icon(Icons.email_outlined),
-                          validator: viewModel!.emailValidation,
+                          validator: viewModel.emailValidation,
                           inputType: TextInputType.emailAddress),
                       const SizedBox(
                         height: 20,
                       ),
                       CustomTextFormField(
-                          controller: viewModel!.nameController,
+                          controller: viewModel.nameController,
                           hintText: "Name",
                           prefixIcon: const Icon(EvaIcons.file_text_outline),
-                          validator: viewModel!.nameValidation,
+                          validator: viewModel.nameValidation,
                           inputType: TextInputType.name),
                       const SizedBox(
                         height: 20,
                       ),
                       CustomTextFormField(
-                          controller: viewModel!.phoneController,
+                          controller: viewModel.phoneController,
                           hintText: "Phone number",
                           prefixIcon: const Icon(Icons.call_rounded),
-                          validator: viewModel!.phoneValidation,
+                          validator: viewModel.phoneValidation,
                           inputType: TextInputType.phone),
                       const SizedBox(
                         height: 20,
                       ),
                       CustomTextFormField(
-                          controller: viewModel!.passwordController,
+                          controller: viewModel.passwordController,
                           hintText: "Password",
                           prefixIcon: const Icon(Icons.lock_outline),
-                          validator: viewModel!.passwordValidation,
+                          validator: viewModel.passwordValidation,
                           inputType: TextInputType.visiblePassword),
                       const SizedBox(
                         height: 20,
                       ),
                       CustomTextFormField(
-                          controller: viewModel!.passwordConfirmationController,
+                          controller: viewModel.passwordConfirmationController,
                           hintText: "Confirm Password",
                           prefixIcon: const Icon(Icons.lock_outline),
-                          validator: viewModel!.passwordValidation,
+                          validator: viewModel.passwordValidation,
                           inputType: TextInputType.visiblePassword),
                       const SizedBox(
                         height: 20,
@@ -109,7 +136,8 @@ class _SignUpViewState extends BaseState<SignUpView , SignUpViewModel> implement
                                 padding: const EdgeInsets.all(12.0),
                                 child: Text(
                                   "Sign up",
-                                  style: Theme.of(context).textTheme.displayLarge,
+                                  style:
+                                      Theme.of(context).textTheme.displayLarge,
                                 ),
                               ),
                             ],

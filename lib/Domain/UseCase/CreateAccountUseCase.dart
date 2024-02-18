@@ -12,13 +12,17 @@ class CreateAccountUseCase {
 
   CreateAccountUseCase({required this.repository});
 
-  Future<User> invoke({required MyUser user}) async {
-    User? response;
-    if (user.uid.isEmpty) {
-      response = await repository.createUserInFirebaseAuth(user);
-      user.uid = response.uid;
-    }
-    await repository.addUserToFirebaseFireStore(user: user);
-    return response!;
-  }
+  Future<User> invoke(
+      {required String email,
+      required String name,
+      required String password,
+      required String phoneNumber,}) async {
+    var response = await repository.createUserFirebaseFireStore(MyUser(
+        uid: '',
+        email: email,
+        password: password,
+        phoneNumber: phoneNumber,
+        name: name,
+        imageURL: ''));
+    return response;
 }

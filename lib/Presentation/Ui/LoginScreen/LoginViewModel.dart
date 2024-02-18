@@ -54,6 +54,10 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
     navigator!.goToForgetPasswordScreen();
   }
 
+  void goToHomeScreen(){
+    navigator!.goToHomeScreen();
+  }
+
   Future<void> signInWithEmailAndPassword() async {
     if (formKey.currentState!.validate()) {
       try {
@@ -62,6 +66,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
             email: emailController.text, password: passwordController.text);
         var userExist = await checkIfUserExistUseCase.invoke(uid: response.uid);
         provider!.updateUser(user: response);
+        
         navigator!.goBack();
         if (userExist) {
           navigator!.showSuccessMessage(
@@ -117,6 +122,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
                 posActionTitle: "cancel",
               posAction: goToForgetPasswordScreen
             );
+
         }
       }catch (e){
         navigator!.showFailMessage(message: "cancel",

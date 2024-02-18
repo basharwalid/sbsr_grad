@@ -9,6 +9,7 @@ import 'package:sbsr_grad/Domain/UseCase/SignInWithGoogleUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/SigninWithEmailandPassswordUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/checkUserExistUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordView.dart';
+import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeView.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginViewModel.dart';
 import 'package:sbsr_grad/Presentation/Ui/SignUpScreen/SignUpView.dart';
@@ -209,4 +210,10 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
   goToForgetPasswordScreen() {
     Navigator.pushNamed(context, ForgetPasswordView.routeName);
   }
+
+  @override
+  goToHomeScreen() {
+    Navigator.pushReplacementNamed(context, HomeView.routeName);
+  }
+
 }
