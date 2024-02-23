@@ -24,19 +24,29 @@ void main() async {
   );
 
   var user = FirebaseAuth.instance.currentUser;
-
   var firstTime = prefs.getBool("firstTime");
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => ThemeProvider(),),
-    ChangeNotifierProvider(create: (context) => AppConfigProvider(user: user),)
-  ],
-    child: MyApp(firsTime: firstTime ?? true, user: user),
+  var isLoggedIn = prefs.getBool("LoggedIn");
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => ThemeProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => AppConfigProvider(user: user),
+      )
+    ],
+    child: MyApp(
+        firsTime: firstTime ?? true,
+        user: user,
+        isLoggedIn: isLoggedIn ?? false),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.firsTime, this.user});
+  MyApp(
+      {super.key, required this.firsTime, this.user, required this.isLoggedIn});
 
+  bool isLoggedIn;
   bool firsTime;
   User? user;
   late ThemeProvider themeProvider;
@@ -48,13 +58,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        IntroView.routeName: (_) => IntroView(),
-        LoginScreenView.routeName: (_) => LoginScreenView(),
-        SignUpView.routeName: (_) => SignUpView(),
-        ForgetPasswordView.routeName: (_) => ForgetPasswordView(),
-        HomeView.routeName: (_) => HomeView(),
+        IntroView.routeName: (_) => const IntroView(),
+        LoginScreenView.routeName: (_) => const LoginScreenView(),
+        SignUpView.routeName: (_) => const SignUpView(),
+        ForgetPasswordView.routeName: (_) => const ForgetPasswordView(),
+        HomeView.routeName: (_) => const HomeView(),
       },
-      initialRoute: user == null? IntroView.routeName: HomeView.routeName,
+      initialRoute: firsTime ? IntroView.routeName : isLoggedIn || user != null ? HomeView.routeName : LoginScreenView.routeName,
       theme: MyTheme.greenTheme,
       darkTheme: MyTheme.purpleTheme,
       themeMode: themeProvider.getTheme(),

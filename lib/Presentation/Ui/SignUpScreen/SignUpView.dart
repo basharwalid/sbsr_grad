@@ -15,6 +15,8 @@ import 'package:sbsr_grad/Presentation/Ui/Widget/CustomTextFormField.dart';
 class SignUpView extends StatefulWidget {
   static const String routeName = 'Signup';
 
+  const SignUpView({super.key});
+
   @override
   State<SignUpView> createState() => _SignUpViewState();
 }
@@ -32,12 +34,13 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
             body: Padding(
               padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Form(
                   key: viewModel.formKey,
                   child: Column(
                     children: [
                       AppBar(
-                        title: Text("Sign Up"),
+                        title: const Text("Sign Up"),
                       ),
                       const SizedBox(
                         height: 10,
@@ -64,10 +67,10 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                               child: Container(
                                 height: 40,
                                 width: 40,
-                                child: Icon(Icons.linked_camera_sharp),
                                 decoration: BoxDecoration(
                                     color: MyTheme.lightPurple,
                                     borderRadius: BorderRadius.circular(25)),
+                                child: const Icon(Icons.linked_camera_sharp),
                               ),
                             ),
                           )

@@ -18,4 +18,11 @@ abstract class BaseNavigator {
         VoidCallback? negAction,
         required Color backgroundColor });
   goBack();
+  showQuestionMessage({
+    required String message ,
+    String? posActionTitle ,
+    VoidCallback? posAction,
+    String? negativeActionTitle,
+    VoidCallback? negativeAction
+  });
 }

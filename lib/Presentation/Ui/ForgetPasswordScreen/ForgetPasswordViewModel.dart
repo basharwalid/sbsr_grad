@@ -1,15 +1,16 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/UseCase/ResetPasswordUseCase.dart';
-import 'package:sbsr_grad/Domain/UseCase/checkUserExistUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordNavigator.dart';
 
 class ForgetPasswordViewModel extends BaseViewModel<ForgetPasswordNavigator> {
   TextEditingController emailController = TextEditingController();
   ResetPasswordUsecase resetPasswordUseCase;
   final formKey = GlobalKey<FormState>();
+
   ForgetPasswordViewModel({required this.resetPasswordUseCase});
+
   String? emailValidation(String email) {
     if (email.isEmpty) {
       return "Email field can't be empty";
@@ -23,24 +24,27 @@ class ForgetPasswordViewModel extends BaseViewModel<ForgetPasswordNavigator> {
       return null;
     }
   }
-  goToLoginScreen(){
+
+  goToLoginScreen() {
     navigator!.goToLoginScreen();
   }
 
   //reset password email send
-  Future<void> resetPassword()async{
-    if(formKey.currentState!.validate()){
+  Future<void> resetPassword() async {
+    if (formKey.currentState!.validate()) {
       navigator!.showLoadingMessage(message: "Sending Email");
-      try{
+      try {
         await resetPasswordUseCase.invoke(email: emailController.text);
         navigator!.goBack();
-        navigator!.showSuccessMessage(message: "Email sent",
+        navigator!.showSuccessMessage(
+            message: "Email sent",
             posActionTitle: "OK",
             posAction: goToLoginScreen,
             backgroundColor: MyTheme.lightPurple);
-      }catch(e){
+      } catch (e) {
         navigator!.goBack();
-        navigator!.showFailMessage(message: e.toString(),
+        navigator!.showFailMessage(
+            message: e.toString(),
             posActionTitle: "cancel",
             backgroundColor: MyTheme.red);
       }

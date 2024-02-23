@@ -8,4 +8,5 @@ abstract class UserRepository{
   Future<void> addUserToFirebaseFireStore({required MyUser user});
   Future<User> signInWithGoogle();
   Future<void> resetPassword({required String email});
+  Future<void> userSignOut();
 }

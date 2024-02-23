@@ -5,8 +5,10 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
+import 'package:sbsr_grad/Domain/UseCase/userSignOutUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileViewModel.dart';
+import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginView.dart';
 import 'package:sbsr_grad/Presentation/Ui/Widget/CustomTextFormField.dart';
 
 class ProfileView extends StatefulWidget {
@@ -25,51 +27,72 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
         create: (context) => viewModel,
         child: Consumer<ProfileViewModel>(
             builder: (context, value, child) => SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      AppBar(
-                        title: const Text("Profile"),
-                      ),
-                      Stack(
-                        children: [
-                          Container(
-                            clipBehavior: Clip.antiAlias,
-                            width: MediaQuery.sizeOf(context).width * 0.4,
-                            height: MediaQuery.sizeOf(context).width * 0.4,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(1000),
-                                color: MyTheme.offWhite),
-                            child: viewModel.image == null
-                                ? Lottie.asset("assets/json/UserNotFound.json")
-                                : Image.file(File(viewModel.image!.path),
-                                    fit: BoxFit.cover),
-                          ),
-                          Positioned(
-                            bottom: 10,
-                            left: 120,
-                            child: InkWell(
-                              onTap: viewModel.pickImageFromGallery,
-                              child: Container(
-                                height: 40,
-                                width: 40,
-                                child: const Icon(Icons.edit),
-                                decoration: BoxDecoration(
-                                    color: MyTheme.lightPurple,
-                                    borderRadius: BorderRadius.circular(25)),
-                              ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        AppBar(
+                          title: const Text("Profile"),
+                        ),
+                        Stack(
+                          children: [
+                            Container(
+                              clipBehavior: Clip.antiAlias,
+                              width: MediaQuery.sizeOf(context).width * 0.4,
+                              height: MediaQuery.sizeOf(context).width * 0.4,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  color: MyTheme.offWhite),
+                              child: viewModel.image == null
+                                  ? Lottie.asset("assets/json/UserNotFound.json")
+                                  : Image.file(File(viewModel.image!.path),
+                                      fit: BoxFit.cover),
                             ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "Edit your Info",
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-
-                    ],
+                            Positioned(
+                              bottom: 10,
+                              left: 120,
+                              child: InkWell(
+                                onTap: viewModel.pickImageFromGallery,
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  child: const Icon(Icons.edit),
+                                  decoration: BoxDecoration(
+                                      color: MyTheme.lightPurple,
+                                      borderRadius: BorderRadius.circular(25)),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Edit your Info",
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                         ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(MyTheme.red)
+                          ),
+                            onPressed: value.onSignOutPress,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.logout_outlined ,size: 25,),
+                                Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    "Log out",
+                                    style:
+                                    Theme.of(context).textTheme.displayLarge,
+                                  ),
+                                ),
+                              ],
+                            )),
+                      ],
+                    ),
                   ),
                 )
         )
@@ -78,6 +101,11 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
 
   @override
   ProfileViewModel initViewModel() {
-    return ProfileViewModel();
+    return ProfileViewModel(userSignOutUseCase: injectUserSignOutUseCase());
+  }
+
+  @override
+  goToLoginScreen() {
+    Navigator.pushReplacementNamed(context, LoginScreenView.routeName);
   }
 }

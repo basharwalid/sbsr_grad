@@ -10,7 +10,7 @@ FireBaseUserAuth injectFirebaseUserAuth() {
 }
 
 class FireBaseUserAuth {
-  //Singelton
+  //Singleton
   FireBaseUserAuth._();
 
   static FireBaseUserAuth? instance;
@@ -47,11 +47,15 @@ class FireBaseUserAuth {
     await _firebase.signInWithCredential(user);
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool("LoggedIn", true);
-    print(_firebase.currentUser!.uid);
     return _firebase.currentUser!;
   }
 
   Future<void> resetPassword({required String email}) async {
     await _firebase.sendPasswordResetEmail(email: email);
+  }
+  Future<void> userSignOut()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool("LoggedIn", false);
+    await _firebase.signOut();
   }
 }

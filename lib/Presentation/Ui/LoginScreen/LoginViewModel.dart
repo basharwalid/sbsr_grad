@@ -69,9 +69,9 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
         navigator!.goBack();
         if (userExist) {
           navigator!.showSuccessMessage(
-              message: "Welcome",
+              message: "Welcome Back ${response.displayName}",
               backgroundColor: MyTheme.lightPurple,
-              posActionTitle: "ok",
+              posActionTitle: "Ok",
               posAction: goToHomeScreen);
         } else {
           await createAccountUseCase.invoke(
@@ -88,7 +88,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
             message: "user doesn't exist",
             backgroundColor: MyTheme.red,
             posActionTitle: "cancel",
-            posAction: goToSignUp);
+            );
       }
     }
   }
@@ -103,7 +103,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
                 navigator!.showSuccessMessage(message: "Welcome",
                     backgroundColor: MyTheme.lightPurple,
                   posActionTitle: "Ok",
-                  posAction: goToSignUp,
+                  posAction: goToHomeScreen,
                 );
             }else{
               await createAccountUseCase.invoke(
@@ -115,14 +115,13 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
                       phoneNumber: "01000000000"));
             }
         }catch(e){
-            navigator!.showFailMessage(message: "Cancel",
+            navigator!.showFailMessage(message: e.toString(),
                 backgroundColor: MyTheme.red,
                 posActionTitle: "cancel",
             );
-
         }
       }catch (e){
-        navigator!.showFailMessage(message: "cancel",
+        navigator!.showFailMessage(message: "Error",
             backgroundColor: MyTheme.red,
             posActionTitle: "cancel"
         );

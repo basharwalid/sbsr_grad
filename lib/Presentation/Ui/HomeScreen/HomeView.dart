@@ -16,12 +16,13 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends BaseState<HomeView, HomeViewModel> implements HomeNavigator {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider(
       create: (context) => viewModel,
       child: Consumer<HomeViewModel>(
         builder: (context, value, child) => Scaffold(
           resizeToAvoidBottomInset: false,
-          body: viewModel!.tabsList[viewModel!.currentIndex],
+          body: viewModel.tabsList[viewModel.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: value.currentIndex,
             items: const [
@@ -42,12 +43,12 @@ class _HomeViewState extends BaseState<HomeView, HomeViewModel> implements HomeN
               )
               ,BottomNavigationBarItem(
                   label: "Profile",
-                  icon: Icon(Icons.person_off , size: 30,),
-                  activeIcon: Icon(Icons.person_off , size: 30,)
+                  icon: Icon(EvaIcons.person_outline, size: 30,),
+                  activeIcon: Icon(Bootstrap.person, size: 30,)
               ),
             ],
             onTap: (value){
-              viewModel!.changeSelectedIndex(value);
+              viewModel.changeSelectedIndex(value);
             },
           ),
         ),

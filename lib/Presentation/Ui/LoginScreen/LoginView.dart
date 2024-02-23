@@ -19,6 +19,8 @@ import 'package:sbsr_grad/Presentation/Ui/Widget/SignInWithContainer.dart';
 class LoginScreenView extends StatefulWidget {
   static const String routeName = 'Login';
 
+  const LoginScreenView({super.key});
+
   @override
   State<LoginScreenView> createState() => _LoginScreenViewState();
 }

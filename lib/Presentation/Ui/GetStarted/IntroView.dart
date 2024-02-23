@@ -10,6 +10,8 @@ import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginView.dart';
 class IntroView extends StatefulWidget {
   static const String routeName = 'intro';
 
+  const IntroView({super.key});
+
   @override
   State<IntroView> createState() => _IntroViewState();
 }
@@ -102,7 +104,7 @@ class _IntroViewState extends BaseState<IntroView, IntroViewModel>
             )),
       ],
       done: const Text("Done"),
-      onDone: goToLoginScreen,
+      onDone: viewModel.onDoneClick,
       next: const Text("Next"),
       onSkip: goToLoginScreen,
       back: const Text("Back"),

@@ -69,4 +69,10 @@ class FirebaseUserAuthRemoteDataSourceImpl
   Future<void> resetPassword({required String email}) async{
     await fireBaseUserAuth.resetPassword(email: email);
   }
+
+  @override
+  Future<void> userSignOut() async{
+    await fireBaseUserAuth.userSignOut();
+
+  }
 }

@@ -78,4 +78,19 @@ abstract class BaseState<T extends StatefulWidget, VM extends BaseViewModel>
         negativeActionTitle: negActionTitle,
         negativeAction: negAction);
   }
+
+  @override
+  showQuestionMessage(
+      {required String message,
+      String? posActionTitle,
+      VoidCallback? posAction,
+      String? negativeActionTitle,
+      VoidCallback? negativeAction}) {
+    MyDialog.showQuestionMessage(context: context, message: message,
+      posAction: posAction,
+      posActionTitle: posActionTitle,
+      negativeAction: negativeAction,
+      negativeActionTitle: negativeActionTitle
+    );
+  }
 }

@@ -10,6 +10,8 @@ import 'package:sbsr_grad/Presentation/Ui/Widget/CustomTextFormField.dart';
 class ForgetPasswordView extends StatefulWidget {
   static const String routeName = 'ForgetPassword';
 
+  const ForgetPasswordView({super.key});
+
   @override
   State<ForgetPasswordView> createState() => _ForgetPasswordViewState();
 }
@@ -20,6 +22,7 @@ class _ForgetPasswordViewState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -83,11 +86,12 @@ class _ForgetPasswordViewState
 
   @override
   goToLoginScreen() {
-    Navigator.pushReplacementNamed(context, LoginScreenView.routeName);
+    Navigator.pushNamed(context, LoginScreenView.routeName);
   }
 
   @override
   ForgetPasswordViewModel initViewModel() {
-    return ForgetPasswordViewModel(resetPasswordUseCase: injectResetPasswordUseCase());
+    return ForgetPasswordViewModel(
+        resetPasswordUseCase: injectResetPasswordUseCase());
   }
 }
