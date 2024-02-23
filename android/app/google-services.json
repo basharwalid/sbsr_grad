@@ -12,25 +12,15 @@
           "package_name": "com.example.sbsr_grad"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "104780306420-crghrbp2v6s73m4l1a8rj57g6l1hcdko.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDmfEl9I9R4VwV1rDH0cfBigLFf3MYfQIs"
+          "current_key": "AIzaSyBFR2jx2QzZNbNENmHw4iCGqRDTrFxWzCo"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "104780306420-crghrbp2v6s73m4l1a8rj57g6l1hcdko.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

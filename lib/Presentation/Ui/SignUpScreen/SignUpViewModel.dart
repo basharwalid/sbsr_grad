@@ -39,12 +39,6 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
     return null;
   }
 
-  // String passwordConfirmValidation(){
-  //   if(passwordController.text != passwordConfirmationController.text){
-  //     return "Password Doesn't Match";
-  //   }
-  //   return "Password Match";
-  // }
   String? nameValidation(String name) {
     if (name.isEmpty) {
       return "Name Can't be empty";
@@ -79,18 +73,20 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
                   phoneNumber: phoneController.text));
           provider!.updateUser(user: response);
           navigator!.goBack();
-          navigator!.showSuccessMessage(message: "signed up sucessfully", backgroundColor: MyTheme.lightPurple,
-          posActionTitle: "ok",
-            posAction: goToLoginScreen
-          );
+          navigator!.showSuccessMessage(
+              message: "signed up successfully",
+              backgroundColor: MyTheme.lightPurple,
+              posActionTitle: "ok",
+              posAction: goToLoginScreen);
         } catch (e) {
           navigator!.goBack();
-          navigator!.showFailMessage(message: e.toString(), backgroundColor: MyTheme.red,
-            negAction: goToLoginScreen,
-            negActionTitle: "Cancel"
-          );
+          navigator!.showFailMessage(
+              message: e.toString(),
+              backgroundColor: MyTheme.red,
+              negAction: goToLoginScreen,
+              negActionTitle: "Cancel");
         }
       }
     }
-    }
+  }
 }
