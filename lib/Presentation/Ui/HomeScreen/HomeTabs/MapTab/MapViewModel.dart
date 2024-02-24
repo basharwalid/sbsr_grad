@@ -9,7 +9,7 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
   var locationManager = Location();
   var myHome = const CameraPosition(target: LatLng(30.0300824,31.4548911),
     zoom: 16,
-    tilt: 90
+
   );
   GoogleMapController? mapController;
   Future<bool> isLocationServiceEnabled() async {
