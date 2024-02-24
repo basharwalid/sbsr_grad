@@ -7,6 +7,8 @@ import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordView.dart';
 import 'package:sbsr_grad/Presentation/Ui/GetStarted/IntroView.dart';
+import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsView.dart';
+import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditProfile/EditProfileView.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeView.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginView.dart';
 import 'package:sbsr_grad/Presentation/Ui/SignUpScreen/SignUpView.dart';
@@ -24,6 +26,7 @@ void main() async {
   );
 
   var user = FirebaseAuth.instance.currentUser;
+
   var firstTime = prefs.getBool("firstTime");
   var isLoggedIn = prefs.getBool("LoggedIn");
   runApp(MultiProvider(
@@ -63,6 +66,8 @@ class MyApp extends StatelessWidget {
         SignUpView.routeName: (_) => const SignUpView(),
         ForgetPasswordView.routeName: (_) => const ForgetPasswordView(),
         HomeView.routeName: (_) => const HomeView(),
+        EditProfileView.routeName: (_) => const EditProfileView(),
+        BusTripDetailsView.routeName: (_) => const BusTripDetailsView(),
       },
       initialRoute: firsTime ? IntroView.routeName : isLoggedIn || user != null ? HomeView.routeName : LoginScreenView.routeName,
       theme: MyTheme.greenTheme,

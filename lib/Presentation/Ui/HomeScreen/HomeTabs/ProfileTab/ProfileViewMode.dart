@@ -3,6 +3,7 @@ import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 import 'package:sbsr_grad/Domain/UseCase/userSignOutUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileNavigator.dart';
+import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileView.dart';
 
 class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
   UserSignOutUseCase userSignOutUseCase;
@@ -12,6 +13,11 @@ class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
   goToLoginScreen() {
     navigator!.goToLoginScreen();
   }
+
+  goToEditScreen() {
+    navigator!.goToEditScreen();
+  }
+
   onSignOutPress(){
       navigator!.showQuestionMessage(message: "Are you sure you want to sign out?",
         negativeActionTitle: "cancel",

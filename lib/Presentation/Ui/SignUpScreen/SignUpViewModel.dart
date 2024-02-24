@@ -70,7 +70,8 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
                   email: emailController.text,
                   name: nameController.text,
                   password: passwordController.text,
-                  phoneNumber: phoneController.text));
+                  phoneNumber: phoneController.text
+                   ));
           provider!.updateUser(user: response);
           navigator!.goBack();
           navigator!.showSuccessMessage(
