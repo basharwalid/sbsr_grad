@@ -20,9 +20,10 @@ class _HistoryViewState extends BaseState<HistoryView, HistoryViewModel> impleme
       child: Column(
         children: [
           AppBar(
-            title: Text("History"),
+            surfaceTintColor: Colors.transparent,
+            title: const Text("History"),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Expanded(
@@ -32,7 +33,7 @@ class _HistoryViewState extends BaseState<HistoryView, HistoryViewModel> impleme
                   TripsBox(
                     callBackFunction: goToDetailsScreen,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                 ],
@@ -50,7 +51,10 @@ class _HistoryViewState extends BaseState<HistoryView, HistoryViewModel> impleme
     return HistoryViewModel();
   }
 
+  @override
   goToDetailsScreen() {
     Navigator.pushNamed(context, BusTripDetailsView.routeName);
   }
+
+
 }

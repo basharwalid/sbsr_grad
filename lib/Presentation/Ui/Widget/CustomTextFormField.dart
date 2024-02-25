@@ -25,6 +25,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       style: Theme.of(context).textTheme.displayMedium,
       keyboardType: inputType,
+
       validator:(value) => validator(value),
       decoration: InputDecoration(
         filled: true,

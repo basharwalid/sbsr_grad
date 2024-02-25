@@ -1,25 +1,30 @@
 import 'dart:ui';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:icons_plus/icons_plus.dart';
+
+import 'package:firebase_auth/firebase_auth.dart' ;
+import 'package:image_picker/image_picker.dart';
+import 'package:sbsr_grad/Data/DataSource/FirebaseImageDatabaseRemoteDataSourceImpl.dart';
 import 'package:sbsr_grad/Data/DataSource/FirebaseUserAuthRemoteDataSourceImpl.dart';
 import 'package:sbsr_grad/Data/DataSource/UsersDatabaseRemoteDataSourceImpl.dart';
 import 'package:sbsr_grad/Domain/DataSource/FirebaseUserAuthRemoteDataSource.dart';
 import 'package:sbsr_grad/Domain/DataSource/UsersDatabaseRemoteDataSource.dart';
+import 'package:sbsr_grad/Domain/DataSource/firebaseImageDatabaseRemoteDataSource.dart';
 import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 import 'package:sbsr_grad/Domain/Repository/UserRepository.dart';
 
-UserRepository injectUserRepository(){
+UserRepository injectUserRepository() {
   return UserRepositoryImpl(
       firebaseUserAuthRemoteDataSource: getFirebaseUserAuthRemoteDataSource(),
-      databaseRemoteDataSource: getUsersDatabaseRemoteDataSource()
-  );
+      databaseRemoteDataSource: getUsersDatabaseRemoteDataSource(),firebaseImageDatabaseRemoteDataSource: injectFirebaseImageDatabaseRemoteDataSourceImpl());
 }
 
-class UserRepositoryImpl implements UserRepository{
+class UserRepositoryImpl implements UserRepository {
   FirebaseUserAuthRemoteDataSource firebaseUserAuthRemoteDataSource;
   UsersDatabaseRemoteDataSource databaseRemoteDataSource;
-  UserRepositoryImpl({required this.firebaseUserAuthRemoteDataSource ,required this.databaseRemoteDataSource});
+  FirebaseImageDatabaseRemoteDataSource firebaseImageDatabaseRemoteDataSource;
+  UserRepositoryImpl(
+      {required this.firebaseUserAuthRemoteDataSource,
+      required this.databaseRemoteDataSource, required this.firebaseImageDatabaseRemoteDataSource});
 
   @override
   Future<User> createUserInFirebaseAuth(MyUser user) async {
@@ -30,37 +35,43 @@ class UserRepositoryImpl implements UserRepository{
   }
 
   @override
-  Future<User> signInWithEmailAndPassword({required String email, required String password})async{
-    var response = await firebaseUserAuthRemoteDataSource.loginWithEmailAndPassword(email: email, password: password);
+  Future<User> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
+    var response = await firebaseUserAuthRemoteDataSource
+        .loginWithEmailAndPassword(email: email, password: password);
     return response;
   }
 
   @override
-  Future<bool> userExist({required String uid}) async{
-      var response = await databaseRemoteDataSource.userExist(uid: uid);
-      return response;
+  Future<bool> userExist({required String uid}) async {
+    var response = await databaseRemoteDataSource.userExist(uid: uid);
+    return response;
   }
 
   @override
-  Future<void> addUserToFirebaseFireStore({required MyUser user})async{
+  Future<void> addUserToFirebaseFireStore({required MyUser user}) async {
     await databaseRemoteDataSource.addUser(user.toDataSource());
   }
 
   @override
-  Future<User> signInWithGoogle() async{
+  Future<User> signInWithGoogle() async {
     var response = await firebaseUserAuthRemoteDataSource.signInWithGoogle();
     return response;
   }
 
   @override
-  Future<void> resetPassword({required String email})async{
+  Future<void> resetPassword({required String email}) async {
     await firebaseUserAuthRemoteDataSource.resetPassword(email: email);
   }
 
   @override
-  Future<void> userSignOut() async{
+  Future<void> userSignOut() async {
     await firebaseUserAuthRemoteDataSource.userSignOut();
   }
 
-
+  @override
+  Future<String> uploadUserImage({required XFile image}) async {
+    var response = await firebaseImageDatabaseRemoteDataSource.uploadImage(file: image);
+    return response;
+  }
 }

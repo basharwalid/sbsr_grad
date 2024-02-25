@@ -21,7 +21,7 @@ class _MapViewState extends BaseState<MapView, MapViewModel>
       body: Column(children: [
         Expanded(
           child: GoogleMap(
-            mapType: MapType.hybrid,
+            mapType: MapType.normal,
             initialCameraPosition: viewModel.myHome,
             onMapCreated: (GoogleMapController controller) {
               viewModel.mapController = controller;

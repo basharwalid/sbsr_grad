@@ -23,28 +23,39 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
       child: Column(
         children: [
           AppBar(
-            title: Text("Bus Trips List"),
+            surfaceTintColor: Colors.transparent,
+            title: const Text("Bus Trips List"),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            height: 50,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: MyTheme.purple,
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.search_outlined, size: 30, color: MyTheme.lightPurple,),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text("Search", style: Theme.of(context).textTheme.displayLarge,),
-              ],
-            ),
+          SearchBar(
+            elevation: MaterialStateProperty.all(0),
+            backgroundColor: MaterialStateProperty.all(MyTheme.lightPurple.withOpacity(0.5)),
+            hintText: "Search",
+            leading: const Icon(CupertinoIcons.search),
+            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 12)),
+          ),
+          // Container(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   height: 50,
+          //   width: double.infinity,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(25),
+          //     color: MyTheme.purple,
+          //   ),
+          //   child: Row(
+          //     children: [
+          //       const Icon(Icons.search_outlined, size: 30, color: MyTheme.lightPurple,),
+          //       const SizedBox(
+          //         width: 20,
+          //       ),
+          //       Text("Search", style: Theme.of(context).textTheme.displayLarge,),
+          //     ],
+          //   ),
+          // ),
+          const SizedBox(
+            height: 20,
           ),
           Expanded(
             child: ListView.builder(
@@ -53,12 +64,12 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
                   TripsBox(
                     callBackFunction: goToDetailsScreen,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                 ],
               ),
-              itemCount: 100,
+              itemCount: 10,
             ),
           )
         ],
@@ -71,7 +82,9 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
     return BusTripViewModel();
   }
 
+  @override
   goToDetailsScreen() {
     Navigator.pushNamed(context, BusTripDetailsView.routeName);
   }
+
 }

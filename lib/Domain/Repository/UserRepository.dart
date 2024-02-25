@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 
 abstract class UserRepository{
@@ -9,4 +10,5 @@ abstract class UserRepository{
   Future<User> signInWithGoogle();
   Future<void> resetPassword({required String email});
   Future<void> userSignOut();
+  Future<String> uploadUserImage({required XFile image});
 }

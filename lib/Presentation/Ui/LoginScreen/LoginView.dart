@@ -13,6 +13,7 @@ import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeView.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginViewModel.dart';
 import 'package:sbsr_grad/Presentation/Ui/SignUpScreen/SignUpView.dart';
+import 'package:sbsr_grad/Presentation/Ui/Widget/CustomPasswordTextFormField.dart';
 import 'package:sbsr_grad/Presentation/Ui/Widget/CustomTextFormField.dart';
 import 'package:sbsr_grad/Presentation/Ui/Widget/SignInWithContainer.dart';
 
@@ -75,10 +76,10 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                       const SizedBox(
                         height: 20,
                       ),
-                      CustomTextFormField(
+                      CustomPasswordTextFormField(
                           controller: viewModel.passwordController,
-                          hintText: "Enter your Password",
-                          prefixIcon: const Icon(Icons.lock_outline),
+                          hintText: "Enter your password",
+                          prefixIcon: const Icon(EvaIcons.lock_outline ),
                           validator: viewModel.passwordValidation,
                           inputType: TextInputType.visiblePassword),
                       Row(
@@ -200,7 +201,8 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
         signInWithEmailAndPasswordUseCase:
             injectSignInWithEmailAndPasswordUseCase(),
         checkIfUserExistUseCase: inejctCheckIfUserExistUseCase(),
-        createAccountUseCase: injectCreateAccountUseCase() , signInWithGoogleUseCase: injectSignInWithGoogleUseCase());
+        createAccountUseCase: injectCreateAccountUseCase(),
+        signInWithGoogleUseCase: injectSignInWithGoogleUseCase());
   }
 
   @override
@@ -217,5 +219,4 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
   goToHomeScreen() {
     Navigator.pushReplacementNamed(context, HomeView.routeName);
   }
-
 }

@@ -21,7 +21,7 @@ class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDeta
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Image.asset("Assets/image/logo.png", width: 100, height: 100,),
+            Image.asset("assets/images/logo.png", width: 100, height: 100,),
             const SizedBox(
               height: 30,
             ),

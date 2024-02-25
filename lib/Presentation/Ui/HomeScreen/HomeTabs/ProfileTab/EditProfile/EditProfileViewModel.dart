@@ -34,12 +34,7 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator>{
     }
     return null;
   }
-  // String passwordConfirmValidation(){
-  //   if(passwordController.text != passwordConfirmationController.text){
-  //     return "Password Doesn't Match";
-  //   }
-  //   return "Password Match";
-  // }
+
   String? nameValidation(String name){
     if(name.isEmpty){
       return "Name Can't be empty";

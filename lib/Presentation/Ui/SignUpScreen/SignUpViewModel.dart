@@ -65,13 +65,14 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
         try {
           navigator!.showLoadingMessage(message: "signing you up");
           var response = await useCase.invoke(
+              file: image,
               user: MyUser(
                   uid: "",
                   email: emailController.text,
                   name: nameController.text,
                   password: passwordController.text,
-                  phoneNumber: phoneController.text
-                   ));
+                  phoneNumber: phoneController.text,
+                  imageURL: ""));
           provider!.updateUser(user: response);
           navigator!.goBack();
           navigator!.showSuccessMessage(

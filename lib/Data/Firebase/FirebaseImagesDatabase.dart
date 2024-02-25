@@ -4,6 +4,9 @@ import 'dart:math';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
+FirebaseImagesDatabase injectFirebaseImagesDatabase(){
+  return FirebaseImagesDatabase.getInstance();
+}
 class FirebaseImagesDatabase {
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 
-class CustomField extends StatelessWidget {
+class UserDetailsProfileContainer extends StatelessWidget {
   String title;
   IconData preIcon;
-  CustomField({required this.title,required this.preIcon, super.key});
+  UserDetailsProfileContainer({required this.title,required this.preIcon, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CustomField extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Icon(preIcon, size: 25, color: MyTheme.offWhite,),
-            SizedBox(
+            const SizedBox(
               width: 14,
             ),
             Text(title, style: Theme.of(context).textTheme.displayMedium,),
