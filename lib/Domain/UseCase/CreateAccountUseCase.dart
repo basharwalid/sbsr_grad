@@ -14,16 +14,14 @@ class CreateAccountUseCase {
   CreateAccountUseCase({required this.repository});
 
   Future<User> invoke({XFile? file,required MyUser user}) async {
+    var response = await repository.createUserInFirebaseAuth(user);
     if(file!=null){
-      var response = await repository.uploadUserImage(image: file);
-      user.imageURL = response;
+      var image = await repository.uploadUserImage(image: file);
+      user.imageURL = image;
+      response = await repository.updateUserPhoto(photo: image);
     }
-    User? response;
-    if (user.uid.isEmpty) {
-      response = await repository.createUserInFirebaseAuth(user);
-      user.uid = response.uid;
-    }
-    await repository.addUserToFirebaseFireStore(user: user);
-    return response!;
+    user.password = "Private";
+    await repository.addUserToFirebaseFireStore(user: user , uid: response.uid);
+    return response;
   }
 }

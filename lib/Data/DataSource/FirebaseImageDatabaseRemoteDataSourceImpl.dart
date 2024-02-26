@@ -21,4 +21,13 @@ class FirebaseImageDatabaseRemoteDataSourceImpl implements FirebaseImageDatabase
         throw FirebaseImageException(errorMessage: e.code);
       }
   }
+
+  @override
+  Future<String> updateUserImage({required XFile file, required String url})async{
+    var response = await imagesDatabase.updateUserImage(url: url, file: file).timeout(const Duration(seconds: 60));
+    return response;
+  }
+
+
+
 }

@@ -76,7 +76,6 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
         } else {
           await createAccountUseCase.invoke(
               user: MyUser(
-                  uid: response.uid,
                   email: response.email ?? "no email",
                   name: response.displayName ?? "no name",
                   password: "private",
@@ -108,14 +107,13 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
             }else{
               await createAccountUseCase.invoke(
                   user: MyUser(
-                      uid: response.uid,
                       email: response.email ?? "no email",
                       name: response.displayName ?? "no name",
                       password: "private",
                       phoneNumber: "01000000000"));
             }
         }catch(e){
-            navigator!.showFailMessage(message: e.toString(),
+            navigator!.showFailMessage(message: "Email already in use",
                 backgroundColor: MyTheme.red,
                 posActionTitle: "cancel",
             );

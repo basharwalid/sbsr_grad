@@ -30,7 +30,6 @@ class UserRepositoryImpl implements UserRepository {
   Future<User> createUserInFirebaseAuth(MyUser user) async {
     var response = await firebaseUserAuthRemoteDataSource.createUser(
         userDTO: user.toDataSource());
-    user.uid = response.uid;
     return response;
   }
 
@@ -49,8 +48,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> addUserToFirebaseFireStore({required MyUser user}) async {
-    await databaseRemoteDataSource.addUser(user.toDataSource());
+  Future<void> addUserToFirebaseFireStore({required MyUser user , required String uid}) async {
+    await databaseRemoteDataSource.addUser(user.toDataSource() , uid);
   }
 
   @override
@@ -71,7 +70,34 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<String> uploadUserImage({required XFile image}) async {
+    print("2");
     var response = await firebaseImageDatabaseRemoteDataSource.uploadImage(file: image);
+    print("3");
     return response;
   }
+
+  @override
+  Future<MyUser?> getUser({required String uid})async{
+    var response = await databaseRemoteDataSource.getUser(uid: uid);
+    return response;
+  }
+
+  @override
+  Future<String> updateUserImage({required XFile file, required String url})async{
+      if(url.isEmpty){
+        var upload = await firebaseImageDatabaseRemoteDataSource.uploadImage(file: file);
+        return upload;
+      }else{
+        var update = await firebaseImageDatabaseRemoteDataSource.updateUserImage(file: file, url: url);
+        return update;
+      }
+  }
+
+  @override
+  Future<User> updateUserPhoto({required String photo})async{
+    var response = await firebaseUserAuthRemoteDataSource.updateUserImage(photo: photo);
+    return response;
+  }
+
+
 }

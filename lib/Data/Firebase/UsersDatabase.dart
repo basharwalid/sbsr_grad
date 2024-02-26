@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sbsr_grad/Data/Models/UserDTO.dart';
 
 
-UsersDatabase getUsersDatabase(){
+UsersDatabase getUsersDatabase() {
   return UsersDatabase.getUserDatabase();
 }
 
@@ -16,6 +16,7 @@ class UsersDatabase {
     _instance ??= UsersDatabase._();
     return _instance;
   }
+
   CollectionReference<UserDTO> getCollectionReference() {
     return FirebaseFirestore.instance.collection("Users").withConverter(
       fromFirestore: (snapshot, options) =>
@@ -23,12 +24,18 @@ class UsersDatabase {
       toFirestore: (value, options) => value.toFireStore(),);
   }
 
-  Future<void> addUser(UserDTO userDTO)async{
-    await getCollectionReference().doc(userDTO.uid).set(userDTO);
+  Future<void> addUser(UserDTO userDTO , String uid) async {
+    await getCollectionReference().doc(uid).set(userDTO);
   }
-  Future<bool> userExist({required String uid})async{
+
+  Future<bool> userExist({required String uid}) async {
     var doc = await getCollectionReference().doc(uid).get();
     return doc.exists;
+  }
+
+  Future<UserDTO?> getUser({required String uid}) async {
+    var doc = await getCollectionReference().doc(uid).get();
+    return doc.data();
   }
 
 }

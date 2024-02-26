@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sbsr_grad/Data/Firebase/UsersDatabase.dart';
@@ -7,6 +8,7 @@ import 'package:sbsr_grad/Domain/DataSource/UsersDatabaseRemoteDataSource.dart';
 import 'package:sbsr_grad/Domain/Exceptions/FirebaseUserDatabaseException.dart';
 import 'package:sbsr_grad/Domain/Exceptions/TimeOutOperationsException.dart';
 import 'package:sbsr_grad/Domain/Exceptions/UnknownException.dart';
+import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 
 UsersDatabaseRemoteDataSource getUsersDatabaseRemoteDataSource(){
   return UsersDatabaseRemoteDataSourceImpl(
@@ -21,8 +23,8 @@ class UsersDatabaseRemoteDataSourceImpl
   UsersDatabaseRemoteDataSourceImpl({required this.database});
 
   @override
-  Future<void> addUser(UserDTO userDTO) async {
-    await database.addUser(userDTO);
+  Future<void> addUser(UserDTO userDTO , String uid) async {
+    await database.addUser(userDTO, uid);
   }
 
   @override
@@ -37,5 +39,11 @@ class UsersDatabaseRemoteDataSourceImpl
     }catch(e){
       throw UnknownException(errorMessage: "Unknown Error");
     }
+  }
+
+  @override
+  Future<MyUser?> getUser({required String uid}) async{
+    var response = await database.getUser(uid: uid);
+    return response?.toDomain();
   }
 }

@@ -59,7 +59,7 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
     navigator!.goToLoginScreen();
   }
 
-  void register() async {
+  Future<void> register() async {
     if (formKey.currentState!.validate()) {
       if (passwordController.text == passwordConfirmationController.text) {
         try {
@@ -67,7 +67,6 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
           var response = await useCase.invoke(
               file: image,
               user: MyUser(
-                  uid: "",
                   email: emailController.text,
                   name: nameController.text,
                   password: passwordController.text,

@@ -58,4 +58,9 @@ class FireBaseUserAuth {
     preferences.setBool("LoggedIn", false);
     await _firebase.signOut();
   }
+
+  Future<User> updateUserImage(String photo)async{
+    await _firebase.currentUser!.updatePhotoURL(photo);
+    return _firebase.currentUser!;
+  }
 }
