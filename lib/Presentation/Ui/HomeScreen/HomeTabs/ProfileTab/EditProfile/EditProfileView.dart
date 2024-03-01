@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
+import 'package:sbsr_grad/Domain/UseCase/UpdateUserDataUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditProfile/EditProfileNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditProfile/EditProfileViewModel.dart';
 import 'package:sbsr_grad/Presentation/Ui/Widget/CustomTextFormField.dart';
@@ -62,11 +63,11 @@ class _EditProfileViewState
                                   child: Container(
                                     height: 40,
                                     width: 40,
-                                    child: const Icon(Icons.edit),
                                     decoration: BoxDecoration(
                                         color: MyTheme.lightPurple,
                                         borderRadius:
                                             BorderRadius.circular(25)),
+                                    child: const Icon(Icons.edit),
                                   ),
                                 ),
                               )
@@ -116,7 +117,7 @@ class _EditProfileViewState
                             height: 40,
                           ),
                           ElevatedButton(
-                              onPressed: () {},
+                              onPressed: value.updateUser(),
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
                                     MyTheme.lightPurple),
@@ -147,6 +148,6 @@ class _EditProfileViewState
 
   @override
   EditProfileViewModel initViewModel() {
-    return EditProfileViewModel();
+    return EditProfileViewModel(useCase: injectUpdateUserDataUseCase());
   }
 }

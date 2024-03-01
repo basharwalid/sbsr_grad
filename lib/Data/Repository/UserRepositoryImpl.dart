@@ -70,9 +70,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<String> uploadUserImage({required XFile image}) async {
-    print("2");
     var response = await firebaseImageDatabaseRemoteDataSource.uploadImage(file: image);
-    print("3");
     return response;
   }
 
@@ -97,6 +95,11 @@ class UserRepositoryImpl implements UserRepository {
   Future<User> updateUserPhoto({required String photo})async{
     var response = await firebaseUserAuthRemoteDataSource.updateUserImage(photo: photo);
     return response;
+  }
+
+  @override
+  Future<void> updateUserData({required MyUser user, required String uid}) async{
+    await databaseRemoteDataSource.updateUserData(user: user.toDataSource(), uid: uid);
   }
 
 

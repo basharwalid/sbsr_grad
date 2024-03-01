@@ -38,4 +38,8 @@ class UsersDatabase {
     return doc.data();
   }
 
+  Future<void> updateUserData({required UserDTO user , required String uid})async{
+    await getCollectionReference().doc(uid).update(user.toFireStore());
+  }
+
 }

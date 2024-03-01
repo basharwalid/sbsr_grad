@@ -46,4 +46,9 @@ class UsersDatabaseRemoteDataSourceImpl
     var response = await database.getUser(uid: uid);
     return response?.toDomain();
   }
+
+  @override
+  Future<void> updateUserData({required UserDTO user, required String uid}) async{
+    await database.updateUserData(user: user, uid: uid);
+  }
 }

@@ -1,13 +1,19 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
+import 'package:sbsr_grad/Core/Theme/Theme.dart';
+import 'package:sbsr_grad/Domain/Models/MyUser.dart';
+import 'package:sbsr_grad/Domain/UseCase/UpdateUserDataUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditProfile/EditProfileNavigator.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-class EditProfileViewModel extends BaseViewModel<EditProfileNavigator>{
+class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
+  UpdateUserDataUseCase useCase;
+  MyUser? user;
+  EditProfileViewModel({required this.useCase});
+
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -35,19 +41,21 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator>{
     return null;
   }
 
-  String? nameValidation(String name){
-    if(name.isEmpty){
+  String? nameValidation(String name) {
+    if (name.isEmpty) {
       return "Name Can't be empty";
     }
-    else{
+    else {
       return null;
     }
   }
 
-  String? phoneValidation(String phoneNumber){
-    if(phoneNumber.trim().isEmpty){
+  String? phoneValidation(String phoneNumber) {
+    if (phoneNumber
+        .trim()
+        .isEmpty) {
       return "Please Enter Phone Number";
-    }else{
+    } else {
       return null;
     }
   }
@@ -60,4 +68,18 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator>{
     });
   }
 
+  updateUser() async {
+    navigator!.showLoadingMessage(message: "Updating your Data");
+    try {
+      user!.name = nameController.text;
+      user!.email = emailController.text;
+      user!.phoneNumber = phoneController.text;
+      var response = await useCase.invoke(user: user!, uid: provider!.getUser()!.uid, file: image!);
+      provider!.updateUser(user: response);
+      navigator!.goBack();
+      navigator!.showSuccessMessage(message: "Your all set", backgroundColor: MyTheme.lightPurple);
+    }catch (e){
+      navigator!.showFailMessage(message: e.toString(), backgroundColor: MyTheme.red);
+    }
+  }
 }
