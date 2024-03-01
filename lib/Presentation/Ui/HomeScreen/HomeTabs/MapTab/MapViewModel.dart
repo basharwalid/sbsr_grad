@@ -7,11 +7,12 @@ import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/MapTab/MapNavigato
 
 class MapViewModel extends BaseViewModel<MapNavigator> {
   var locationManager = Location();
-  var myHome = const CameraPosition(target: LatLng(30.0300824,31.4548911),
+  var myHome = const CameraPosition(
+    target: LatLng(30.0300824, 31.4548911),
     zoom: 16,
-
   );
   GoogleMapController? mapController;
+
   Future<bool> isLocationServiceEnabled() async {
     return await locationManager.serviceEnabled();
   }
@@ -49,26 +50,27 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
     getUserLocation();
   }
 
-  void getUserLocation()async{
+  void getUserLocation() async {
     var canGetLocation = await canUseGPS();
-    if(!canGetLocation)return;
+    if (!canGetLocation) return;
     var locationData = await locationManager.getLocation();
     print(locationData.latitude);
     print(locationData.longitude);
   }
 
   StreamSubscription<LocationData>? trackingService;
+
   void trackUserLocation() async {
     var canGetLocation = await canUseGPS();
     if (!canGetLocation) return;
     locationManager.changeSettings(
-      accuracy: LocationAccuracy.high,
-      distanceFilter: 1000, //time between updates
-      interval: 5
-    );
-    trackingService = locationManager.onLocationChanged.listen((locationData) {
-    });
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 1000, //time between updates
+        interval: 5);
+    trackingService =
+        locationManager.onLocationChanged.listen((locationData) {});
   }
+
   @override
   void dispose() {
     trackingService?.cancel();

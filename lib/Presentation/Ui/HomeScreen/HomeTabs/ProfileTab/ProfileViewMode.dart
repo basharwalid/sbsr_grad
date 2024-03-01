@@ -57,6 +57,7 @@ class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
           phoneNumber: provider!.getUser()!.phoneNumber??"No phone number",
           imageURL: provider!.getUser()!.photoURL??"No photo"
       );
+      notifyListeners();
     }catch(e){
       errorMessage = e.toString();
     }

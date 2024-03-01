@@ -26,21 +26,21 @@ class _HistoryViewState extends BaseState<HistoryView, HistoryViewModel> impleme
           const SizedBox(
             height: 20,
           ),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) => Column(
-                children: [
-                  TripsBox(
-                    callBackFunction: goToDetailsScreen,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                ],
-              ),
-              itemCount: 100,
-            ),
-          )
+          // Expanded(
+          //   child: ListView.builder(
+          //     itemBuilder: (context, index) => Column(
+          //       children: [
+          //         // TripsBox(
+          //         //   callBackFunction: goToDetailsScreen,
+          //         // ),
+          //         const SizedBox(
+          //           height: 30,
+          //         ),
+          //       ],
+          //     ),
+          //     itemCount: 100,
+          //   ),
+          // )
         ],
       ),
     );;
