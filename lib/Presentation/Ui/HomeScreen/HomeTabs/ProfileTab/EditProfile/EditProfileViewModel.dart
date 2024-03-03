@@ -11,7 +11,7 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
   UpdateUserDataUseCase useCase;
-  MyUser? user;
+  MyUser? myUser;
   EditProfileViewModel({required this.useCase});
 
   TextEditingController emailController = TextEditingController();
@@ -71,11 +71,11 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
   updateUser() async {
     navigator!.showLoadingMessage(message: "Updating your Data");
     try {
-      user!.name = nameController.text;
-      user!.email = emailController.text;
-      user!.phoneNumber = phoneController.text;
-      var response = await useCase.invoke(user: user!, uid: provider!.getUser()!.uid, file: image!);
-      provider!.updateUser(user: response);
+      myUser!.name = nameController.text;
+      myUser!.email = emailController.text;
+      myUser!.phoneNumber = phoneController.text;
+      var response = await useCase.invoke(user: myUser!, uid: provider!.getUser()!.uid, file: image!);
+      provider!.updateUser(user:response);
       navigator!.goBack();
       navigator!.showSuccessMessage(message: "Your all set", backgroundColor: MyTheme.lightPurple);
     }catch (e){

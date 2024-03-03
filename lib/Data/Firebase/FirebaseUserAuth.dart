@@ -63,4 +63,9 @@ class FireBaseUserAuth {
     await _firebase.currentUser!.updatePhotoURL(photo);
     return _firebase.currentUser!;
   }
+
+  Future<User> updateUserDisplayName({required String name})async{
+    await _firebase.currentUser!.updateDisplayName(name);
+    return _firebase.currentUser!;
+  }
 }

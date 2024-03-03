@@ -98,9 +98,20 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> updateUserData({required MyUser user, required String uid}) async{
-    await databaseRemoteDataSource.updateUserData(user: user.toDataSource(), uid: uid);
+  Future<MyUser> updateUserData({required MyUser user, required String uid}) async{
+    var response = await databaseRemoteDataSource.updateUserData(user: user.toDataSource(), uid: uid);
+    return response;
   }
+
+  @override
+  Future<User> updateUserDisplayName({required String name})async{
+    var response = await firebaseUserAuthRemoteDataSource.updateUserDisplayName(name: name);
+    return response;
+  }
+
+
+
+
 
 
 }

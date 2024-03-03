@@ -117,7 +117,7 @@ class _EditProfileViewState
                             height: 40,
                           ),
                           ElevatedButton(
-                              onPressed: value.updateUser(),
+                              onPressed: (){},
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
                                     MyTheme.lightPurple),

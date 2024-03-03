@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
+import 'package:sbsr_grad/Domain/UseCase/getAllBusUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsViewModel.dart';
 
@@ -38,13 +39,13 @@ class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDeta
               ),
               child: Column(
                 children: [
-                  Text("Bus Name", style: Theme.of(context).textTheme.displayMedium),
+                  Text(viewModel.allBusList.map((bus) => bus.busName).toString(), style: Theme.of(context).textTheme.displayMedium),
                   const SizedBox(
                     height: 20,
                   ),
                   Row(
                     children: [
-                      Text("From :", style: Theme.of(context).textTheme.displayMedium,),
+                      Text(viewModel.allBusList.map((e) => e.from).toString(), style: Theme.of(context).textTheme.displayMedium,),
                       Text("Station 3 : Obour City Third distract ", style: Theme.of(context).textTheme.displaySmall,),
                     ],
                   ),
@@ -53,7 +54,7 @@ class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDeta
                   ),
                   Row(
                     children: [
-                      Text("To :", style: Theme.of(context).textTheme.displayMedium,),
+                      Text(viewModel.allBusList.map((e) => e.to).toString(), style: Theme.of(context).textTheme.displayMedium,),
                       Text("station 11 : Fifth Settlement Elnarges", style: Theme.of(context).textTheme.displaySmall,),
                     ],
                   ),
@@ -62,17 +63,8 @@ class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDeta
                   ),
                   Row(
                     children: [
-                      Text("Station Number :", style: Theme.of(context).textTheme.displayMedium,),
+                      Text(viewModel.allBusList.map((e) => e.nextStation).toString(), style: Theme.of(context).textTheme.displayMedium,),
                       Text("station 3", style: Theme.of(context).textTheme.displaySmall,),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Text("Station Name :", style: Theme.of(context).textTheme.displayMedium,),
-                      Text("Fifth Settlement Elnarges", style: Theme.of(context).textTheme.displaySmall,),
                     ],
                   ),
                   const SizedBox(
@@ -119,6 +111,6 @@ class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDeta
 
   @override
   BusTripDetailsViewModel initViewModel() {
-    return BusTripDetailsViewModel();
+    return BusTripDetailsViewModel(useCase: injectGetAllBusUseCase());
   }
 }

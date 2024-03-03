@@ -62,14 +62,14 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                       ),
                       Container(
                           clipBehavior: Clip.antiAlias,
-                          width: MediaQuery.sizeOf(context).width * 0.39,
-                          height: MediaQuery.sizeOf(context).width * 0.39,
+                          width: MediaQuery.sizeOf(context).width * 0.45,
+                          height: MediaQuery.sizeOf(context).width * 0.45,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(1000),
                               color: MyTheme.offWhite),
                           child: CachedNetworkImage(
-                            fit: BoxFit.fill,
-                            imageUrl: viewModel.provider!.getUser()!.photoURL!,
+                            fit: BoxFit.cover,
+                            imageUrl: value.user!.imageURL!,
                           )),
                       const SizedBox(
                         height: 30,

@@ -87,4 +87,10 @@ class FirebaseUserAuthRemoteDataSourceImpl
         throw FirebaseUserAuthException(errorMessage: e.errorMessage);
     }
   }
+
+  @override
+  Future<User> updateUserDisplayName({required String name})async{
+    var response = await fireBaseUserAuth.updateUserDisplayName(name: name);
+    return response;
+  }
 }
