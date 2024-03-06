@@ -14,6 +14,6 @@ abstract class UserRepository{
   Future<String> updateUserImage({required XFile file , required String url});
   Future<MyUser?> getUser({required String uid});
   Future<User> updateUserPhoto({required String photo});
-  Future<MyUser> updateUserData({required MyUser user, required String uid});
+  Future<String> updateUserData({required MyUser user, required String uid});
   Future<User> updateUserDisplayName({required String name});
 }

@@ -6,5 +6,5 @@ abstract class UsersDatabaseRemoteDataSource{
   Future<void> addUser(UserDTO userDTO , String uid);
   Future<bool> userExist({required String uid});
   Future<MyUser?> getUser({required String uid});
-  Future<MyUser> updateUserData({required UserDTO user , required String uid});
+  Future<void> updateUserData({required UserDTO user , required String uid});
 }

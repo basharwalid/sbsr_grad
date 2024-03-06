@@ -61,16 +61,20 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                         height: 10,
                       ),
                       Container(
-                          clipBehavior: Clip.antiAlias,
-                          width: MediaQuery.sizeOf(context).width * 0.45,
-                          height: MediaQuery.sizeOf(context).width * 0.45,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(1000),
-                              color: MyTheme.offWhite),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: value.user!.imageURL!,
-                          )),
+                        clipBehavior: Clip.antiAlias,
+                        width: MediaQuery.sizeOf(context).width * 0.4,
+                        height: MediaQuery.sizeOf(context).width * 0.4,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(1000),
+                            color: MyTheme.offWhite),
+                        child: viewModel.user!.imageURL == null
+                            ? Lottie.asset(
+                            "assets/json/UserNotFound.json")
+                            : CachedNetworkImage(
+                          imageUrl: viewModel.user!.imageURL!,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       const SizedBox(
                         height: 30,
                       ),

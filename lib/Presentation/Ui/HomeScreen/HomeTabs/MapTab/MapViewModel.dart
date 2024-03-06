@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
@@ -7,8 +8,14 @@ import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/MapTab/MapNavigato
 
 class MapViewModel extends BaseViewModel<MapNavigator> {
   var locationManager = Location();
+  static const String mtiMarker = 'mobil-elNarges';
+  static const String userMarkerID = 'user-marker';
+  Set<Marker> markersSet = {
+    const Marker(
+        markerId: MarkerId(mtiMarker), position: LatLng(29.9930348, 31.3087929))
+  };
   var myHome = const CameraPosition(
-    target: LatLng(30.0300824, 31.4548911),
+    target: LatLng(30.0066885,31.4531664),
     zoom: 16,
   );
   GoogleMapController? mapController;
@@ -54,8 +61,6 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
     var canGetLocation = await canUseGPS();
     if (!canGetLocation) return;
     var locationData = await locationManager.getLocation();
-    print(locationData.latitude);
-    print(locationData.longitude);
   }
 
   StreamSubscription<LocationData>? trackingService;
@@ -69,6 +74,19 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
         interval: 5);
     trackingService =
         locationManager.onLocationChanged.listen((locationData) {});
+  }
+
+  void drawUserMarker() async {
+    var canGetLocation = await canUseGPS();
+    if (!canGetLocation) return;
+    var locationData = await locationManager.getLocation();
+    mapController?.animateCamera(CameraUpdate.newLatLngZoom(
+        LatLng(locationData.latitude!, locationData.longitude!),
+        16));
+    markersSet.add(Marker(
+        markerId: const MarkerId(userMarkerID),
+        position: LatLng(
+            locationData.latitude!, locationData.longitude!)));
   }
 
   @override

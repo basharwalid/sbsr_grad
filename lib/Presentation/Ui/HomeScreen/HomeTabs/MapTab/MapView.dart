@@ -24,11 +24,13 @@ class _MapViewState extends BaseState<MapView, MapViewModel>
           Expanded(
             child: Stack(children: [
               GoogleMap(
+                markers: viewModel.markersSet,
                 mapType: MapType.normal,
                 initialCameraPosition: viewModel.myHome,
                 onMapCreated: (GoogleMapController controller) {
                   viewModel.mapController = controller;
-                },
+                  viewModel.drawUserMarker();
+                 },
               ),
               const SizedBox(
                 height: 20,

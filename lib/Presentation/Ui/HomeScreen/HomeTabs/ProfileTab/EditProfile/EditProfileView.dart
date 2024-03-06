@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
+import 'package:sbsr_grad/Domain/UseCase/GetUserDataUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/UpdateUserDataUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditProfile/EditProfileNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditProfile/EditProfileViewModel.dart';
@@ -23,12 +25,22 @@ class _EditProfileViewState
     extends BaseState<EditProfileView, EditProfileViewModel>
     implements EditProfileNavigator {
   @override
+  void initState() {
+    super.initState();
+    viewModel.loadData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return ChangeNotifierProvider(
         create: (context) => viewModel,
         child: Consumer<EditProfileViewModel>(
-            builder: (context, value, child) => Scaffold(
+            builder: (context, value, child) {
+              if(value.user == null){
+                return const Center(child: CircularProgressIndicator(),);
+              }else{
+                return Scaffold(
                   appBar: AppBar(
                     title: const Text("Edit Profile"),
                   ),
@@ -51,9 +63,11 @@ class _EditProfileViewState
                                     color: MyTheme.offWhite),
                                 child: viewModel.image == null
                                     ? Lottie.asset(
-                                        "assets/json/UserNotFound.json")
-                                    : Image.file(File(viewModel.image!.path),
-                                        fit: BoxFit.cover),
+                                    "assets/json/UserNotFound.json")
+                                    : CachedNetworkImage(
+                                  imageUrl: viewModel.user!.imageURL!,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                               Positioned(
                                 bottom: 10,
@@ -66,7 +80,7 @@ class _EditProfileViewState
                                     decoration: BoxDecoration(
                                         color: MyTheme.lightPurple,
                                         borderRadius:
-                                            BorderRadius.circular(25)),
+                                        BorderRadius.circular(25)),
                                     child: const Icon(Icons.edit),
                                   ),
                                 ),
@@ -78,7 +92,7 @@ class _EditProfileViewState
                           ),
                           CustomTextFormField(
                             controller: viewModel.nameController,
-                            hintText: "Name",
+                            hintText: viewModel.user!.name,
                             prefixIcon: const Icon(EvaIcons.file_text_outline),
                             validator: viewModel.nameValidation,
                             inputType: TextInputType.name,
@@ -92,7 +106,7 @@ class _EditProfileViewState
                           ),
                           CustomTextFormField(
                               controller: viewModel.emailController,
-                              hintText: "Email address",
+                              hintText: viewModel.user!.email,
                               prefixIcon: const Icon(Icons.email_outlined),
                               validator: viewModel.emailValidation,
                               inputType: TextInputType.emailAddress,
@@ -105,7 +119,7 @@ class _EditProfileViewState
                           ),
                           CustomTextFormField(
                               controller: viewModel.phoneController,
-                              hintText: "Phone number",
+                              hintText: viewModel.user!.phoneNumber,
                               prefixIcon: const Icon(Icons.call_rounded),
                               validator: viewModel.phoneValidation,
                               inputType: TextInputType.phone,
@@ -117,7 +131,7 @@ class _EditProfileViewState
                             height: 40,
                           ),
                           ElevatedButton(
-                              onPressed: (){},
+                              onPressed: value.updateUserData,
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
                                     MyTheme.lightPurple),
@@ -143,11 +157,15 @@ class _EditProfileViewState
                       ),
                     ),
                   ),
-                )));
+                );
+              }
+            }, ));
   }
 
   @override
   EditProfileViewModel initViewModel() {
-    return EditProfileViewModel(useCase: injectUpdateUserDataUseCase());
+    return EditProfileViewModel(
+        useCase: injectUpdateUserDataUseCase(),
+        userDataUseCase: injectGetUserDataUseCase());
   }
 }
