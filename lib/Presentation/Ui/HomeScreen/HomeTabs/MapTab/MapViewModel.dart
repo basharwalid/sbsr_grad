@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
@@ -15,7 +15,7 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
         markerId: MarkerId(mtiMarker), position: LatLng(29.9930348, 31.3087929))
   };
   var myHome = const CameraPosition(
-    target: LatLng(30.0066885,31.4531664),
+    target: LatLng(30.0066885, 31.4531664),
     zoom: 16,
   );
   GoogleMapController? mapController;
@@ -81,12 +81,15 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
     if (!canGetLocation) return;
     var locationData = await locationManager.getLocation();
     mapController?.animateCamera(CameraUpdate.newLatLngZoom(
-        LatLng(locationData.latitude!, locationData.longitude!),
-        16));
+        LatLng(locationData.latitude!, locationData.longitude!), 18));
     markersSet.add(Marker(
         markerId: const MarkerId(userMarkerID),
-        position: LatLng(
-            locationData.latitude!, locationData.longitude!)));
+        icon: await BitmapDescriptor.fromAssetImage(const ImageConfiguration(
+          size: Size.fromHeight(10),
+          devicePixelRatio: 20,
+        ), "assets/images/googleLogo.png"),
+        position: LatLng(locationData.latitude!, locationData.longitude!)));
+    notifyListeners();
   }
 
   @override
