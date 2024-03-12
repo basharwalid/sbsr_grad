@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
+import 'package:sbsr_grad/Domain/Models/Bus.dart';
 import 'package:sbsr_grad/Domain/UseCase/getAllBusUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsView.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripTab/BusTripNavigator.dart';
@@ -82,7 +83,7 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
                   itemBuilder: (context, index) => Column(
                     children: [
                       BusTripDetailsContainer(
-                        callBackFunction: (){},
+                        callBackFunction: value.goToDetailsScreen,
                         bus: value.allBusList[index],
                       ),
                       const SizedBox(
@@ -106,7 +107,9 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
   }
 
   @override
-  goToDetailsScreen() {
-    Navigator.pushNamed(context, BusTripDetailsView.routeName);
+  goToDetailsScreen({required Bus bus}) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => BusTripDetailsView(bus: bus,),));
   }
+
+
 }

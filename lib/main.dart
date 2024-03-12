@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
         ForgetPasswordView.routeName: (_) => const ForgetPasswordView(),
         HomeView.routeName: (_) => const HomeView(),
         EditProfileView.routeName: (_) => const EditProfileView(),
-        BusTripDetailsView.routeName: (_) => const BusTripDetailsView(),
+        BusTripDetailsView.routeName: (_) =>  BusTripDetailsView(),
       },
       initialRoute: firsTime ? IntroView.routeName : isLoggedIn || user != null ? HomeView.routeName : LoginScreenView.routeName,
       theme: MyTheme.greenTheme,

@@ -11,7 +11,8 @@ class BusTripDetailsContainer extends StatefulWidget {
       {required this.callBackFunction, super.key, required this.bus});
 
   @override
-  State<BusTripDetailsContainer> createState() => _BusTripDetailsContainerState();
+  State<BusTripDetailsContainer> createState() =>
+      _BusTripDetailsContainerState();
 }
 
 class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
@@ -20,7 +21,7 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.callBackFunction(),
+      onTap: ()=> widget.callBackFunction(widget.bus),
       child: Stack(
         alignment: Alignment.topRight,
         children: [
@@ -43,6 +44,10 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
                     const SizedBox(
                       width: 10,
                     ),
+                    Text("From:" , style: Theme.of(context).textTheme.displayMedium,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     Text(
                       widget.bus.from,
                       style: Theme.of(context).textTheme.displayMedium,
@@ -59,6 +64,10 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
                       size: 30,
                       color: Colors.white,
                     ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text("To: " , style: Theme.of(context).textTheme.displayMedium,),
                     const SizedBox(
                       width: 10,
                     ),
@@ -81,7 +90,8 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
               width: 50,
               height: 50,
               child: InkWell(
-                borderRadius: const BorderRadius.only(topRight: Radius.circular(20)),
+                borderRadius:
+                    const BorderRadius.only(topRight: Radius.circular(20)),
                 onTap: onFavoriteClick,
                 child: isSelected
                     ? const Icon(
@@ -89,13 +99,18 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
                         size: 30,
                         color: MyTheme.lightPurple,
                       )
-                    : const Icon(LineAwesome.heart, color: MyTheme.lightPurple , size: 30,),
+                    : const Icon(
+                        LineAwesome.heart,
+                        color: MyTheme.lightPurple,
+                        size: 30,
+                      ),
               )),
         ],
       ),
     );
   }
-  void onFavoriteClick(){
+
+  void onFavoriteClick() {
     setState(() {
       isSelected = !isSelected;
     });

@@ -6,24 +6,13 @@ import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScre
 
 class BusTripDetailsViewModel extends BaseViewModel<BusTripDetailsNavigator>{
   GetAllBusUseCase useCase;
+  late Bus bus;
   List<Bus> allBusList = [];
   String? errorMessage;
   bool loading = true;
   BusTripDetailsViewModel({required this.useCase});
 
-  getBusData()async{
-    loading = true;
-    allBusList = [];
-    errorMessage = null;
-    notifyListeners();
-    try{
-      allBusList = await useCase.invoke();
-      loading = false;
-      notifyListeners();
-    }on FirebaseBusException catch(e){
-        errorMessage = e.errorMessage;
-        loading = false;
-        notifyListeners();
-    }
+  loadBusData()async{
+
   }
 }

@@ -13,8 +13,8 @@ class BusTripViewModel extends BaseViewModel<BusTripNavigator> {
 
   BusTripViewModel({required this.useCase});
 
-  goToDetailsScreen() {
-    navigator!.goToDetailsScreen();
+  goToDetailsScreen(Bus bus) {
+    navigator!.goToDetailsScreen(bus: bus);
   }
 
   void getAllBus() async {

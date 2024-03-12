@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
+import 'package:sbsr_grad/Domain/Models/Bus.dart';
 import 'package:sbsr_grad/Domain/UseCase/getAllBusUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsViewModel.dart';
 
 class BusTripDetailsView extends StatefulWidget {
   static const String routeName = "BusTripDetailsView";
-  const BusTripDetailsView({super.key});
+  Bus? bus;
+  BusTripDetailsView({super.key ,this.bus});
 
   @override
   State<BusTripDetailsView> createState() => _BusTripDetailsViewState();
 }
 
 class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDetailsViewModel> implements BusTripDetailsNavigator{
+  @override
+  void initState() {
+    super.initState();
+    viewModel.bus = widget.bus!;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,14 +46,13 @@ class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDeta
               ),
               child: Column(
                 children: [
-                  Text(viewModel.allBusList.map((bus) => bus.busName).toString(), style: Theme.of(context).textTheme.displayMedium),
+                  Text(viewModel.bus.busName, style: Theme.of(context).textTheme.displayMedium),
                   const SizedBox(
                     height: 20,
                   ),
                   Row(
                     children: [
-                      Text(viewModel.allBusList.map((e) => e.from).toString(), style: Theme.of(context).textTheme.displayMedium,),
-                      Text("Station 3 : Obour City Third distract ", style: Theme.of(context).textTheme.displaySmall,),
+                      Text("Station 3 : ${viewModel.bus.from}", style: Theme.of(context).textTheme.displayMedium,),
                     ],
                   ),
                   const SizedBox(
@@ -54,17 +60,7 @@ class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDeta
                   ),
                   Row(
                     children: [
-                      Text(viewModel.allBusList.map((e) => e.to).toString(), style: Theme.of(context).textTheme.displayMedium,),
-                      Text("station 11 : Fifth Settlement Elnarges", style: Theme.of(context).textTheme.displaySmall,),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children: [
-                      Text(viewModel.allBusList.map((e) => e.nextStation).toString(), style: Theme.of(context).textTheme.displayMedium,),
-                      Text("station 3", style: Theme.of(context).textTheme.displaySmall,),
+                      Text("station 11 : ${viewModel.bus.to}", style: Theme.of(context).textTheme.displayMedium,),
                     ],
                   ),
                   const SizedBox(

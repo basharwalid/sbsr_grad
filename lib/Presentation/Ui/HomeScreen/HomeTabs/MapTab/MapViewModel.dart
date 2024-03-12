@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
@@ -84,10 +85,6 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
         LatLng(locationData.latitude!, locationData.longitude!), 18));
     markersSet.add(Marker(
         markerId: const MarkerId(userMarkerID),
-        icon: await BitmapDescriptor.fromAssetImage(const ImageConfiguration(
-          size: Size.fromHeight(10),
-          devicePixelRatio: 20,
-        ), "assets/images/googleLogo.png"),
         position: LatLng(locationData.latitude!, locationData.longitude!)));
     notifyListeners();
   }

@@ -5,11 +5,10 @@ class BusDto {
   String from;
   String to;
   String nextStation;
-  bool isFavorite;
+  // bool isFavorite;
 
   BusDto({required this.busName,
     required this.from,
-    required this.isFavorite,
     required this.nextStation,
     required this.to});
 
@@ -19,7 +18,8 @@ class BusDto {
       from: json["from"],
       to: json["to"],
       nextStation: json["nextStation"],
-      isFavorite: json["isFavorite"]);
+      // isFavorite: json["isFavorite"]
+      );
 
   Map<String, dynamic> toFireStore() {
     return {
@@ -27,14 +27,12 @@ class BusDto {
       "from": from,
       "to": to,
       "nextStation": nextStation,
-      "isFavorite": isFavorite
     };
   }
 
   Bus toDomain() {
     return Bus(busName: busName,
         from: from,
-        isFavorite: isFavorite,
         nextStation: nextStation,
         to: to);
   }
