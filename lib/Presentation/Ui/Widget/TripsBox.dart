@@ -21,7 +21,7 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> widget.callBackFunction(widget.bus),
+      onTap: () => widget.callBackFunction(widget.bus),
       child: Stack(
         alignment: Alignment.topRight,
         children: [
@@ -44,7 +44,10 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
                     const SizedBox(
                       width: 10,
                     ),
-                    Text("From:" , style: Theme.of(context).textTheme.displayMedium,),
+                    Text(
+                      "From:",
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
                     const SizedBox(
                       width: 10,
                     ),
@@ -67,7 +70,10 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
                     const SizedBox(
                       width: 10,
                     ),
-                    Text("To: " , style: Theme.of(context).textTheme.displayMedium,),
+                    Text(
+                      "To: ",
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
                     const SizedBox(
                       width: 10,
                     ),

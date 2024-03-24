@@ -12,6 +12,7 @@ import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditPro
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeView.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginView.dart';
 import 'package:sbsr_grad/Presentation/Ui/SignUpScreen/SignUpView.dart';
+import 'package:sbsr_grad/Presentation/Ui/splash%20screen/splashScreenView.dart';
 import 'package:sbsr_grad/firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -67,9 +68,14 @@ class MyApp extends StatelessWidget {
         ForgetPasswordView.routeName: (_) => const ForgetPasswordView(),
         HomeView.routeName: (_) => const HomeView(),
         EditProfileView.routeName: (_) => const EditProfileView(),
-        BusTripDetailsView.routeName: (_) =>  BusTripDetailsView(),
+        BusTripDetailsView.routeName: (_) => BusTripDetailsView(),
+        SplashScreen.routeName: (_) => SplashScreen(
+              firstTime: firsTime,
+              isLoggedIn: isLoggedIn,
+              user: user,
+            )
       },
-      initialRoute: firsTime ? IntroView.routeName : isLoggedIn || user != null ? HomeView.routeName : LoginScreenView.routeName,
+      initialRoute: SplashScreen.routeName,
       theme: MyTheme.greenTheme,
       darkTheme: MyTheme.purpleTheme,
       themeMode: themeProvider.getTheme(),

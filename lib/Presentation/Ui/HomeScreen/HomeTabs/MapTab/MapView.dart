@@ -34,8 +34,7 @@ class _MapViewState extends BaseState<MapView, MapViewModel>
                     onMapCreated: (GoogleMapController controller) {
                       viewModel.mapController = controller;
                       viewModel.drawUserMarker();
-                     },
-
+                    },
                   ),
                   const SizedBox(
                     height: 20,
@@ -43,14 +42,19 @@ class _MapViewState extends BaseState<MapView, MapViewModel>
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SearchBar(
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
-                      backgroundColor: MaterialStateProperty.all(MyTheme.purple),
-                      leading: const Icon(Icons.search , color: MyTheme.offWhite,),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(8)),
+                      backgroundColor:
+                          MaterialStateProperty.all(MyTheme.purple),
+                      leading: const Icon(
+                        Icons.search,
+                        color: MyTheme.offWhite,
+                      ),
                       hintText: "Search for a Station",
                       hintStyle: MaterialStateProperty.all(Theme.of(context)
                           .textTheme
                           .displayMedium!
-                          .copyWith(color: MyTheme.offWhite,fontSize: 14)),
+                          .copyWith(color: MyTheme.offWhite, fontSize: 14)),
                     ),
                   ),
                 ]),

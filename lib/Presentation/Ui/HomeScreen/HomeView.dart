@@ -38,8 +38,8 @@ class _HomeViewState extends BaseState<HomeView, HomeViewModel> implements HomeN
               )
               ,BottomNavigationBarItem(
                   label: "History",
-                  icon: Icon(Icons.watch_later_outlined , size: 30,),
-                  activeIcon: Icon(Icons.watch_later, size: 30,)
+                  icon: Icon(Bootstrap.heart , size: 25,),
+                  activeIcon: Icon(Bootstrap.heart_fill, size: 25,)
               )
               ,BottomNavigationBarItem(
                   label: "Profile",

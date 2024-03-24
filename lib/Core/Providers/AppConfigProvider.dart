@@ -8,7 +8,6 @@ class AppConfigProvider extends ChangeNotifier {
 
   void updateUser({required User user}){
     this.user = user;
-    print(user.email??"no email found");
     notifyListeners();
   }
 

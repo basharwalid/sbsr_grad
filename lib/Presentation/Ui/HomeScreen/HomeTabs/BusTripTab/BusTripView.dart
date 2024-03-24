@@ -52,28 +52,10 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
                     .displayMedium!
                     .copyWith(color: MyTheme.offWhite),
               ),
-              leading: const Icon(CupertinoIcons.search),
+              leading: const Icon(Icons.search , color: MyTheme.offWhite,),
               padding: MaterialStateProperty.all(
-                  const EdgeInsets.symmetric(horizontal: 12)),
+                  const EdgeInsets.symmetric(horizontal: 12 , vertical: 8)),
             ),
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20),
-            //   height: 50,
-            //   width: double.infinity,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(25),
-            //     color: MyTheme.purple,
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       const Icon(Icons.search_outlined, size: 30, color: MyTheme.lightPurple,),
-            //       const SizedBox(
-            //         width: 20,
-            //       ),
-            //       Text("Search", style: Theme.of(context).textTheme.displayLarge,),
-            //     ],
-            //   ),
-            // ),
             const SizedBox(
               height: 20,
             ),
