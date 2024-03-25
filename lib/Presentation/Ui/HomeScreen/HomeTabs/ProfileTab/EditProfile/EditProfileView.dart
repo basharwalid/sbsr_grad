@@ -54,19 +54,30 @@ class _EditProfileViewState
                           ),
                           Stack(
                             children: [
-                              Container(
-                                clipBehavior: Clip.antiAlias,
+                              viewModel.image == null? viewModel.user!.imageURL != ""?Container(
                                 width: MediaQuery.sizeOf(context).width * 0.4,
                                 height: MediaQuery.sizeOf(context).width * 0.4,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(1000),
-                                    color: MyTheme.offWhite),
-                                child: viewModel.image == null
-                                    ? Lottie.asset(
-                                    "assets/json/UserNotFound.json")
-                                    : CachedNetworkImage(
-                                  imageUrl: viewModel.user!.imageURL!,
-                                  fit: BoxFit.cover,
+                                    image: DecorationImage(
+                                      image: NetworkImage(viewModel.user!.imageURL!),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.circular(100)
+                                ),
+                              ):
+                              Image.asset(
+                                viewModel.themeProvider!.isPurple()
+                                    ? "Assets/Images/DarkLogo2.png"
+                                    : "Assets/Images/LightLogo2.png",
+                              ):Container(
+                                width: MediaQuery.sizeOf(context).width * 0.4,
+                                height: MediaQuery.sizeOf(context).width * 0.4,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: FileImage(File(viewModel.image!.path)),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.circular(100)
                                 ),
                               ),
                               Positioned(
@@ -92,7 +103,7 @@ class _EditProfileViewState
                           ),
                           CustomTextFormField(
                             controller: viewModel.nameController,
-                            hintText: viewModel.user!.name,
+                            hintText: "Edit your Name",
                             prefixIcon: const Icon(EvaIcons.file_text_outline),
                             validator: viewModel.nameValidation,
                             inputType: TextInputType.name,
@@ -106,7 +117,7 @@ class _EditProfileViewState
                           ),
                           CustomTextFormField(
                               controller: viewModel.emailController,
-                              hintText: viewModel.user!.email,
+                              hintText: "Edit your Email",
                               prefixIcon: const Icon(Icons.email_outlined),
                               validator: viewModel.emailValidation,
                               inputType: TextInputType.emailAddress,
@@ -119,8 +130,8 @@ class _EditProfileViewState
                           ),
                           CustomTextFormField(
                               controller: viewModel.phoneController,
-                              hintText: viewModel.user!.phoneNumber,
-                              prefixIcon: const Icon(Icons.call_rounded),
+                              hintText: "Edit your phone number",
+                              prefixIcon: const Icon(Icons.phone),
                               validator: viewModel.phoneValidation,
                               inputType: TextInputType.phone,
                               suffixIcon: const Icon(

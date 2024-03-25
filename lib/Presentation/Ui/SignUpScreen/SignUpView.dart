@@ -60,9 +60,14 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                             child:  viewModel.image == null
                                 ? Lottie.asset(
                                 "assets/json/UserNotFound.json")
-                                : CachedNetworkImage(
-                              imageUrl: viewModel.image.toString(),
-                              fit: BoxFit.cover,
+                                :Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: FileImage(File(viewModel.image!.path)),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20)
+                              ),
                             ),
                           ),
                           Positioned(

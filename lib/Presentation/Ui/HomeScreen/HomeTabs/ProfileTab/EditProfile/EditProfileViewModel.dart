@@ -111,8 +111,7 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
           name: provider!.getUser()!.displayName!,
           password: "Private",
           phoneNumber: provider!.getUser()!.phoneNumber!,
-          imageURL: provider!.getUser()!.photoURL!
-      );
+          imageURL: provider!.getUser()!.photoURL ?? "");
       nameController.text = user!.name;
       emailController.text = user!.email;
       phoneController.text = user!.phoneNumber;
@@ -121,12 +120,15 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
       if (e is TimeOutOperationsException) {
         navigator!.showFailMessage(
             message: e.errorMessage, backgroundColor: MyTheme.red);
+        notifyListeners();
       } else if (e is FirebaseUserAuthException) {
         navigator!.showFailMessage(
             message: e.errorMessage, backgroundColor: MyTheme.red);
+        notifyListeners();
       } else if (e is UnknownException) {
         navigator!.showFailMessage(
             message: e.errorMessage, backgroundColor: MyTheme.red);
+        notifyListeners();
       }
     }
   }

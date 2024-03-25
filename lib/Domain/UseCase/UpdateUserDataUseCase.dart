@@ -27,7 +27,7 @@ class UpdateUserDataUseCase {
     if (userExist) {
       await repository.updateUserData(user: user, uid: uid);
     } else {
-      await repository.createUserInFirebaseAuth(user);
+      await repository.addUserToFirebaseFireStore(user: user , uid: uid);
     }
     return response;
   }
