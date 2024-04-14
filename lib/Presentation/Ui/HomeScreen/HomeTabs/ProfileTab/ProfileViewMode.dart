@@ -4,7 +4,6 @@ import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 import 'package:sbsr_grad/Domain/UseCase/GetUserDataUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/userSignOutUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileNavigator.dart';
-import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileView.dart';
 
 class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
   UserSignOutUseCase userSignOutUseCase;

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-NotificationsManager injectNotificationsManager(){
+NotificationsManager injectNotificationsManager() {
   return NotificationsManager.getInstance();
 }
-
 
 class NotificationsManager {
   NotificationsManager._();
@@ -19,7 +18,7 @@ class NotificationsManager {
       FlutterLocalNotificationsPlugin();
 
   Future<void> initNotifications() async {
-    flutterLocalNotificationsPlugin
+    await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
@@ -53,14 +52,18 @@ class NotificationsManager {
     String body,
   ) async {
     const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('1', 'SPSR',
+        AndroidNotificationDetails('1', 'SBSR',
+            // icon: "splash",
             channelDescription: 'Bus Stop Reminder',
+            channelShowBadge: true,
+            color: Color(0xFF29384D),
+            colorized: true,
             importance: Importance.max,
             priority: Priority.high,
             ticker: 'ticker');
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
     await flutterLocalNotificationsPlugin
-        .show(0, title, body, notificationDetails, payload: 'SPSR');
+        .show(0, title, body, notificationDetails, payload: 'SBSR');
   }
 }

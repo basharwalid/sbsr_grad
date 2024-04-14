@@ -1,20 +1,18 @@
 import 'dart:async';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
+import 'package:sbsr_grad/Presentation/Model/Marker.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/MapTab/MapNavigator.dart';
 
 class MapViewModel extends BaseViewModel<MapNavigator> {
   var locationManager = Location();
-  static const String mtiMarker = 'mobil-elNarges';
-  static const String userMarkerID = 'user-marker';
-  Set<Marker> markersSet = {
-    const Marker(
-        markerId: MarkerId(mtiMarker), position: LatLng(29.9930348, 31.3087929))
-  };
+  static const String obour = "obour";
+  static const String ainShams = "Ain-Shams";
+  static const String mtiMarker = 'mti';
+  static const String tagmoaa = 'tagmoaa';
+  List<Marker> markerList = MyMarker.getListOfMarkers();
   var myHome = const CameraPosition(
     target: LatLng(30.0066885, 31.4531664),
     zoom: 16,
@@ -83,14 +81,17 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
     var locationData = await locationManager.getLocation();
     mapController?.animateCamera(CameraUpdate.newLatLngZoom(
         LatLng(locationData.latitude!, locationData.longitude!), 18));
-    markersSet.add(Marker(
-        markerId: const MarkerId(userMarkerID),
-        position: LatLng(locationData.latitude!, locationData.longitude!)));
+    for(int i =0; i<markerList.length; i++){
+          markerList.add(Marker(
+          markerId: MarkerId(markerList[i].markerId.value),
+          position: LatLng(markerList[i].position.latitude, markerList[i].position.longitude)));
+    }
     notifyListeners();
   }
 
   @override
   void dispose() {
+    mapController;
     trackingService?.cancel();
     super.dispose();
   }

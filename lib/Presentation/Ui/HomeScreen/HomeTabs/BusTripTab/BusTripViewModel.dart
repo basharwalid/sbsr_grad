@@ -10,7 +10,7 @@ class BusTripViewModel extends BaseViewModel<BusTripNavigator> {
   String? errorMessage;
   bool loading = true;
   List<Bus> allBusList = [];
-
+  List<Bus> searchResults = [];
   BusTripViewModel({required this.useCase});
 
   goToDetailsScreen(Bus bus) {
@@ -32,4 +32,5 @@ class BusTripViewModel extends BaseViewModel<BusTripNavigator> {
       notifyListeners();
     }
   }
+
 }

@@ -6,9 +6,14 @@ import 'package:sbsr_grad/Domain/Models/Bus.dart';
 class BusTripDetailsContainer extends StatefulWidget {
   Function callBackFunction;
   Bus bus;
+  // Function favoriteCallBack;
 
-  BusTripDetailsContainer(
-      {required this.callBackFunction, super.key, required this.bus});
+  BusTripDetailsContainer({required this.callBackFunction,
+    super.key,
+    required this.bus,
+    // required this.favoriteCallBack}
+  }
+      );
 
   @override
   State<BusTripDetailsContainer> createState() =>
@@ -98,7 +103,7 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
               child: InkWell(
                 borderRadius:
                     const BorderRadius.only(topRight: Radius.circular(20)),
-                onTap: onFavoriteClick,
+                onTap: () {},
                 child: isSelected
                     ? const Icon(
                         EvaIcons.heart,

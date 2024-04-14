@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
@@ -12,8 +10,6 @@ import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditPro
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileViewMode.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginView.dart';
-import 'package:sbsr_grad/Presentation/Ui/Widget/CustomField.dart';
-import 'package:sbsr_grad/Presentation/Ui/Widget/UserData.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});

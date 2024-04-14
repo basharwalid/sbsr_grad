@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
-import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 
 class UserData extends StatelessWidget {
   User user;

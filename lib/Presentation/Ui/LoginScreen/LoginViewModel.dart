@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
-import 'package:sbsr_grad/Domain/Exceptions/FirebaseUserDatabaseException.dart';
 import 'package:sbsr_grad/Domain/Models/MyUser.dart';
 import 'package:sbsr_grad/Domain/UseCase/CreateAccountUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/SignInWithGoogleUseCase.dart';

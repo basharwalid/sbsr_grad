@@ -5,12 +5,11 @@ class Bus {
   String from;
   String to;
   String nextStation;
-  // bool isFavorite;
+  bool isFavorite = false;
 
   Bus(
       {required this.busName,
       required this.from,
-      // required this.isFavorite,
       required this.nextStation,
       required this.to});
 
@@ -18,7 +17,6 @@ class Bus {
     return BusDto(
         busName: busName,
         from: from,
-        // isFavorite: isFavorite,
         nextStation: nextStation,
         to: to);
   }

@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Notifications/NotificationsManagere.dart';
 import 'package:sbsr_grad/Core/Providers/AppConfigProvider.dart';
 import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Data/Firebase/FirebaseBusRealTimeDatabase.dart';
+import 'package:sbsr_grad/Data/Models/HiveBusModel.dart';
 import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordView.dart';
 import 'package:sbsr_grad/Presentation/Ui/GetStarted/IntroView.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsView.dart';
@@ -58,7 +60,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp(
       {super.key, required this.firsTime, this.user, required this.isLoggedIn});
-
+  static GlobalKey<NavigatorState> navigatorState =GlobalKey<NavigatorState>();
   bool isLoggedIn;
   bool firsTime;
   User? user;

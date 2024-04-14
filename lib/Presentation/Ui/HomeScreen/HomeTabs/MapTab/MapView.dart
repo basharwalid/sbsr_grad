@@ -16,6 +16,11 @@ class MapView extends StatefulWidget {
 class _MapViewState extends BaseState<MapView, MapViewModel>
     implements MapNavigator {
   @override
+  void dispose() {
+    viewModel.mapController;
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     viewModel.askUserForPermissionAndService();
     super.build(context);
@@ -28,7 +33,7 @@ class _MapViewState extends BaseState<MapView, MapViewModel>
               Expanded(
                 child: Stack(children: [
                   GoogleMap(
-                    markers: viewModel.markersSet,
+                    markers: viewModel.markerList.toSet(),
                     mapType: MapType.normal,
                     initialCameraPosition: viewModel.myHome,
                     onMapCreated: (GoogleMapController controller) {
