@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
+import 'package:sbsr_grad/Domain/UseCase/getAllFavoriteBusUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsView.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/FavoriteTab/FavoriteNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/FavoriteTab/FavoriteViewModel.dart';
@@ -25,6 +26,7 @@ class _FavoriteViewState extends BaseState<FavoriteView, FavoriteViewModel> impl
           const SizedBox(
             height: 20,
           ),
+
         ],
       ),
     );
@@ -32,7 +34,7 @@ class _FavoriteViewState extends BaseState<FavoriteView, FavoriteViewModel> impl
 
   @override
   FavoriteViewModel initViewModel() {
-    return FavoriteViewModel();
+    return FavoriteViewModel(useCase: injectGetAllFavoriteBusUseCase());
   }
 
   @override

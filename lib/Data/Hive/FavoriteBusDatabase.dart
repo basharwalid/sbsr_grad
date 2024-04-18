@@ -1,3 +1,4 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sbsr_grad/Data/Models/HiveBusModel.dart';
@@ -10,9 +11,9 @@ class FavoriteBusDatabase {
     Hive.registerAdapter(HiveBusModelAdapter());
     await Hive.openBox("BusFavorite");
   }
-  void writeDataLocalDatabase(HiveBusModel hiveBusModel)async{
+  Future<void> writeDataLocalDatabase(HiveBusModel hiveBusModel)async{
     Box<HiveBusModel> busFavoriteBox = Hive.box<HiveBusModel>("BusFavorite");
-    await busFavoriteBox.add(hiveBusModel);
+     await busFavoriteBox.add(hiveBusModel);
   }
 
   List<HiveBusModel> readDataLocalDatabase(){
@@ -29,4 +30,9 @@ class FavoriteBusDatabase {
   //   Box<HiveBusModel> busFavoriteBox = Hive.box<HiveBusModel>("BusFavorite");
   //   busFavoriteBox.delete();
   // }
+  Future<List<HiveBusModel>> getAllFavoriteBus()async{
+    var box = Hive.box("BusFavorite");
+    var allBusList = box.values.cast<HiveBusModel>().toList();
+    return allBusList;
+  }
 }

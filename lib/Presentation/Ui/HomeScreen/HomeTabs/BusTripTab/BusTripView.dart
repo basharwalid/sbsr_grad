@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/Models/Bus.dart';
+import 'package:sbsr_grad/Domain/UseCase/AddBusToFavoriteUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/getAllBusUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsView.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripTab/BusTripNavigator.dart';
@@ -51,9 +52,12 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
                     .displayMedium!
                     .copyWith(color: MyTheme.offWhite),
               ),
-              leading: const Icon(Icons.search , color: MyTheme.offWhite,),
+              leading: const Icon(
+                Icons.search,
+                color: MyTheme.offWhite,
+              ),
               padding: MaterialStateProperty.all(
-                  const EdgeInsets.symmetric(horizontal: 12 , vertical: 8)),
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
             ),
             const SizedBox(
               height: 20,
@@ -84,13 +88,19 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
 
   @override
   BusTripViewModel initViewModel() {
-    return BusTripViewModel(useCase: injectGetAllBusUseCase());
+    return BusTripViewModel(
+        useCase: injectGetAllBusUseCase(),
+        addBusToFavoriteUseCase: injectAddBusToFavoriteUseCase());
   }
 
   @override
   goToDetailsScreen({required Bus bus}) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => BusTripDetailsView(bus: bus,),));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => BusTripDetailsView(
+            bus: bus,
+          ),
+        ));
   }
-
-
 }
