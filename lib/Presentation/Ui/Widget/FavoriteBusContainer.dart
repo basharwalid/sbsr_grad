@@ -3,30 +3,30 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/Models/Bus.dart';
 
-class BusTripDetailsContainer extends StatefulWidget {
+class FavoriteBusContainer extends StatefulWidget {
   Function callBackFunction;
-  Bus bus;
-  // Function favoriteCallBack;
+  Bus hiveBusModel;
 
-  BusTripDetailsContainer({required this.callBackFunction,
+  Function favoriteCallBack;
+
+  FavoriteBusContainer({
+    required this.callBackFunction,
     super.key,
-    required this.bus,
-    // required this.favoriteCallBack}
-  }
-      );
+    required this.hiveBusModel,
+    required this.favoriteCallBack}
+  );
 
   @override
-  State<BusTripDetailsContainer> createState() =>
-      _BusTripDetailsContainerState();
+  State<FavoriteBusContainer> createState() => _FavoriteBusContainerState();
 }
 
-class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
+class _FavoriteBusContainerState extends State<FavoriteBusContainer> {
   bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => widget.callBackFunction(widget.bus),
+      onTap: () => widget.callBackFunction(widget.hiveBusModel),
       child: Stack(
         alignment: Alignment.topRight,
         children: [
@@ -57,7 +57,7 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
                       width: 10,
                     ),
                     Text(
-                      widget.bus.from,
+                      widget.hiveBusModel.from,
                       style: Theme.of(context).textTheme.displayMedium,
                     )
                   ],
@@ -83,7 +83,7 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
                       width: 10,
                     ),
                     Text(
-                      widget.bus.to,
+                      widget.hiveBusModel.to,
                       style: Theme.of(context).textTheme.displayMedium,
                     )
                   ],
@@ -103,27 +103,23 @@ class _BusTripDetailsContainerState extends State<BusTripDetailsContainer> {
               child: InkWell(
                 borderRadius:
                     const BorderRadius.only(topRight: Radius.circular(20)),
-                onTap: () {},
-                child: isSelected
-                    ? const Icon(
-                        EvaIcons.heart,
-                        size: 30,
-                        color: MyTheme.lightPurple,
-                      )
-                    : const Icon(
+                  onTap: () {
+                    widget.favoriteCallBack(widget.hiveBusModel);
+                  },
+                child: widget.hiveBusModel.isFavorite
+                    ?  const Icon(
                         LineAwesome.heart,
                         color: MyTheme.lightPurple,
                         size: 30,
-                      ),
+                      ): const Icon(
+                  EvaIcons.heart,
+                  size: 30,
+                  color: MyTheme.lightPurple,
+                )
+
               )),
         ],
       ),
     );
-  }
-
-  void onFavoriteClick() {
-    setState(() {
-      isSelected = !isSelected;
-    });
   }
 }

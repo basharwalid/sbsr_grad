@@ -33,10 +33,6 @@ class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDeta
             const SizedBox(
               height: 30,
             ),
-            Text("Bus Details",style: Theme.of(context).textTheme.displayLarge),
-            const SizedBox(
-              height: 30,
-            ),
             Container(
               padding: const EdgeInsets.all(20),
               width: double.infinity,
@@ -79,25 +75,30 @@ class _BusTripDetailsViewState extends BaseState<BusTripDetailsView, BusTripDeta
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
-            Row(
-              children: [
-                Container(
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: MyTheme.white,
-                        width: 2,
-                      )
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: MyTheme.white,
+                          width: 2,
+                        )
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 30,
-                ),
-                Text("Remind me when the bus is near the station", style: Theme.of(context).textTheme.displayMedium)
-              ],
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text("Remind me when the bus is near the station", style: Theme.of(context).textTheme.displayMedium,
+                    maxLines: 2,
+                  )
+                ],
+              ),
             )
           ],
         ),

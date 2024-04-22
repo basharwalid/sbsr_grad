@@ -81,18 +81,21 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
     var locationData = await locationManager.getLocation();
     mapController?.animateCamera(CameraUpdate.newLatLngZoom(
         LatLng(locationData.latitude!, locationData.longitude!), 18));
-    for(int i =0; i<markerList.length; i++){
-          markerList.add(Marker(
-          markerId: MarkerId(markerList[i].markerId.value),
-          position: LatLng(markerList[i].position.latitude, markerList[i].position.longitude)));
-    }
+    // for(int i =0; i<markerList.length; i++){
+    //       markerList.add(Marker(
+    //       markerId: MarkerId(markerList[i].markerId.value),
+    //       position: LatLng(markerList[i].position.latitude, markerList[i].position.longitude)));
+    // }
+    const Marker(
+        markerId: MarkerId(obour), position: LatLng(30.2502862,31.4895708));
+    const Marker(
+    markerId: MarkerId(mtiMarker), position: LatLng(30.1365293, 31.3257901));
+    const Marker(
+    markerId: MarkerId(ainShams), position: LatLng(29.9930348, 31.3087929));
+    const Marker(
+    markerId: MarkerId(tagmoaa), position: LatLng(30.0046004,31.4534184));
     notifyListeners();
   }
 
-  @override
-  void dispose() {
-    mapController;
-    trackingService?.cancel();
-    super.dispose();
-  }
+
 }

@@ -98,7 +98,7 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                         ],
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 15,
                       ),
                       ElevatedButton(
                           onPressed: value.signInWithEmailAndPassword,

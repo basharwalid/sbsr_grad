@@ -1,7 +1,9 @@
 import 'package:hive/hive.dart';
+import 'package:sbsr_grad/Domain/Models/Bus.dart';
 part 'HiveBusModel.g.dart';
+
 @HiveType(typeId: 0)
-class HiveBusModel{
+class HiveBusModelDTO {
   @HiveField(0)
   String busName;
   @HiveField(1)
@@ -10,7 +12,20 @@ class HiveBusModel{
   String to;
   @HiveField(3)
   String nextStation;
-  @HiveField(4)
-  String uid;
-  HiveBusModel({required this.busName , required this.from, required this.to, required this.nextStation,required this.uid});
+
+
+  HiveBusModelDTO(
+      {required this.busName,
+      required this.from,
+      required this.to,
+      required this.nextStation});
+
+  Bus toDomain() {
+    return Bus(
+        busName: busName,
+        from: from,
+        to: to,
+        nextStation: nextStation,
+        );
+  }
 }

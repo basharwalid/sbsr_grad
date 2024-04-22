@@ -1,14 +1,19 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/Models/Bus.dart';
 import 'package:sbsr_grad/Domain/UseCase/AddBusToFavoriteUseCase.dart';
+import 'package:sbsr_grad/Domain/UseCase/DeleteBusFromFavoriteUseCase.dart';
+import 'package:sbsr_grad/Domain/UseCase/SearchForBusUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/getAllBusUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripDetailsScreen/BusTripDetailsView.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripTab/BusTripNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/BusTripTab/BusTripViewModel.dart';
-import 'package:sbsr_grad/Presentation/Ui/Widget/TripsBox.dart';
+import 'package:sbsr_grad/Presentation/Ui/Widget/BusTripDetailsContainer.dart';
 
 class BusTripView extends StatefulWidget {
   const BusTripView({super.key});
@@ -36,31 +41,35 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
           children: [
             AppBar(
               surfaceTintColor: Colors.transparent,
-              title: const Text("Bus Trips List"),
+              title:  Consumer<BusTripViewModel>(
+                builder: (context, value, child) => SearchBar(
+                  textStyle: MaterialStateProperty.all(
+                      Theme.of(context).textTheme.displayMedium),
+                  elevation: MaterialStateProperty.all(0),
+                  backgroundColor: MaterialStateProperty.all(
+                      MyTheme.lightPurple.withOpacity(0.5)),
+                  hintText: "Search",
+                  hintStyle: MaterialStateProperty.all(
+                    Theme.of(context)
+                        .textTheme
+                        .displayMedium!
+                        .copyWith(color: MyTheme.offWhite),
+                  ),
+                  leading: const Icon(
+                    EvaIcons.search,
+                    color: MyTheme.offWhite,
+                  ),
+                  padding: MaterialStateProperty.all(
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
+                  controller: value.searchController,
+                  onChanged: (value) {
+                    viewModel.searchForBus(value);
+                  },
+                ),
+              ),
             ),
             const SizedBox(
-              height: 20,
-            ),
-            SearchBar(
-              elevation: MaterialStateProperty.all(0),
-              backgroundColor: MaterialStateProperty.all(
-                  MyTheme.lightPurple.withOpacity(0.5)),
-              hintText: "Search",
-              hintStyle: MaterialStateProperty.all(
-                Theme.of(context)
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(color: MyTheme.offWhite),
-              ),
-              leading: const Icon(
-                Icons.search,
-                color: MyTheme.offWhite,
-              ),
-              padding: MaterialStateProperty.all(
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
-            ),
-            const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Consumer<BusTripViewModel>(
               builder: (context, value, child) => Expanded(
@@ -69,14 +78,15 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
                     children: [
                       BusTripDetailsContainer(
                         callBackFunction: value.goToDetailsScreen,
-                        bus: value.allBusList[index],
+                        bus: value.buses[index],
+                        onFavoriteClick: viewModel.favoriteState,
                       ),
                       const SizedBox(
                         height: 30,
                       ),
                     ],
                   ),
-                  itemCount: value.allBusList.length,
+                  itemCount: value.buses.length,
                 ),
               ),
             )
@@ -90,7 +100,10 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
   BusTripViewModel initViewModel() {
     return BusTripViewModel(
         useCase: injectGetAllBusUseCase(),
-        addBusToFavoriteUseCase: injectAddBusToFavoriteUseCase());
+        addBusToFavoriteUseCase: injectAddBusToFavoriteUseCase(),
+        searchForBusUseCase: injectSearchForBusUseCase(),
+      deleteBusFromFavoriteUseCase: injectDeleteBusFromFavoriteUseCase()
+    );
   }
 
   @override

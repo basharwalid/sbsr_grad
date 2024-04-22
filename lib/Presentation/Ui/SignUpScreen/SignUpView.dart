@@ -89,9 +89,6 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                       const SizedBox(
                         height: 30,
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
                       CustomTextFormField(
                           controller: viewModel.emailController,
                           hintText: "Email address",

@@ -1,24 +1,30 @@
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sbsr_grad/Data/Hive/FavoriteBusDatabase.dart';
-import 'package:sbsr_grad/Data/Models/HiveBusModel.dart';
 import 'package:sbsr_grad/Domain/DataSource/HiveLocalDatabaseDataSource.dart';
+import 'package:sbsr_grad/Domain/Models/Bus.dart';
 
-HiveLocalDatabaseDataSource injectHiveLocalDatabaseDataSource(){
+HiveLocalDatabaseDataSource injectHiveLocalDatabaseDataSource() {
   return HiveLocalDatabaseDataSourceImpl(database: injectFavoriteBusDatabase());
 }
+
 class HiveLocalDatabaseDataSourceImpl implements HiveLocalDatabaseDataSource {
   FavoriteBusDatabase database;
 
   HiveLocalDatabaseDataSourceImpl({required this.database});
 
   @override
-  Future<List<HiveBusModel>> getAllFavoriteBus() async {
-    var allBusList = database.getAllFavoriteBus();
-    return allBusList;
+  Future<List<Bus>> getAllFavoriteBus() async {
+    var response = await database.getAllFavoriteBus();
+    return response.map((e) => e.toDomain()).toList();
   }
 
   @override
-  Future<void> addBusToFavorite({required HiveBusModel busModel}) async{
-    await database.writeDataLocalDatabase(busModel);
+  Future<void> addBusToFavorite({required Bus busModel}) async {
+    await database.writeDataLocalDatabase(busModel.toBus());
+  }
+
+  @override
+  Future<void> deleteFromLocalDatabase(
+      {required int index, required Bus bus}) async {
+    await database.deleteDataLocalDatabase(index, bus.toDataSource());
   }
 }

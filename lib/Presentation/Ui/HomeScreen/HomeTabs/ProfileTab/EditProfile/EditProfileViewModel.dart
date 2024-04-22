@@ -21,8 +21,8 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
   EditProfileViewModel({required this.useCase, required this.userDataUseCase});
 
   String? errorMessage;
-  TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
@@ -64,14 +64,6 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
     }
   }
 
-  Future<void> updateUserProfile(User user) async {
-    await _firestore.collection('Users').doc(user.uid).update({
-      'name': nameController.text,
-      'email': emailController.text,
-      'phoneNumber': phoneController.text,
-    });
-  }
-
   updateUserData() async {
     navigator!.showLoadingMessage(message: "Loading");
     try {
@@ -81,6 +73,7 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
       var response = await useCase.invoke(
           user: user!, uid: provider!.getUser()!.uid, file: image);
       provider!.updateUser(user: response);
+      notifyListeners();
       navigator!.goBack();
       navigator!.showSuccessMessage(
           message: "Account updated successfully",
@@ -90,12 +83,15 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
       if (e is TimeOutOperationsException) {
         navigator!.showFailMessage(
             message: e.errorMessage, backgroundColor: MyTheme.red);
+        notifyListeners();
       } else if (e is FirebaseUserAuthException) {
         navigator!.showFailMessage(
             message: e.errorMessage, backgroundColor: MyTheme.red);
+        notifyListeners();
       } else if (e is UnknownException) {
         navigator!.showFailMessage(
             message: e.errorMessage, backgroundColor: MyTheme.red);
+        notifyListeners();
       }
     }
   }
@@ -121,11 +117,7 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
         navigator!.showFailMessage(
             message: e.errorMessage, backgroundColor: MyTheme.red);
         notifyListeners();
-      } else if (e is FirebaseUserAuthException) {
-        navigator!.showFailMessage(
-            message: e.errorMessage, backgroundColor: MyTheme.red);
-        notifyListeners();
-      } else if (e is UnknownException) {
+      }else if (e is UnknownException) {
         navigator!.showFailMessage(
             message: e.errorMessage, backgroundColor: MyTheme.red);
         notifyListeners();

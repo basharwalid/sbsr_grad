@@ -18,6 +18,7 @@ class _MapViewState extends BaseState<MapView, MapViewModel>
   @override
   void dispose() {
     viewModel.mapController;
+    viewModel.trackingService?.cancel();
     super.dispose();
   }
   @override

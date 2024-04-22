@@ -1,6 +1,7 @@
-import 'package:sbsr_grad/Data/Models/HiveBusModel.dart';
+import 'package:sbsr_grad/Domain/Models/Bus.dart';
 
-abstract class HiveLocalDatabaseDataSource{
-  Future<List<HiveBusModel>> getAllFavoriteBus();
-  Future<void> addBusToFavorite({required HiveBusModel busModel});
+abstract class HiveLocalDatabaseDataSource {
+  Future<List<Bus>> getAllFavoriteBus();
+  Future<void> addBusToFavorite({required Bus busModel});
+  Future<void> deleteFromLocalDatabase({required int index , required Bus bus});
 }

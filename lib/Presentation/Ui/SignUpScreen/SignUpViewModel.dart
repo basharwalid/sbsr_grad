@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
@@ -79,10 +82,17 @@ class SignUpViewModel extends BaseViewModel<SignUpNavigator> {
               backgroundColor: MyTheme.lightPurple,
               posActionTitle: "ok",
               posAction: goToLoginScreen);
-        } catch (e) {
+        }on FirebaseAuthException catch (e) {
           navigator!.goBack();
           navigator!.showFailMessage(
-              message: e.toString(),
+              message: e.message??"",
+              backgroundColor: MyTheme.red,
+              negAction: goToLoginScreen,
+              negActionTitle: "Cancel");
+        }on TimeoutException catch (e){
+          navigator!.goBack();
+          navigator!.showFailMessage(
+              message: e.message??"",
               backgroundColor: MyTheme.red,
               negAction: goToLoginScreen,
               negActionTitle: "Cancel");

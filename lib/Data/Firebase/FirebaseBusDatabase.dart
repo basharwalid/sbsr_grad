@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:sbsr_grad/Data/Models/BusDto.dart';
+import 'package:sbsr_grad/Domain/Models/Bus.dart';
 
-
-FirebaseBusDatabase injectFirebaseBusDatabase(){
+FirebaseBusDatabase injectFirebaseBusDatabase() {
   return FirebaseBusDatabase.getInstance();
 }
 
@@ -25,6 +26,14 @@ class FirebaseBusDatabase {
 
   Future<List<BusDto>> getAllBus() async {
     var response = await getCollectionReference()
+        .get()
+        .then((value) => value.docs.map((e) => e.data()).toList());
+    return response;
+  }
+
+  Future<List<BusDto>> searchForBus({required String query}) async {
+    var response = await getCollectionReference()
+        .where('from', isGreaterThanOrEqualTo: query)
         .get()
         .then((value) => value.docs.map((e) => e.data()).toList());
     return response;

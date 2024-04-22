@@ -1,38 +1,56 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sbsr_grad/Data/Models/BusDto.dart';
 import 'package:sbsr_grad/Data/Models/HiveBusModel.dart';
-FavoriteBusDatabase injectFavoriteBusDatabase(){
-  return FavoriteBusDatabase();
+
+FavoriteBusDatabase injectFavoriteBusDatabase() {
+  return FavoriteBusDatabase.getInstance();
 }
+
 class FavoriteBusDatabase {
-  initLocalDatabase() async {
-    await Hive.initFlutter();
-    Hive.registerAdapter(HiveBusModelAdapter());
-    await Hive.openBox("BusFavorite");
-  }
-  Future<void> writeDataLocalDatabase(HiveBusModel hiveBusModel)async{
-    Box<HiveBusModel> busFavoriteBox = Hive.box<HiveBusModel>("BusFavorite");
-     await busFavoriteBox.add(hiveBusModel);
+  FavoriteBusDatabase._();
+
+  static FavoriteBusDatabase? _instance;
+
+  static FavoriteBusDatabase getInstance() {
+    return _instance ??= FavoriteBusDatabase._();
   }
 
-  List<HiveBusModel> readDataLocalDatabase(){
-    Box<HiveBusModel> busFavoriteBox = Hive.box<HiveBusModel>("BusFavorite");
-    List<HiveBusModel> busList = busFavoriteBox.values.toList();
+  late Box<HiveBusModelDTO> box;
+
+  Future<void> initHive() async {
+    Hive.registerAdapter(HiveBusModelAdapter());
+    box = await Hive.openBox<HiveBusModelDTO>("BusFavorite");
+  }
+
+  Future<void> writeDataLocalDatabase(HiveBusModelDTO hiveBusModel) async {
+    try {
+     box = Hive.box<HiveBusModelDTO>("BusFavorite");
+      await box.add(hiveBusModel);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  List<HiveBusModelDTO> readDataLocalDatabase() {
+        box = Hive.box<HiveBusModelDTO>("BusFavorite");
+    List<HiveBusModelDTO> busList = box.values.toList();
     return busList;
   }
 
-  void updateDataLocalDatabase(HiveBusModel hiveBusModel)async{
-    Box<HiveBusModel> busFavoriteBox = Hive.box<HiveBusModel>("BusFavorite");
-    await busFavoriteBox.add(hiveBusModel);
+  void updateDataLocalDatabase(HiveBusModelDTO hiveBusModel) async {
+       box = Hive.box<HiveBusModelDTO>("BusFavorite");
+    await box.add(hiveBusModel);
   }
-  // void deleteDataLocalDatabase()async{
-  //   Box<HiveBusModel> busFavoriteBox = Hive.box<HiveBusModel>("BusFavorite");
-  //   busFavoriteBox.delete();
-  // }
-  Future<List<HiveBusModel>> getAllFavoriteBus()async{
-    var box = Hive.box("BusFavorite");
-    var allBusList = box.values.cast<HiveBusModel>().toList();
+
+  Future<void> deleteDataLocalDatabase(int index , BusDto bus)async{
+    box = Hive.box<HiveBusModelDTO>("BusFavorite");
+    box.deleteAt(index);
+  }
+  Future<List<HiveBusModelDTO>> getAllFavoriteBus() async {
+    box = Hive.box<HiveBusModelDTO>("BusFavorite");
+    var allBusList = box.values.cast<HiveBusModelDTO>().toList();
     return allBusList;
   }
 }

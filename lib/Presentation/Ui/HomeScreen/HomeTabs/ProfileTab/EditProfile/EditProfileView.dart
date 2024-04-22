@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
@@ -53,30 +56,38 @@ class _EditProfileViewState
                           ),
                           Stack(
                             children: [
-                              viewModel.image == null? viewModel.user!.imageURL != ""?Container(
+                              Container(
+                                clipBehavior: Clip.antiAlias,
                                 width: MediaQuery.sizeOf(context).width * 0.4,
                                 height: MediaQuery.sizeOf(context).width * 0.4,
                                 decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(viewModel.user!.imageURL!),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.circular(100)
-                                ),
-                              ):
-                              Image.asset(
-                                viewModel.themeProvider!.isPurple()
-                                    ? "Assets/Images/DarkLogo2.png"
-                                    : "Assets/Images/LightLogo2.png",
-                              ):Container(
-                                width: MediaQuery.sizeOf(context).width * 0.4,
-                                height: MediaQuery.sizeOf(context).width * 0.4,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: FileImage(File(viewModel.image!.path)),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.circular(100)
+                                    borderRadius:
+                                    BorderRadius.circular(100),
+                                    color: MyTheme.offWhite),
+                                child: viewModel.user!.imageURL == null
+                                    ? Container(
+                                  width: MediaQuery.sizeOf(context).width * 0.4,
+                                  height: MediaQuery.sizeOf(context).width * 0.4,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(20),
+                                  ),
+                                  child: Lottie.asset(
+                                      "assets/json/UserNotFound.json"),
+                                )
+                                    : Container(
+                                  width: MediaQuery.sizeOf(context).width * 0.4,
+                                  height: MediaQuery.sizeOf(context).width * 0.4,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(20),
+                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl: viewModel.user!.imageURL!,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                               Positioned(
