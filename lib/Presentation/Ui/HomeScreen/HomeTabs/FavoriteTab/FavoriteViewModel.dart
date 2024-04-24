@@ -19,8 +19,7 @@ class FavoriteViewModel extends BaseViewModel<FavoriteNavigator> {
   DeleteBusFromFavoriteUseCase deleteBusFromFavoriteUseCase;
 
   FavoriteViewModel(
-      {required this.useCase,
-      required this.deleteBusFromFavoriteUseCase});
+      {required this.useCase, required this.deleteBusFromFavoriteUseCase});
 
   goToDetailsScreen() {
     navigator!.goToDetailsScreen();
@@ -46,20 +45,25 @@ class FavoriteViewModel extends BaseViewModel<FavoriteNavigator> {
     }
   }
 
-
   Future<void> deleteBusFromFavorite(Bus bus) async {
     try {
-      bus.isFavorite = false;
-      await deleteBusFromFavoriteUseCase.invoke(
-          bus: bus, index: bus.favoriteIndex);
-      navigator!.showSuccessMessage(
-          message: "bus removed Successfully",
-          backgroundColor: MyTheme.green,
-          posActionTitle: "OK");
-      notifyListeners();
+      final index = allFavoriteBusList
+          .indexWhere((existingBus) => existingBus.uid == bus.uid);
+      if (index != -1) {
+        await deleteBusFromFavoriteUseCase.invoke(
+            bus: bus, index: index); // Use calculated index
+        allFavoriteBusList.removeAt(
+            index); // Remove from local list after successful deletion (optional)
+        bus.isFavorite = false; // Update object state (might not be necessary)
+        navigator!.showSuccessMessage(
+            message: "Bus removed Successfully",
+            backgroundColor: MyTheme.green,
+            posActionTitle: "Ok"
+        );
+        notifyListeners();
+      }
     } catch (error) {
       errorMessage = error.toString();
     }
-    notifyListeners();
   }
 }

@@ -1,19 +1,23 @@
 import 'package:sbsr_grad/Domain/Models/Bus.dart';
 
 class BusDto {
+  String uid;
   String busName;
   String from;
   String to;
   String nextStation;
   // bool isFavorite;
 
-  BusDto({required this.busName,
+  BusDto({
+    required this.uid,
+    required this.busName,
     required this.from,
     required this.nextStation,
     required this.to});
 
   BusDto.fromFireStore(Map<String, dynamic> json)
       : this(
+      uid: json["busID"],
       busName: json["busName"],
       from: json["from"],
       to: json["to"],
@@ -27,6 +31,7 @@ class BusDto {
       "from": from,
       "to": to,
       "nextStation": nextStation,
+      "busID" : uid
     };
   }
 
@@ -34,6 +39,8 @@ class BusDto {
     return Bus(busName: busName,
         from: from,
         nextStation: nextStation,
-        to: to);
+        to: to,
+        uid: uid
+    );
   }
 }

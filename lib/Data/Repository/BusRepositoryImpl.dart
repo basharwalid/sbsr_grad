@@ -32,7 +32,7 @@ class BusRepositoryImpl implements BusRepository {
 
   @override
   Future<void> addBusToFavorite({required Bus busModel}) async {
-    await localDatabaseDataSource.addBusToFavorite(busModel: busModel);
+    await localDatabaseDataSource.addBusToFavorite(busModel: busModel );
   }
 
   @override

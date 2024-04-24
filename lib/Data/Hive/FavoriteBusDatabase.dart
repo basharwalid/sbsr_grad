@@ -1,4 +1,3 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sbsr_grad/Data/Models/BusDto.dart';
@@ -17,40 +16,40 @@ class FavoriteBusDatabase {
     return _instance ??= FavoriteBusDatabase._();
   }
 
-  late Box<HiveBusModelDTO> box;
+  late Box<HiveBusModel> box;
 
   Future<void> initHive() async {
     Hive.registerAdapter(HiveBusModelAdapter());
-    box = await Hive.openBox<HiveBusModelDTO>("BusFavorite");
+    await Hive.openBox<HiveBusModel>("BusFavorite");
   }
 
-  Future<void> writeDataLocalDatabase(HiveBusModelDTO hiveBusModel) async {
+  Future<void> writeDataLocalDatabase(HiveBusModel hiveBusModel) async {
     try {
-     box = Hive.box<HiveBusModelDTO>("BusFavorite");
+     box = Hive.box<HiveBusModel>("BusFavorite");
       await box.add(hiveBusModel);
     } catch (e) {
       print(e);
     }
   }
 
-  List<HiveBusModelDTO> readDataLocalDatabase() {
-        box = Hive.box<HiveBusModelDTO>("BusFavorite");
-    List<HiveBusModelDTO> busList = box.values.toList();
+  List<HiveBusModel> readDataLocalDatabase() {
+        box = Hive.box<HiveBusModel>("BusFavorite");
+    List<HiveBusModel> busList = box.values.toList();
     return busList;
   }
 
-  void updateDataLocalDatabase(HiveBusModelDTO hiveBusModel) async {
-       box = Hive.box<HiveBusModelDTO>("BusFavorite");
+  void updateDataLocalDatabase(HiveBusModel hiveBusModel) async {
+       box = Hive.box<HiveBusModel>("BusFavorite");
     await box.add(hiveBusModel);
   }
 
   Future<void> deleteDataLocalDatabase(int index , BusDto bus)async{
-    box = Hive.box<HiveBusModelDTO>("BusFavorite");
+    box = Hive.box<HiveBusModel>("BusFavorite");
     box.deleteAt(index);
   }
-  Future<List<HiveBusModelDTO>> getAllFavoriteBus() async {
-    box = Hive.box<HiveBusModelDTO>("BusFavorite");
-    var allBusList = box.values.cast<HiveBusModelDTO>().toList();
+  Future<List<HiveBusModel>> getAllFavoriteBus() async {
+    box = Hive.box<HiveBusModel>("BusFavorite");
+    var allBusList = box.values.cast<HiveBusModel>().toList();
     return allBusList;
   }
 }

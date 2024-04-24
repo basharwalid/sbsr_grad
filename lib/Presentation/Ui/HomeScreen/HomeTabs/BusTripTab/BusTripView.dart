@@ -27,9 +27,9 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
   @override
   void initState() {
     super.initState();
+    if(!mounted) return;
     viewModel.getAllBus();
   }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);

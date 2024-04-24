@@ -6,26 +6,27 @@ part of 'HiveBusModel.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class HiveBusModelAdapter extends TypeAdapter<HiveBusModelDTO> {
+class HiveBusModelAdapter extends TypeAdapter<HiveBusModel> {
   @override
   final int typeId = 0;
 
   @override
-  HiveBusModelDTO read(BinaryReader reader) {
+  HiveBusModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveBusModelDTO(
+    return HiveBusModel(
       busName: fields[0] as String,
       from: fields[1] as String,
       to: fields[2] as String,
       nextStation: fields[3] as String,
+      uid: fields[4] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, HiveBusModelDTO obj) {
+  void write(BinaryWriter writer, HiveBusModel obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)
@@ -35,7 +36,9 @@ class HiveBusModelAdapter extends TypeAdapter<HiveBusModelDTO> {
       ..writeByte(2)
       ..write(obj.to)
       ..writeByte(3)
-      ..write(obj.nextStation);
+      ..write(obj.nextStation)
+      ..writeByte(4)
+      ..write(obj.uid);
   }
 
   @override
@@ -47,4 +50,23 @@ class HiveBusModelAdapter extends TypeAdapter<HiveBusModelDTO> {
       other is HiveBusModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
+
+  Future<void> migrateV1ToV2(fromVersion, currentVersion) async {
+    final box = Hive.box<HiveBusModel>("BusFavorite");
+    final values = await box.toMap().entries.toList(); // Get all data as key-value pairs
+
+    for (final entry in values) {
+      final key = entry.key;
+      final value = entry.value;
+
+      final migratedValue = HiveBusModel(
+        busName: value.busName,
+        from: value.from,
+        to: value.to,
+        nextStation: value.nextStation,
+        uid: value.uid ?? "", // Optional field with default value
+      );
+      await box.put(key, migratedValue); // Update the box with migrated data
+    }
+  }
 }

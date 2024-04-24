@@ -8,11 +8,8 @@ import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/MapTab/MapNavigato
 
 class MapViewModel extends BaseViewModel<MapNavigator> {
   var locationManager = Location();
-  static const String obour = "obour";
-  static const String ainShams = "Ain-Shams";
-  static const String mtiMarker = 'mti';
-  static const String tagmoaa = 'tagmoaa';
   List<Marker> markerList = MyMarker.getListOfMarkers();
+  List<Marker> filteredMarkers = [];
   var myHome = const CameraPosition(
     target: LatLng(30.0066885, 31.4531664),
     zoom: 16,
@@ -81,21 +78,25 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
     var locationData = await locationManager.getLocation();
     mapController?.animateCamera(CameraUpdate.newLatLngZoom(
         LatLng(locationData.latitude!, locationData.longitude!), 18));
-    // for(int i =0; i<markerList.length; i++){
-    //       markerList.add(Marker(
-    //       markerId: MarkerId(markerList[i].markerId.value),
-    //       position: LatLng(markerList[i].position.latitude, markerList[i].position.longitude)));
-    // }
-    const Marker(
-        markerId: MarkerId(obour), position: LatLng(30.2502862,31.4895708));
-    const Marker(
-    markerId: MarkerId(mtiMarker), position: LatLng(30.1365293, 31.3257901));
-    const Marker(
-    markerId: MarkerId(ainShams), position: LatLng(29.9930348, 31.3087929));
-    const Marker(
-    markerId: MarkerId(tagmoaa), position: LatLng(30.0046004,31.4534184));
-    notifyListeners();
+    for (int i = 0; i < markerList.length; i++) {
+      markerList.add(Marker(
+          markerId: MarkerId(filteredMarkers[i].markerId.value),
+          position: LatLng(filteredMarkers[i].position.latitude,
+              markerList[i].position.longitude)));
+    }
+    markerList = filteredMarkers;
   }
 
+  Future<void> searchMarkers(String searchQuery) async {
+    // 1. Find the searched marker
+    var searchedMarker = await markerList.firstWhere((marker) =>
+    marker.markerId.value.toLowerCase() == searchQuery.toLowerCase());
+
+    // 2. Handle search results
+    // Center map on the searched marker
+    final cameraUpdate = CameraUpdate.newLatLngZoom(searchedMarker.position, 16);
+    mapController?.animateCamera(cameraUpdate);
+    notifyListeners();
+  }
 
 }

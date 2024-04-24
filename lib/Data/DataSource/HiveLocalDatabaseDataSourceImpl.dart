@@ -17,14 +17,15 @@ class HiveLocalDatabaseDataSourceImpl implements HiveLocalDatabaseDataSource {
     return response.map((e) => e.toDomain()).toList();
   }
 
-  @override
-  Future<void> addBusToFavorite({required Bus busModel}) async {
-    await database.writeDataLocalDatabase(busModel.toBus());
-  }
 
   @override
   Future<void> deleteFromLocalDatabase(
       {required int index, required Bus bus}) async {
     await database.deleteDataLocalDatabase(index, bus.toDataSource());
+  }
+
+  @override
+  Future<void> addBusToFavorite({required Bus busModel})async{
+    await database.writeDataLocalDatabase(busModel.toBus());
   }
 }

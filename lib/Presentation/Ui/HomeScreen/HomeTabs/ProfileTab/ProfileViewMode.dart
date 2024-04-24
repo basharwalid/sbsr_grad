@@ -13,12 +13,11 @@ class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
 
   ProfileViewModel({required this.userSignOutUseCase, required this.getUserDataUseCase});
 
-  goToLoginScreen() {
+  void goToLoginScreen() {
     navigator!.goToLoginScreen();
   }
-
-  goToEditScreen() {
-    navigator!.goToEditScreen();
+  void goToEditProfileScreen(){
+    navigator!.goToEditProfileScreen();
   }
 
   onSignOutPress() {

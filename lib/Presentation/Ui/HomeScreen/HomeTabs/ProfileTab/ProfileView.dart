@@ -13,6 +13,7 @@ import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginView.dart';
 
 class ProfileView extends StatefulWidget {
   static const String routeName = 'ProfileView';
+
   const ProfileView({super.key});
 
   @override
@@ -38,84 +39,74 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
               Center(child: Lottie.asset("assets.json/UserNotFound.json"));
             } else if (value.user != null) {
               return Scaffold(
-                body: SingleChildScrollView(
-                  physics: const FixedExtentScrollPhysics(),
-                  child: SafeArea(
-                    child: Stack(
-                      children: [
-                        Column(
+                body: SafeArea(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
                           children: [
-                            AppBar(
-                              title: Text(
-                                "Profile",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(fontSize: 22),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: Column(
-                                children: [
-                                   Container(
+                            Container(
+                              clipBehavior: Clip.antiAlias,
+                              width: MediaQuery.sizeOf(context).width * 0.4,
+                              height: MediaQuery.sizeOf(context).width * 0.4,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: MyTheme.offWhite),
+                              child: viewModel.user!.imageURL == null
+                                  ? Container(
+                                      width:
+                                          MediaQuery.sizeOf(context).width * 0.4,
+                                      height:
+                                          MediaQuery.sizeOf(context).width * 0.4,
                                       clipBehavior: Clip.antiAlias,
-                                      width: MediaQuery.sizeOf(context).width * 0.4,
-                                      height: MediaQuery.sizeOf(context).width * 0.4,
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          color: MyTheme.offWhite),
-                                      child: viewModel.user!.imageURL == null
-                                          ? Container(
-                                              width: MediaQuery.sizeOf(context).width * 0.4,
-                                              height: MediaQuery.sizeOf(context).width * 0.4,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              child: Lottie.asset(
-                                                  "assets/json/UserNotFound.json"),
-                                            )
-                                          : Container(
-                                              width: MediaQuery.sizeOf(context).width * 0.4,
-                                              height: MediaQuery.sizeOf(context).width * 0.4,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl: viewModel.user!.imageURL!,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Lottie.asset(
+                                          "assets/json/UserNotFound.json"),
+                                    )
+                                  : Container(
+                                      width:
+                                          MediaQuery.sizeOf(context).width * 0.4,
+                                      height:
+                                          MediaQuery.sizeOf(context).width * 0.4,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: CachedNetworkImage(
+                                        imageUrl: viewModel.user!.imageURL!,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    value.user!.name,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(fontSize: 22),
-                                  ),
-                                ],
-                              ),
                             ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        value.user!.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(fontSize: 22),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
                             Container(
                               decoration: BoxDecoration(
                                   color: MyTheme.purple.withOpacity(0.4),
                                   borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(25),
                                       topRight: Radius.circular(25))),
-                              height: MediaQuery.of(context).size.height*.56,
-                              width: MediaQuery.of(context).size.width,
                               child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20, right: 20, left: 20, bottom: 20),
+                                padding: const EdgeInsets.all(20),
                                 child: Column(
                                   children: [
                                     const SizedBox(
@@ -123,7 +114,7 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text("Email:",
                                             style: Theme.of(context)
@@ -140,7 +131,7 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text("Phone:",
                                             style: Theme.of(context)
@@ -157,7 +148,7 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text("Gender",
                                             style: Theme.of(context)
@@ -178,12 +169,12 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                     ElevatedButton(
                                         style: ButtonStyle(
                                             backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    MyTheme.red)),
+                                            MaterialStateProperty.all(
+                                                MyTheme.red)),
                                         onPressed: value.onSignOutPress,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: [
                                             const Icon(
                                               Icons.logout_outlined,
@@ -205,10 +196,10 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                       height: 20,
                                     ),
                                     ElevatedButton(
-                                        onPressed: value.goToEditScreen,
+                                        onPressed: value.goToEditProfileScreen,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: [
                                             const Icon(
                                               Icons.logout_outlined,
@@ -231,9 +222,9 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                               ),
                             )
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               );
@@ -259,7 +250,9 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
   }
 
   @override
-  goToEditScreen() {
+  goToEditProfileScreen() {
     Navigator.pushNamed(context, EditProfileView.routeName);
   }
+
+
 }

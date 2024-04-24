@@ -16,14 +16,14 @@ class MapView extends StatefulWidget {
 class _MapViewState extends BaseState<MapView, MapViewModel>
     implements MapNavigator {
   @override
-  void dispose() {
-    viewModel.mapController;
-    viewModel.trackingService?.cancel();
-    super.dispose();
+  void initState() {
+    super.initState();
+    if (!mounted) return;
+    viewModel.askUserForPermissionAndService();
   }
+
   @override
   Widget build(BuildContext context) {
-    viewModel.askUserForPermissionAndService();
     super.build(context);
     return ChangeNotifierProvider(
       create: (context) => viewModel,
@@ -48,6 +48,8 @@ class _MapViewState extends BaseState<MapView, MapViewModel>
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SearchBar(
+                      textStyle: MaterialStateProperty.all(
+                          Theme.of(context).textTheme.displayMedium),
                       padding:
                           MaterialStateProperty.all(const EdgeInsets.all(8)),
                       backgroundColor:
@@ -61,6 +63,12 @@ class _MapViewState extends BaseState<MapView, MapViewModel>
                           .textTheme
                           .displayMedium!
                           .copyWith(color: MyTheme.offWhite, fontSize: 14)),
+                      onChanged: (query)async{
+                        if(query.isNotEmpty){
+                            await value.searchMarkers(query);
+                        }
+                      },
+                      // onTap: placesAutoCompleteTextField(),
                     ),
                   ),
                 ]),
