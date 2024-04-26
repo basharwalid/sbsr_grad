@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:provider/provider.dart';
+import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 
 class CustomPasswordTextFormField extends StatefulWidget {
@@ -29,6 +31,7 @@ class _CustomPasswordTextFormFieldState
 
   @override
   Widget build(BuildContext context) {
+    var theme = Provider.of<ThemeProvider>(context);
     return TextFormField(
       obscureText: !isVisible,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -79,6 +82,14 @@ class _CustomPasswordTextFormFieldState
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: const BorderSide(width: 2, color: MyTheme.red),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(
+                width: 2,
+                color: theme.isPurple()
+                    ? MyTheme.lightPurple
+                    : MyTheme.lightGreen),
           ),
           contentPadding: const EdgeInsets.all(8)),
     );

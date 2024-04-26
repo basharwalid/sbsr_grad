@@ -78,7 +78,7 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                       CustomPasswordTextFormField(
                           controller: viewModel.passwordController,
                           hintText: "Enter your password",
-                          prefixIcon: const Icon(EvaIcons.lock_outline ),
+                          prefixIcon: const Icon(EvaIcons.lock_outline),
                           validator: viewModel.passwordValidation,
                           inputType: TextInputType.visiblePassword),
                       Row(
@@ -92,7 +92,9 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                                     .textTheme
                                     .displaySmall!
                                     .copyWith(
-                                        color: MyTheme.lightPurple,
+                                        color: value.themeProvider!.isPurple()
+                                            ? MyTheme.lightPurple
+                                            : MyTheme.lightGreen,
                                         fontSize: 14),
                               )),
                         ],
@@ -101,6 +103,11 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                         height: 15,
                       ),
                       ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  value.themeProvider!.isPurple()
+                                      ? MyTheme.lightPurple
+                                      : MyTheme.lightGreen)),
                           onPressed: value.signInWithEmailAndPassword,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +117,9 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                                 child: Text(
                                   "Login",
                                   style:
-                                      Theme.of(context).textTheme.displayLarge,
+                                      Theme.of(context).textTheme.displayLarge!.copyWith(
+                                        color: MyTheme.offWhite
+                                      ),
                                 ),
                               ),
                             ],
@@ -131,8 +140,10 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                                 "Sign up",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .displayMedium!
-                                    .copyWith(color: MyTheme.lightPurple),
+                                    .displayMedium!.copyWith(
+                                    color: value.themeProvider!.isPurple()
+                                        ? MyTheme.lightPurple : MyTheme.lightGreen
+                                ),
                               )),
                         ],
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
+import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/UseCase/ResetPasswordUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordViewModel.dart';
@@ -21,6 +22,7 @@ class _ForgetPasswordViewState
     implements ForgetPasswordNavigator {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -31,7 +33,9 @@ class _ForgetPasswordViewState
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Lottie.asset("assets/json/forgetPassword.json"),
+                Lottie.asset(viewModel.themeProvider!.isPurple()
+                    ? "assets/json/forgetPassword.json"
+                    : "assets/json/forgetPasswordGreen.json"),
                 Text(
                   "Forget Password",
                   style: Theme.of(context)
@@ -63,6 +67,11 @@ class _ForgetPasswordViewState
                   height: 40,
                 ),
                 ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            viewModel.themeProvider!.isPurple()
+                                ? MyTheme.lightPurple
+                                : MyTheme.lightGreen)),
                     onPressed: viewModel.resetPassword,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

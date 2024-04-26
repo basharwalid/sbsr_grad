@@ -42,7 +42,14 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                   child: Column(
                     children: [
                       AppBar(
-                        title: const Text("Sign Up"),
+                        title: Text(
+                          "Sign Up",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       const SizedBox(
                         height: 10,
@@ -51,23 +58,26 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                         children: [
                           Container(
                             clipBehavior: Clip.antiAlias,
-                            width: MediaQuery.sizeOf(context).width * 0.4,
-                            height: MediaQuery.sizeOf(context).width * 0.4,
+                            width: MediaQuery.sizeOf(context).width * 0.35,
+                            height: MediaQuery.sizeOf(context).width * 0.35,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
                                 color: MyTheme.offWhite),
-                            child:  viewModel.image == null
+                            child: viewModel.image == null
                                 ? Lottie.asset(
-                                "assets/json/UserNotFound.json")
-                                :Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: FileImage(File(viewModel.image!.path)),
-                                    fit: BoxFit.cover,
+                                    viewModel.themeProvider!.isPurple()
+                                        ? "assets/json/UserNotFound.json"
+                                        : "assets/json/UserNotFoundGreen.json")
+                                : Container(
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: FileImage(
+                                              File(viewModel.image!.path)),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                   ),
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                            ),
                           ),
                           Positioned(
                             bottom: 10,
@@ -78,9 +88,12 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                                 height: 40,
                                 width: 40,
                                 decoration: BoxDecoration(
-                                    color: MyTheme.lightPurple,
+                                    color: viewModel.themeProvider!.isPurple()
+                                        ? MyTheme.lightPurple
+                                        : MyTheme.lightGreen,
                                     borderRadius: BorderRadius.circular(25)),
-                                child: const Icon(Icons.linked_camera_sharp),
+                                child: const Icon(Icons.linked_camera_sharp,
+                                    color: MyTheme.offWhite),
                               ),
                             ),
                           )
@@ -138,6 +151,11 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                         height: 30,
                       ),
                       ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  viewModel.themeProvider!.isPurple()
+                                      ? MyTheme.lightPurple
+                                      : MyTheme.lightGreen)),
                           onPressed: value.register,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +187,11 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!
-                                    .copyWith(color: MyTheme.lightPurple),
+                                    .copyWith(
+                                        color:
+                                            viewModel.themeProvider!.isPurple()
+                                                ? MyTheme.lightPurple
+                                                : MyTheme.lightGreen),
                               )),
                         ],
                       ),
