@@ -11,6 +11,7 @@ class MyTheme {
   static const Color darkGrey = Color(0xff252525);
   static const Color orange = Color(0xffEE930F);
   static const Color red = Color(0xffF73645);
+  static const Color darkRed = Color(0xffD30010);
 
   static ThemeData purpleTheme = ThemeData(
       primaryColor: lightPurple,

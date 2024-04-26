@@ -85,12 +85,15 @@ abstract class BaseState<T extends StatefulWidget, VM extends BaseViewModel>
       String? posActionTitle,
       VoidCallback? posAction,
       String? negativeActionTitle,
-      VoidCallback? negativeAction}) {
+      VoidCallback? negativeAction,
+        required Color backgroundColor
+      }) {
     MyDialog.showQuestionMessage(context: context, message: message,
       posAction: posAction,
       posActionTitle: posActionTitle,
       negativeAction: negativeAction,
-      negativeActionTitle: negativeActionTitle
+      negativeActionTitle: negativeActionTitle,
+      backgroundColor: backgroundColor,
     );
   }
 }

@@ -27,9 +27,10 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
   @override
   void initState() {
     super.initState();
-    if(!mounted) return;
+    if (!mounted) return;
     viewModel.getAllBus();
   }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -41,23 +42,31 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
           children: [
             AppBar(
               surfaceTintColor: Colors.transparent,
-              title:  Consumer<BusTripViewModel>(
+              title: Consumer<BusTripViewModel>(
                 builder: (context, value, child) => SearchBar(
                   textStyle: MaterialStateProperty.all(
-                      Theme.of(context).textTheme.displayMedium),
+                      Theme.of(context).textTheme.displayMedium!
+                          .copyWith(
+                          color: value.themeProvider!.isPurple()
+                              ? MyTheme.offWhite
+                              : MyTheme.darkGrey)),
                   elevation: MaterialStateProperty.all(0),
                   backgroundColor: MaterialStateProperty.all(
-                      MyTheme.lightPurple.withOpacity(0.5)),
+                      value.themeProvider!.isPurple()
+                          ? MyTheme.purple
+                          : MyTheme.offWhite),
                   hintText: "Search",
                   hintStyle: MaterialStateProperty.all(
-                    Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(color: MyTheme.offWhite),
+                    Theme.of(context).textTheme.displayMedium!.copyWith(
+                        color: value.themeProvider!.isPurple()
+                            ? MyTheme.offWhite
+                            : MyTheme.darkPurple),
                   ),
-                  leading: const Icon(
+                  leading: Icon(
                     EvaIcons.search,
-                    color: MyTheme.offWhite,
+                    color: value.themeProvider!.isPurple()
+                        ? MyTheme.offWhite
+                        : MyTheme.darkPurple,
                   ),
                   padding: MaterialStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
@@ -102,8 +111,7 @@ class _BusTripViewState extends BaseState<BusTripView, BusTripViewModel>
         useCase: injectGetAllBusUseCase(),
         addBusToFavoriteUseCase: injectAddBusToFavoriteUseCase(),
         searchForBusUseCase: injectSearchForBusUseCase(),
-      deleteBusFromFavoriteUseCase: injectDeleteBusFromFavoriteUseCase()
-    );
+        deleteBusFromFavoriteUseCase: injectDeleteBusFromFavoriteUseCase());
   }
 
   @override

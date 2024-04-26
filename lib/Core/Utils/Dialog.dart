@@ -222,6 +222,7 @@ class MyDialog {
     VoidCallback? posAction,
     String? negativeActionTitle,
     VoidCallback? negativeAction,
+    required Color backgroundColor
   }) {
 
     List<Widget> actionList = [];
@@ -281,7 +282,7 @@ class MyDialog {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   message,
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(color: MyTheme.purple),
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(color:backgroundColor == MyTheme.purple ? MyTheme.offWhite : MyTheme.lightPurple),
                   textAlign: TextAlign.center,
                 ),
               ),

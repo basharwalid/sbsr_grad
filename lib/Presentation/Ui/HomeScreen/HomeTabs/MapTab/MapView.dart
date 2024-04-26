@@ -48,24 +48,37 @@ class _MapViewState extends BaseState<MapView, MapViewModel>
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SearchBar(
-                      textStyle: MaterialStateProperty.all(
-                          Theme.of(context).textTheme.displayMedium),
+                      textStyle: MaterialStateProperty.all(Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              color: value.themeProvider!.isPurple()
+                                  ? MyTheme.offWhite
+                                  : MyTheme.darkGrey)),
                       padding:
                           MaterialStateProperty.all(const EdgeInsets.all(8)),
-                      backgroundColor:
-                          MaterialStateProperty.all(MyTheme.purple),
-                      leading: const Icon(
+                      backgroundColor: MaterialStateProperty.all(
+                          value.themeProvider!.isPurple()
+                              ? MyTheme.purple
+                              : MyTheme.offWhite),
+                      leading: Icon(
                         Icons.search,
-                        color: MyTheme.offWhite,
+                        color: value.themeProvider!.isPurple()
+                            ? MyTheme.offWhite
+                            : MyTheme.darkPurple,
                       ),
                       hintText: "Search for a Station",
                       hintStyle: MaterialStateProperty.all(Theme.of(context)
                           .textTheme
                           .displayMedium!
-                          .copyWith(color: MyTheme.offWhite, fontSize: 14)),
-                      onChanged: (query)async{
-                        if(query.isNotEmpty){
-                            await value.searchMarkers(query);
+                          .copyWith(
+                              color: value.themeProvider!.isPurple()
+                                  ? MyTheme.offWhite
+                                  : MyTheme.darkPurple,
+                              fontSize: 14)),
+                      onChanged: (query) async {
+                        if (query.isNotEmpty) {
+                          await value.searchMarkers(query);
                         }
                       },
                       // onTap: placesAutoCompleteTextField(),

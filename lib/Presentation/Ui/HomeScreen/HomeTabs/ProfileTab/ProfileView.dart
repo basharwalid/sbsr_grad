@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
+import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/UseCase/GetUserDataUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/userSignOutUseCase.dart';
@@ -10,6 +11,7 @@ import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditPro
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileViewMode.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginView.dart';
+import 'package:sbsr_grad/Presentation/Ui/Widget/ThemeSwitch.dart';
 
 class ProfileView extends StatefulWidget {
   static const String routeName = 'ProfileView';
@@ -30,6 +32,7 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
 
   @override
   Widget build(BuildContext context) {
+    var theme = Provider.of<ThemeProvider>(context);
     super.build(context);
     return ChangeNotifierProvider(
         create: (context) => viewModel,
@@ -42,18 +45,18 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                 body: SafeArea(
                   child: Column(
                     children: [
-                       Padding(
+                      Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             InkWell(
-                            onTap: goToEditProfileScreen,
-                            child: const Icon(
-                              Icons.edit,
-                              color: MyTheme.offWhite,
-                              size: 30,
-                            ),
+                              onTap: goToEditProfileScreen,
+                              child: const Icon(
+                                Icons.edit,
+                                color: MyTheme.offWhite,
+                                size: 30,
+                              ),
                             ),
                           ],
                         ),
@@ -104,6 +107,8 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                             .displayLarge!
                             .copyWith(fontSize: 22),
                       ),
+                      const SizedBox(height: 20,),
+                      const ThemeSwitch(),
                       Expanded(
                         flex: 1,
                         child: Column(
@@ -111,7 +116,9 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                  color: MyTheme.purple.withOpacity(0.4),
+                                  color: theme.isPurple()
+                                      ? MyTheme.lightPurple
+                                      : MyTheme.offWhite,
                                   borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(25),
                                       topRight: Radius.circular(25))),
@@ -129,11 +136,23 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                         Text("Email:",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .displayLarge),
+                                                .displayLarge!
+                                                .copyWith(
+                                                  color: value.themeProvider!
+                                                          .isPurple()
+                                                      ? MyTheme.offWhite
+                                                      : MyTheme.darkPurple,
+                                                )),
                                         Text(value.user!.email,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .displayLarge),
+                                                .displayLarge!
+                                                .copyWith(
+                                                  color: value.themeProvider!
+                                                          .isPurple()
+                                                      ? MyTheme.offWhite
+                                                      : MyTheme.darkPurple,
+                                                )),
                                       ],
                                     ),
                                     const SizedBox(
@@ -146,11 +165,23 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                         Text("Phone:",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .displayLarge),
+                                                .displayLarge!
+                                                .copyWith(
+                                                  color: value.themeProvider!
+                                                          .isPurple()
+                                                      ? MyTheme.offWhite
+                                                      : MyTheme.darkPurple,
+                                                )),
                                         Text(value.user!.phoneNumber,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .displayLarge),
+                                                .displayLarge!
+                                                .copyWith(
+                                                  color: value.themeProvider!
+                                                          .isPurple()
+                                                      ? MyTheme.offWhite
+                                                      : MyTheme.darkPurple,
+                                                )),
                                       ],
                                     ),
                                     const SizedBox(
@@ -163,11 +194,23 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                         Text("Gender",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .displayLarge),
+                                                .displayLarge!
+                                                .copyWith(
+                                                  color: value.themeProvider!
+                                                          .isPurple()
+                                                      ? MyTheme.offWhite
+                                                      : MyTheme.darkPurple,
+                                                )),
                                         Text("Male",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .displayLarge),
+                                                .displayLarge!
+                                                .copyWith(
+                                                  color: value.themeProvider!
+                                                          .isPurple()
+                                                      ? MyTheme.offWhite
+                                                      : MyTheme.darkPurple,
+                                                )),
                                       ],
                                     ),
                                     const SizedBox(

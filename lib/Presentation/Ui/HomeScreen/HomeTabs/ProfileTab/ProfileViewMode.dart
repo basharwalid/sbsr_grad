@@ -26,6 +26,7 @@ class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
       negativeActionTitle: "cancel",
       posActionTitle: "Yes",
       posAction: userSignOut,
+      backgroundColor: themeProvider!.isPurple() ? MyTheme.lightPurple : MyTheme.offWhite
     );
   }
 

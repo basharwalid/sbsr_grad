@@ -77,7 +77,9 @@ class BusTripViewModel extends BaseViewModel<BusTripNavigator> {
       busModel.isFavorite = true;
       await addBusToFavoriteUseCase.invoke(busModel);
       navigator!.showSuccessMessage(
-          message: "bus Added Successfully", backgroundColor: MyTheme.green, posActionTitle: "OK");
+          message: "bus Added Successfully",
+          backgroundColor: MyTheme.lightPurple,
+          posActionTitle: "OK");
       notifyListeners();
     } catch (error) {
       errorMessage = error.toString();
@@ -87,23 +89,24 @@ class BusTripViewModel extends BaseViewModel<BusTripNavigator> {
   Future<void> deleteBusFromFavorite(Bus bus) async {
     try {
       bus.isFavorite = false;
-      await deleteBusFromFavoriteUseCase.invoke(bus: bus, index: bus.favoriteIndex);
+      await deleteBusFromFavoriteUseCase.invoke(
+          bus: bus, index: bus.favoriteIndex);
       notifyListeners();
       navigator!.showSuccessMessage(
           message: "Bus removed Successfully",
           backgroundColor: MyTheme.green,
-          posActionTitle: "Ok"
-      );
+          posActionTitle: "Ok");
     } catch (error) {
       errorMessage = error.toString();
     }
   }
 
   Future<void> favoriteState(Bus bus) async {
-    final index = buses.indexWhere((existingBus) => existingBus.uid == bus.uid); // Assuming 'id' is unique
+    final index = buses.indexWhere(
+        (existingBus) => existingBus.uid == bus.uid); // Assuming 'id' is unique
     if (index != -1) {
       if (bus.isFavorite) {
-        await deleteBusFromFavorite(bus);// Use the object from the list
+        await deleteBusFromFavorite(bus); // Use the object from the list
       } else {
         await addBusToFavorite(buses[index]); // Use the object from the list
       }

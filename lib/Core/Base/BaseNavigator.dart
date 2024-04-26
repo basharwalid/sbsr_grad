@@ -23,6 +23,7 @@ abstract class BaseNavigator {
     String? posActionTitle ,
     VoidCallback? posAction,
     String? negativeActionTitle,
-    VoidCallback? negativeAction
+    VoidCallback? negativeAction,
+    required Color backgroundColor
   });
 }
