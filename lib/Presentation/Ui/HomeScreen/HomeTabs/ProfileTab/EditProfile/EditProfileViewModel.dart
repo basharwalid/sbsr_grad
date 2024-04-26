@@ -101,13 +101,8 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
     user = null;
     notifyListeners();
     try {
-      await userDataUseCase.invoke(uid: provider!.getUser()!.uid);
-      user ??= MyUser(
-          email: provider!.getUser()!.email!,
-          name: provider!.getUser()!.displayName!,
-          password: "Private",
-          phoneNumber: provider!.getUser()!.phoneNumber!,
-          imageURL: provider!.getUser()!.photoURL ?? "");
+      var response = await userDataUseCase.invoke(uid: provider!.getUser()!.uid);
+      user = response;
       nameController.text = user!.name;
       emailController.text = user!.email;
       phoneController.text = user!.phoneNumber;

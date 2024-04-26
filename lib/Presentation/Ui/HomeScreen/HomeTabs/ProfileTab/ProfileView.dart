@@ -42,46 +42,56 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                 body: SafeArea(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
+                       Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Container(
-                              clipBehavior: Clip.antiAlias,
-                              width: MediaQuery.sizeOf(context).width * 0.4,
-                              height: MediaQuery.sizeOf(context).width * 0.4,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  color: MyTheme.offWhite),
-                              child: viewModel.user!.imageURL == null
-                                  ? Container(
-                                      width:
-                                          MediaQuery.sizeOf(context).width * 0.4,
-                                      height:
-                                          MediaQuery.sizeOf(context).width * 0.4,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Lottie.asset(
-                                          "assets/json/UserNotFound.json"),
-                                    )
-                                  : Container(
-                                      width:
-                                          MediaQuery.sizeOf(context).width * 0.4,
-                                      height:
-                                          MediaQuery.sizeOf(context).width * 0.4,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: CachedNetworkImage(
-                                        imageUrl: viewModel.user!.imageURL!,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                            InkWell(
+                            onTap: goToEditProfileScreen,
+                            child: const Icon(
+                              Icons.edit,
+                              color: MyTheme.offWhite,
+                              size: 30,
+                            ),
                             ),
                           ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          clipBehavior: Clip.antiAlias,
+                          width: MediaQuery.sizeOf(context).width * 0.4,
+                          height: MediaQuery.sizeOf(context).width * 0.4,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: MyTheme.offWhite),
+                          child: viewModel.user!.imageURL == null
+                              ? Container(
+                                  width: MediaQuery.sizeOf(context).width * 0.4,
+                                  height:
+                                      MediaQuery.sizeOf(context).width * 0.4,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Lottie.asset(
+                                      "assets/json/UserNotFound.json"),
+                                )
+                              : Container(
+                                  width: MediaQuery.sizeOf(context).width * 0.4,
+                                  height:
+                                      MediaQuery.sizeOf(context).width * 0.4,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl: viewModel.user!.imageURL!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                         ),
                       ),
                       const SizedBox(
@@ -114,7 +124,7 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text("Email:",
                                             style: Theme.of(context)
@@ -131,7 +141,7 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text("Phone:",
                                             style: Theme.of(context)
@@ -148,7 +158,7 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text("Gender",
                                             style: Theme.of(context)
@@ -169,19 +179,20 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                     ElevatedButton(
                                         style: ButtonStyle(
                                             backgroundColor:
-                                            MaterialStateProperty.all(
-                                                MyTheme.red)),
+                                                MaterialStateProperty.all(
+                                                    MyTheme.red)),
                                         onPressed: value.onSignOutPress,
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: [
                                             const Icon(
                                               Icons.logout_outlined,
                                               size: 30,
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(20.0),
+                                              padding:
+                                                  const EdgeInsets.all(20.0),
                                               child: Text(
                                                 "Log out",
                                                 style: Theme.of(context)
@@ -195,28 +206,6 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                    ElevatedButton(
-                                        onPressed: value.goToEditProfileScreen,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          children: [
-                                            const Icon(
-                                              Icons.logout_outlined,
-                                              size: 30,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(20.0),
-                                              child: Text(
-                                                "Edit Profile",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayLarge!
-                                                    .copyWith(fontSize: 22),
-                                              ),
-                                            ),
-                                          ],
-                                        )),
                                   ],
                                 ),
                               ),
@@ -253,6 +242,4 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
   goToEditProfileScreen() {
     Navigator.pushNamed(context, EditProfileView.routeName);
   }
-
-
 }

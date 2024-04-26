@@ -47,14 +47,8 @@ class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
     user = null;
     notifyListeners();
     try {
-      user = await getUserDataUseCase.invoke(uid: provider!.getUser()!.uid);
-      user ??= MyUser(
-          email: provider!.getUser()!.email??"No Email",
-          name: provider!.getUser()!.displayName??"No Name",
-          password: "Private",
-          phoneNumber: provider!.getUser()!.phoneNumber??"No phone number",
-          imageURL: provider!.getUser()!.photoURL??"No photo"
-      );
+      var response = await getUserDataUseCase.invoke(uid: provider!.getUser()!.uid);
+      user = response;
       notifyListeners();
     }catch(e){
       errorMessage = e.toString();

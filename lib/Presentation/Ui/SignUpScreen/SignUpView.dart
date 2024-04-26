@@ -54,7 +54,7 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                             width: MediaQuery.sizeOf(context).width * 0.4,
                             height: MediaQuery.sizeOf(context).width * 0.4,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(1000),
+                                borderRadius: BorderRadius.circular(100),
                                 color: MyTheme.offWhite),
                             child:  viewModel.image == null
                                 ? Lottie.asset(
@@ -71,7 +71,7 @@ class _SignUpViewState extends BaseState<SignUpView, SignUpViewModel>
                           ),
                           Positioned(
                             bottom: 10,
-                            left: 120,
+                            left: 100,
                             child: InkWell(
                               onTap: viewModel.pickImageFromGallery,
                               child: Container(
