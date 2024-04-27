@@ -66,4 +66,8 @@ class FireBaseUserAuth {
     await _firebase.currentUser!.updateDisplayName(name);
     return _firebase.currentUser!;
   }
+
+  Future<void> updateUserPassword({required String newPassword})async{
+    await _firebase.currentUser!.updatePassword(newPassword);
+  }
 }

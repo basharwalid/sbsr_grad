@@ -7,6 +7,7 @@ import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/UseCase/GetUserDataUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/userSignOutUseCase.dart';
+import 'package:sbsr_grad/Presentation/Ui/ChangePassword/ChangePasswordView.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditProfile/EditProfileView.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/ProfileViewMode.dart';
@@ -107,7 +108,9 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                             .displayLarge!
                             .copyWith(fontSize: 22),
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const ThemeSwitch(),
                       Expanded(
                         flex: 1,
@@ -247,6 +250,47 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                           ],
                                         )),
                                     const SizedBox(
+                                      height: 10,
+                                    ),
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    viewModel.themeProvider!
+                                                            .isPurple()
+                                                        ? MyTheme.offWhite
+                                                        : MyTheme.lightGreen)),
+                                        onPressed: value.goToChangePasswordScreen,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.lock,
+                                                size: 30,
+                                                color: viewModel.themeProvider!
+                                                        .isPurple()
+                                                    ? MyTheme.darkPurple
+                                                    : MyTheme.offWhite),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(20.0),
+                                              child: Text(
+                                                "Change Password",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayLarge!
+                                                    .copyWith(
+                                                        fontSize: 22,
+                                                        color: viewModel
+                                                                .themeProvider!
+                                                                .isPurple()
+                                                            ? MyTheme.darkPurple
+                                                            : MyTheme.offWhite),
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    const SizedBox(
                                       height: 20,
                                     ),
                                   ],
@@ -284,5 +328,10 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
   @override
   goToEditProfileScreen() {
     Navigator.pushNamed(context, EditProfileView.routeName);
+  }
+
+  @override
+  goToChangePasswordScreen() {
+    Navigator.pushNamed(context, ChangePasswordView.routeName);
   }
 }

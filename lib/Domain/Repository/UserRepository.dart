@@ -16,4 +16,5 @@ abstract class UserRepository{
   Future<User> updateUserPhoto({required String photo});
   Future<String> updateUserData({required MyUser user, required String uid});
   Future<User> updateUserDisplayName({required String name});
+  Future<void> updateUserPassword({required String newPassword});
 }

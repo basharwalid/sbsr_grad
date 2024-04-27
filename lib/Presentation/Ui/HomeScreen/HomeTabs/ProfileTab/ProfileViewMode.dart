@@ -19,7 +19,9 @@ class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
   void goToEditProfileScreen(){
     navigator!.goToEditProfileScreen();
   }
-
+  void goToChangePasswordScreen(){
+    navigator!.goToChangePasswordScreen();
+  }
   onSignOutPress() {
     navigator!.showQuestionMessage(
       message: "Are you sure you want to sign out?",

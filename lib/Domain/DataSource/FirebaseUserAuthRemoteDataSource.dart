@@ -9,4 +9,5 @@ abstract class FirebaseUserAuthRemoteDataSource {
   Future<void> userSignOut();
   Future<User> updateUserImage({required String photo});
   Future<User> updateUserDisplayName({required String name});
+  Future<void> updateUserPassword({required String newPassword});
 }

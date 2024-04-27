@@ -53,7 +53,7 @@ class NotificationsManager {
   ) async {
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails('1', 'SBSR',
-            // icon: "splash",
+            icon: "assets/images/app_icon",
             channelDescription: 'Bus Stop Reminder',
             channelShowBadge: true,
             color: Color(0xFF29384D),

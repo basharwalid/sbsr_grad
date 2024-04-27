@@ -71,9 +71,9 @@ class _EditProfileViewState
                               child: viewModel.user!.imageURL == null
                                   ? Container(
                                       width: MediaQuery.sizeOf(context).width *
-                                          0.4,
+                                          0.35,
                                       height: MediaQuery.sizeOf(context).width *
-                                          0.4,
+                                          0.35,
                                       clipBehavior: Clip.antiAlias,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
@@ -83,9 +83,9 @@ class _EditProfileViewState
                                     )
                                   : Container(
                                       width: MediaQuery.sizeOf(context).width *
-                                          0.4,
+                                          0.35,
                                       height: MediaQuery.sizeOf(context).width *
-                                          0.4,
+                                          0.35,
                                       clipBehavior: Clip.antiAlias,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
@@ -98,7 +98,7 @@ class _EditProfileViewState
                             ),
                             Positioned(
                               bottom: 5,
-                              left: 100,
+                              left: 80,
                               child: InkWell(
                                 onTap: viewModel.pickImageFromGallery,
                                 child: Container(

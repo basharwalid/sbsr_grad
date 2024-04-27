@@ -29,6 +29,10 @@ class FirebaseUserAuthRemoteDataSourceImpl
       throw FirebaseUserAuthException(errorMessage: e.code);
     } on FirebaseException catch (e) {
       throw FirebaseUserAuthException(errorMessage: e.code);
+    } on TimeoutException catch (e) {
+      throw TimeOutOperationsException(errorMessage: "User Auth Timed Out");
+    } catch (e) {
+      throw UnknownException(errorMessage: "Unknown Error");
     }
   }
 
@@ -60,37 +64,90 @@ class FirebaseUserAuthRemoteDataSourceImpl
     } on FirebaseAuthException catch (e) {
       throw FirebaseLoginException(errorMessage: e.code);
     } on FirebaseException catch (e) {
-      throw FirebaseLoginException(errorMessage: e.code);
+      throw FirebaseUserAuthException(errorMessage: e.code);
     } on TimeoutException catch (e) {
       throw TimeOutOperationsException(errorMessage: "Timeout");
+    } catch (e) {
+      throw UnknownException(errorMessage: "Unknown Error");
+    }
+  }
+
+  @override
+  Future<void> resetPassword({required String email}) async {
+    try {
+      await fireBaseUserAuth.resetPassword(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseLoginException(errorMessage: e.code);
+    } on TimeoutException catch (e) {
+      throw TimeOutOperationsException(errorMessage: "Operation Timed Out");
+    } on FirebaseException catch (e) {
+      throw FirebaseUserAuthException(errorMessage: e.code);
+    } catch (e) {
+      throw UnknownException(errorMessage: "Unknown Error");
+    }
+  }
+
+  @override
+  Future<void> userSignOut() async {
+    try {
+      await fireBaseUserAuth.userSignOut();
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseLoginException(errorMessage: e.code);
+    } on TimeoutException catch (e) {
+      throw TimeOutOperationsException(errorMessage: "Operation Timed Out");
+    } on FirebaseException catch (e) {
+      throw FirebaseLoginException(errorMessage: e.code);
     } catch (e) {
       throw UnknownException(errorMessage: e.toString());
     }
   }
 
   @override
-  Future<void> resetPassword({required String email}) async {
-    await fireBaseUserAuth.resetPassword(email: email);
-  }
-
-  @override
-  Future<void> userSignOut() async {
-    await fireBaseUserAuth.userSignOut();
-  }
-
-  @override
   Future<User> updateUserImage({required String photo}) async {
-    try{
-      var response = await fireBaseUserAuth.updateUserImage(photo);
+    try {
+      var response = await fireBaseUserAuth
+          .updateUserImage(photo)
+          .timeout(const Duration(seconds: 60));
       return response;
-    }on FirebaseUserAuthException catch(e){
-        throw FirebaseUserAuthException(errorMessage: e.errorMessage);
+    } on FirebaseAuthException catch(e){
+      throw FirebaseUserAuthException(errorMessage:  e.code);
+    }on FirebaseException catch(e){
+      throw FirebaseUserAuthException(errorMessage: e.code);
+    }on TimeoutException catch(e){
+      throw TimeOutOperationsException(errorMessage: "User Auth Timed Out");
+    }catch(e){
+      throw UnknownException(errorMessage: "Unknown Error");
     }
   }
 
   @override
-  Future<User> updateUserDisplayName({required String name})async{
-    var response = await fireBaseUserAuth.updateUserDisplayName(name: name);
-    return response;
+  Future<User> updateUserDisplayName({required String name}) async {
+    try {
+      var response = await fireBaseUserAuth.updateUserDisplayName(name: name);
+      return response;
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseUserAuthException(errorMessage: e.code);
+    } on TimeoutException catch (e) {
+      throw TimeOutOperationsException(errorMessage: "Operation Timed Out");
+    } on FirebaseException catch (e) {
+      throw FirebaseUserAuthException(errorMessage: e.code);
+    } catch (e) {
+      throw UnknownException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<void> updateUserPassword({required String newPassword}) async {
+    try {
+      await fireBaseUserAuth.updateUserPassword(newPassword: newPassword);
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseUserAuthException(errorMessage: e.code);
+    } on TimeoutException catch (e) {
+      throw TimeOutOperationsException(errorMessage: "Operation Timed Out");
+    } on FirebaseException catch (e) {
+      throw FirebaseUserAuthException(errorMessage: e.code);
+    } catch (e) {
+      throw UnknownException(errorMessage: e.toString());
+    }
   }
 }

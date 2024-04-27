@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sbsr_grad/Data/Models/UserDTO.dart';
 
-
 UsersDatabase getUsersDatabase() {
   return UsersDatabase.getUserDatabase();
 }
@@ -18,12 +17,13 @@ class UsersDatabase {
 
   CollectionReference<UserDTO> getCollectionReference() {
     return FirebaseFirestore.instance.collection("Users").withConverter(
-      fromFirestore: (snapshot, options) =>
-          UserDTO.fromFireStore(snapshot.data()!),
-      toFirestore: (value, options) => value.toFireStore(),);
+          fromFirestore: (snapshot, options) =>
+              UserDTO.fromFireStore(snapshot.data()!),
+          toFirestore: (value, options) => value.toFireStore(),
+        );
   }
 
-  Future<void> addUser(UserDTO userDTO , String uid) async {
+  Future<void> addUser(UserDTO userDTO, String uid) async {
     await getCollectionReference().doc(uid).set(userDTO);
   }
 
@@ -37,8 +37,8 @@ class UsersDatabase {
     return doc.data();
   }
 
-  Future<void> updateUserData({required UserDTO user , required String uid})async{
+  Future<void> updateUserData(
+      {required UserDTO user, required String uid}) async {
     await getCollectionReference().doc(uid).update(user.toFireStore());
   }
-
 }

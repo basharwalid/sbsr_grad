@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart' ;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sbsr_grad/Data/DataSource/FirebaseImageDatabaseRemoteDataSourceImpl.dart';
 import 'package:sbsr_grad/Data/DataSource/FirebaseUserAuthRemoteDataSourceImpl.dart';
@@ -12,16 +12,20 @@ import 'package:sbsr_grad/Domain/Repository/UserRepository.dart';
 UserRepository injectUserRepository() {
   return UserRepositoryImpl(
       firebaseUserAuthRemoteDataSource: getFirebaseUserAuthRemoteDataSource(),
-      databaseRemoteDataSource: getUsersDatabaseRemoteDataSource(),firebaseImageDatabaseRemoteDataSource: injectFirebaseImageDatabaseRemoteDataSourceImpl());
+      databaseRemoteDataSource: getUsersDatabaseRemoteDataSource(),
+      firebaseImageDatabaseRemoteDataSource:
+          injectFirebaseImageDatabaseRemoteDataSourceImpl());
 }
 
 class UserRepositoryImpl implements UserRepository {
   FirebaseUserAuthRemoteDataSource firebaseUserAuthRemoteDataSource;
   UsersDatabaseRemoteDataSource databaseRemoteDataSource;
   FirebaseImageDatabaseRemoteDataSource firebaseImageDatabaseRemoteDataSource;
+
   UserRepositoryImpl(
       {required this.firebaseUserAuthRemoteDataSource,
-      required this.databaseRemoteDataSource, required this.firebaseImageDatabaseRemoteDataSource});
+      required this.databaseRemoteDataSource,
+      required this.firebaseImageDatabaseRemoteDataSource});
 
   @override
   Future<User> createUserInFirebaseAuth(MyUser user) async {
@@ -45,8 +49,9 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> addUserToFirebaseFireStore({required MyUser user , required String uid}) async {
-    await databaseRemoteDataSource.addUser(user.toDataSource() , uid);
+  Future<void> addUserToFirebaseFireStore(
+      {required MyUser user, required String uid}) async {
+    await databaseRemoteDataSource.addUser(user.toDataSource(), uid);
   }
 
   @override
@@ -67,50 +72,56 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<String> uploadUserImage({required XFile image}) async {
-    var response = await firebaseImageDatabaseRemoteDataSource.uploadImage(file: image);
+    var response =
+        await firebaseImageDatabaseRemoteDataSource.uploadImage(file: image);
     return response;
   }
 
   @override
-  Future<MyUser?> getUser({required String uid})async{
+  Future<MyUser?> getUser({required String uid}) async {
     var response = await databaseRemoteDataSource.getUser(uid: uid);
     return response;
   }
 
   @override
-  Future<String> updateUserImage({required XFile file, required String url})async{
-      if(url.isEmpty){
-        var upload = await firebaseImageDatabaseRemoteDataSource.uploadImage(file: file);
-        return upload;
-      }else{
-        var update = await firebaseImageDatabaseRemoteDataSource.updateUserImage(file: file, url: url);
-        return update;
-      }
+  Future<String> updateUserImage(
+      {required XFile file, required String url}) async {
+    if (url.isEmpty) {
+      var upload =
+          await firebaseImageDatabaseRemoteDataSource.uploadImage(file: file);
+      return upload;
+    } else {
+      var update = await firebaseImageDatabaseRemoteDataSource.updateUserImage(
+          file: file, url: url);
+      return update;
+    }
   }
 
   @override
-  Future<User> updateUserPhoto({required String photo})async{
-    var response = await firebaseUserAuthRemoteDataSource.updateUserImage(photo: photo);
-    return response;
-  }
-
-
-
-  @override
-  Future<User> updateUserDisplayName({required String name})async{
-    var response = await firebaseUserAuthRemoteDataSource.updateUserDisplayName(name: name);
+  Future<User> updateUserPhoto({required String photo}) async {
+    var response =
+        await firebaseUserAuthRemoteDataSource.updateUserImage(photo: photo);
     return response;
   }
 
   @override
-  Future<String> updateUserData({required MyUser user, required String uid})async{
-    await databaseRemoteDataSource.updateUserData(user: user.toDataSource(), uid: uid);
+  Future<User> updateUserDisplayName({required String name}) async {
+    var response = await firebaseUserAuthRemoteDataSource.updateUserDisplayName(
+        name: name);
+    return response;
+  }
+
+  @override
+  Future<String> updateUserData(
+      {required MyUser user, required String uid}) async {
+    await databaseRemoteDataSource.updateUserData(
+        user: user.toDataSource(), uid: uid);
     return "Your Data Updated Successfully";
   }
 
-
-
-
-
-
+  @override
+  Future<void> updateUserPassword({required String newPassword}) async {
+    await firebaseUserAuthRemoteDataSource.updateUserPassword(
+        newPassword: newPassword);
+  }
 }
