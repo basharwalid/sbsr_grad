@@ -29,6 +29,7 @@ class _BusTripDetailsViewState
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     var theme = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(),

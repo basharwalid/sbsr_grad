@@ -9,14 +9,16 @@ class ChangePasswordViewModel extends BaseViewModel<ChangePasswordNavigator> {
   final formKey = GlobalKey<FormState>();
   TextEditingController passwordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
-  TextEditingController newPasswordConfirmationController = TextEditingController();
+  TextEditingController newPasswordConfirmationController =
+      TextEditingController();
 
   ChangePasswordViewModel({required this.useCase});
+
   String? passwordValidation(String input) {
     if (input.isEmpty) {
       return "password Can't Be Empty";
-    } else if (input.length < 8) {
-      return "Your password is too short";
+    }else if(input.length < 8){
+      return "password is too short";
     }
     return null;
   }
@@ -30,21 +32,35 @@ class ChangePasswordViewModel extends BaseViewModel<ChangePasswordNavigator> {
     }
     return null;
   }
+
   Future<void> updatePassword() async {
     if (formKey.currentState!.validate()) {
       try {
         navigator!.showLoadingMessage(message: "Updating Your Password");
-        useCase.invoke(newPassword: newPasswordController.text);
+        useCase.invoke(
+            newPassword: newPasswordController.text,
+            password: passwordController.text,
+            email: provider!.user!.email!);
         passwordController.text = "";
         newPasswordController.text = "";
         newPasswordConfirmationController.text = "";
         navigator!.goBack();
-        navigator!.showSuccessMessage(message: "Password Updated Successfully",
-            backgroundColor: MyTheme.lightGreen);
-      }catch(e){
+        navigator!.showSuccessMessage(
+            message: "Password Updated Successfully",
+            backgroundColor: MyTheme.lightGreen,
+            posActionTitle: "Ok",
+            posAction: goToProfileScreen);
+      } catch (e) {
         navigator!.goBack();
-        navigator!.showFailMessage(message: handleExceptions(e as Exception) , backgroundColor: MyTheme.red);
+        navigator!.showFailMessage(
+            backgroundColor: MyTheme.red,
+          message: "Try again"
+        );
       }
     }
+  }
+
+  void goToProfileScreen() {
+    navigator!.goToProfileScreen();
   }
 }

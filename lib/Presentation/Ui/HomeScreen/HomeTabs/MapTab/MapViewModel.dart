@@ -89,7 +89,7 @@ class MapViewModel extends BaseViewModel<MapNavigator> {
 
   Future<void> searchMarkers(String searchQuery) async {
     // 1. Find the searched marker
-    var searchedMarker = await markerList.firstWhere((marker) =>
+    var searchedMarker = markerList.firstWhere((marker) =>
     marker.markerId.value.toLowerCase() == searchQuery.toLowerCase());
 
     // 2. Handle search results

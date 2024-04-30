@@ -120,8 +120,11 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> updateUserPassword({required String newPassword}) async {
+  Future<void> updateUserPassword(
+      {required String newPassword,
+      required String password,
+      required String email}) async {
     await firebaseUserAuthRemoteDataSource.updateUserPassword(
-        newPassword: newPassword);
+        newPassword: newPassword, password: password, email: email);
   }
 }

@@ -13,7 +13,7 @@ class CustomPasswordTextFormField extends StatefulWidget {
   TextInputType? inputType;
 
   CustomPasswordTextFormField(
-      {required this.controller,
+      {super.key, required this.controller,
       required this.hintText,
       required this.prefixIcon,
       required this.validator,

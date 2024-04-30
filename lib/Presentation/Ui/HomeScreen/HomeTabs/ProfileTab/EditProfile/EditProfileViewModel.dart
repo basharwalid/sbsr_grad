@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
@@ -11,7 +9,6 @@ import 'package:sbsr_grad/Domain/UseCase/GetUserDataUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/UpdateUserDataUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/ProfileTab/EditProfile/EditProfileNavigator.dart';
 
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
   UpdateUserDataUseCase useCase;

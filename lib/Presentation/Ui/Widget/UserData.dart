@@ -6,7 +6,7 @@ import 'package:sbsr_grad/Core/Theme/Theme.dart';
 
 class UserData extends StatelessWidget {
   User user;
-  UserData({required this.user});
+  UserData({super.key, required this.user});
   @override
   Widget build(BuildContext context) {
     return Container(

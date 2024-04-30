@@ -4,9 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/Models/Bus.dart';
-import 'package:sbsr_grad/Domain/UseCase/AddBusToFavoriteUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/DeleteBusFromFavoriteUseCase.dart';
-import 'package:sbsr_grad/Domain/UseCase/getAllBusUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/getAllFavoriteBusUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/FavoriteTab/FavoriteNavigator.dart';
 

@@ -30,7 +30,8 @@ class FirebaseUserAuthRemoteDataSourceImpl
     } on FirebaseException catch (e) {
       throw FirebaseUserAuthException(errorMessage: e.code);
     } on TimeoutException catch (e) {
-      throw TimeOutOperationsException(errorMessage: "User Auth Timed Out");
+      throw TimeOutOperationsException(
+          errorMessage: e.message ?? "Operation Timed Out");
     } catch (e) {
       throw UnknownException(errorMessage: "Unknown Error");
     }
@@ -48,7 +49,8 @@ class FirebaseUserAuthRemoteDataSourceImpl
     } on FirebaseException catch (e) {
       throw FirebaseLoginException(errorMessage: e.code);
     } on TimeoutException catch (e) {
-      throw TimeOutOperationsException(errorMessage: "User Auth Timed Out");
+      throw TimeOutOperationsException(
+          errorMessage: e.message ?? "Operation Timed Out");
     } catch (e) {
       throw UnknownException(errorMessage: "Unknown Error");
     }
@@ -66,7 +68,8 @@ class FirebaseUserAuthRemoteDataSourceImpl
     } on FirebaseException catch (e) {
       throw FirebaseUserAuthException(errorMessage: e.code);
     } on TimeoutException catch (e) {
-      throw TimeOutOperationsException(errorMessage: "Timeout");
+      throw TimeOutOperationsException(
+          errorMessage: e.message ?? "Operation Timed Out");
     } catch (e) {
       throw UnknownException(errorMessage: "Unknown Error");
     }
@@ -79,7 +82,8 @@ class FirebaseUserAuthRemoteDataSourceImpl
     } on FirebaseAuthException catch (e) {
       throw FirebaseLoginException(errorMessage: e.code);
     } on TimeoutException catch (e) {
-      throw TimeOutOperationsException(errorMessage: "Operation Timed Out");
+      throw TimeOutOperationsException(
+          errorMessage: e.message ?? "Operation Timed Out");
     } on FirebaseException catch (e) {
       throw FirebaseUserAuthException(errorMessage: e.code);
     } catch (e) {
@@ -94,7 +98,8 @@ class FirebaseUserAuthRemoteDataSourceImpl
     } on FirebaseAuthException catch (e) {
       throw FirebaseLoginException(errorMessage: e.code);
     } on TimeoutException catch (e) {
-      throw TimeOutOperationsException(errorMessage: "Operation Timed Out");
+      throw TimeOutOperationsException(
+          errorMessage: e.message ?? "Operation Timed Out");
     } on FirebaseException catch (e) {
       throw FirebaseLoginException(errorMessage: e.code);
     } catch (e) {
@@ -109,13 +114,14 @@ class FirebaseUserAuthRemoteDataSourceImpl
           .updateUserImage(photo)
           .timeout(const Duration(seconds: 60));
       return response;
-    } on FirebaseAuthException catch(e){
-      throw FirebaseUserAuthException(errorMessage:  e.code);
-    }on FirebaseException catch(e){
+    } on FirebaseAuthException catch (e) {
       throw FirebaseUserAuthException(errorMessage: e.code);
-    }on TimeoutException catch(e){
-      throw TimeOutOperationsException(errorMessage: "User Auth Timed Out");
-    }catch(e){
+    } on FirebaseException catch (e) {
+      throw FirebaseUserAuthException(errorMessage: e.code);
+    } on TimeoutException catch (e) {
+      throw TimeOutOperationsException(
+          errorMessage: e.message ?? "Operation Timed Out");
+    } catch (e) {
       throw UnknownException(errorMessage: "Unknown Error");
     }
   }
@@ -128,7 +134,8 @@ class FirebaseUserAuthRemoteDataSourceImpl
     } on FirebaseAuthException catch (e) {
       throw FirebaseUserAuthException(errorMessage: e.code);
     } on TimeoutException catch (e) {
-      throw TimeOutOperationsException(errorMessage: "Operation Timed Out");
+      throw TimeOutOperationsException(
+          errorMessage: e.message ?? "Operation Timed Out");
     } on FirebaseException catch (e) {
       throw FirebaseUserAuthException(errorMessage: e.code);
     } catch (e) {
@@ -137,13 +144,18 @@ class FirebaseUserAuthRemoteDataSourceImpl
   }
 
   @override
-  Future<void> updateUserPassword({required String newPassword}) async {
+  Future<void> updateUserPassword(
+      {required String newPassword,
+      required String password,
+      required String email}) async {
     try {
-      await fireBaseUserAuth.updateUserPassword(newPassword: newPassword);
+      await fireBaseUserAuth.updateUserPassword(
+          newPassword: newPassword, password: password, email: email);
     } on FirebaseAuthException catch (e) {
       throw FirebaseUserAuthException(errorMessage: e.code);
     } on TimeoutException catch (e) {
-      throw TimeOutOperationsException(errorMessage: "Operation Timed Out");
+      throw TimeOutOperationsException(
+          errorMessage: e.message ?? "Operation Timed Out");
     } on FirebaseException catch (e) {
       throw FirebaseUserAuthException(errorMessage: e.code);
     } catch (e) {

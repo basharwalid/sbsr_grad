@@ -7,7 +7,7 @@ class SnackbarService {
     final snackBar = SnackBar(
       content: Text(message),
       width: double.infinity,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
       backgroundColor: MyTheme.green,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);

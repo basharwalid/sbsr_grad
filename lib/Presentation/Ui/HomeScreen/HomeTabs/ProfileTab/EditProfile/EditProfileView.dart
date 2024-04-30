@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -42,8 +39,10 @@ class _EditProfileViewState
         child: Consumer<EditProfileViewModel>(
           builder: (context, value, child) {
             if (value.user == null) {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return Center(
+                child: CircularProgressIndicator(color: theme.isPurple()
+                    ? MyTheme.lightPurple
+                    : MyTheme.green,),
               );
             } else {
               return Scaffold(
@@ -52,6 +51,7 @@ class _EditProfileViewState
                       style: Theme.of(context).textTheme.displayLarge),
                 ),
                 body: SingleChildScrollView(
+                  physics: PageScrollPhysics(),
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(

@@ -53,7 +53,7 @@ class HiveBusModelAdapter extends TypeAdapter<HiveBusModel> {
 
   Future<void> migrateV1ToV2(fromVersion, currentVersion) async {
     final box = Hive.box<HiveBusModel>("BusFavorite");
-    final values = await box.toMap().entries.toList(); // Get all data as key-value pairs
+    final values = box.toMap().entries.toList(); // Get all data as key-value pairs
 
     for (final entry in values) {
       final key = entry.key;
@@ -64,7 +64,7 @@ class HiveBusModelAdapter extends TypeAdapter<HiveBusModel> {
         from: value.from,
         to: value.to,
         nextStation: value.nextStation,
-        uid: value.uid ?? "", // Optional field with default value
+        uid: value.uid // Optional field with default value
       );
       await box.put(key, migratedValue); // Update the box with migrated data
     }

@@ -51,23 +51,28 @@ class FireBaseUserAuth {
   Future<void> resetPassword({required String email}) async {
     await _firebase.sendPasswordResetEmail(email: email);
   }
-  Future<void> userSignOut()async{
+
+  Future<void> userSignOut() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool("LoggedIn", false);
     await _firebase.signOut();
   }
 
-  Future<User> updateUserImage(String photo)async{
+  Future<User> updateUserImage(String photo) async {
     await _firebase.currentUser!.updatePhotoURL(photo);
     return _firebase.currentUser!;
   }
 
-  Future<User> updateUserDisplayName({required String name})async{
+  Future<User> updateUserDisplayName({required String name}) async {
     await _firebase.currentUser!.updateDisplayName(name);
     return _firebase.currentUser!;
   }
 
-  Future<void> updateUserPassword({required String newPassword})async{
+  Future<void> updateUserPassword(
+      {required String newPassword,
+      required String password,
+      required String email}) async {
+    await _firebase.signInWithEmailAndPassword(email: email, password: password);
     await _firebase.currentUser!.updatePassword(newPassword);
   }
 }

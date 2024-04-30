@@ -38,9 +38,11 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
     }
   }
 
-  String? passwordValidation(String password) {
-    if (password.isEmpty) {
-      return "Password must not be empty";
+  String? passwordValidation(String input) {
+    if (input.isEmpty) {
+      return "password Can't Be Empty";
+    }else if(input.length < 8){
+      return "password is too short";
     }
     return null;
   }

@@ -18,7 +18,7 @@ class CustomFieldProfile extends StatelessWidget {
       child: Row(
         children: [
 
-          SizedBox(width: 10,),
+          const SizedBox(width: 10,),
           Text(fieldData, style: Theme.of(context).textTheme.displayMedium,),
         ],
       ),

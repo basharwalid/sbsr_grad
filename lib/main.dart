@@ -9,7 +9,6 @@ import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Data/Firebase/FirebaseBusRealTimeDatabase.dart';
 import 'package:sbsr_grad/Data/Hive/FavoriteBusDatabase.dart';
-import 'package:sbsr_grad/Data/Models/HiveBusModel.dart';
 import 'package:sbsr_grad/Presentation/Ui/ChangePassword/ChangePasswordView.dart';
 import 'package:sbsr_grad/Presentation/Ui/ForgetPasswordScreen/ForgetPasswordView.dart';
 import 'package:sbsr_grad/Presentation/Ui/GetStarted/IntroView.dart';

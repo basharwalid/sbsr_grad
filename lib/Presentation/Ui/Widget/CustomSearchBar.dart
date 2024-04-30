@@ -9,7 +9,7 @@ class CustomSearchBar extends StatelessWidget {
   Function? onChangeFunction;
   Function? onSubmit;
 
-  CustomSearchBar({required this.label, this.onChangeFunction, this.onSubmit});
+  CustomSearchBar({super.key, required this.label, this.onChangeFunction, this.onSubmit});
 
   @override
   Widget build(BuildContext context) {

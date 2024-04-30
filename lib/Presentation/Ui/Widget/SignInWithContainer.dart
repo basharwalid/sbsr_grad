@@ -5,7 +5,7 @@ class SignInWith extends StatelessWidget {
   String text;
   String image;
 
-  SignInWith({required this.text,required this.image});
+  SignInWith({super.key, required this.text,required this.image});
 
   @override
   Widget build(BuildContext context) {

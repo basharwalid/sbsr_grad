@@ -28,7 +28,7 @@ class FavoriteBusDatabase {
      box = Hive.box<HiveBusModel>("BusFavorite");
       await box.add(hiveBusModel);
     } catch (e) {
-      print(e);
+      e.toString();
     }
   }
 

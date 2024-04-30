@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sbsr_grad/Data/Firebase/FirebaseBusDatabase.dart';
-import 'package:sbsr_grad/Data/Models/BusDto.dart';
 import 'package:sbsr_grad/Domain/DataSource/FirebaseBusDatabaseRemoteDataSource.dart';
 import 'package:sbsr_grad/Domain/Exceptions/FirebaseUserDatabaseException.dart';
 import 'package:sbsr_grad/Domain/Models/Bus.dart';

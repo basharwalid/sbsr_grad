@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
-import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Presentation/Ui/GetStarted/IntroNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/GetStarted/IntroViewModel.dart';

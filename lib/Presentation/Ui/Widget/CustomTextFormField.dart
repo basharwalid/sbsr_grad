@@ -12,7 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   TextInputType? inputType;
 
   CustomTextFormField(
-      {required this.controller,
+      {super.key, required this.controller,
       required this.hintText,
       required this.prefixIcon,
       required this.validator,
