@@ -1,28 +1,31 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:sbsr_grad/Core/Base/BaseViewModel.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
+import 'package:sbsr_grad/Domain/Exceptions/FirebaseUserDatabaseException.dart';
 import 'package:sbsr_grad/Domain/Models/MyUser.dart';
-import 'package:sbsr_grad/Domain/UseCase/CreateAccountUseCase.dart';
+import 'package:sbsr_grad/Domain/UseCase/AddUserUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/SignInWithGoogleUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/SigninWithEmailandPassswordUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/checkUserExistUseCase.dart';
 import 'package:sbsr_grad/Presentation/Ui/LoginScreen/LoginNavigator.dart';
 
 class LoginViewModel extends BaseViewModel<LoginNavigator> {
-  CreateAccountUseCase createAccountUseCase;
   SignInWithEmailAndPasswordUseCase signInWithEmailAndPasswordUseCase;
   CheckIfUserExistUseCase checkIfUserExistUseCase;
   SignInWithGoogleUseCase signInWithGoogleUseCase;
+  AddUserUseCase addUserUseCase;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool googleLogin = false;
 
-  LoginViewModel({
-    required this.signInWithEmailAndPasswordUseCase,
-    required this.checkIfUserExistUseCase,
-    required this.createAccountUseCase,
-    required this.signInWithGoogleUseCase
-  });
+  LoginViewModel(
+      {required this.signInWithEmailAndPasswordUseCase,
+      required this.checkIfUserExistUseCase,
+      required this.signInWithGoogleUseCase,
+      required this.addUserUseCase});
 
   String? emailValidation(String email) {
     if (email.isEmpty) {
@@ -41,7 +44,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
   String? passwordValidation(String input) {
     if (input.isEmpty) {
       return "password Can't Be Empty";
-    }else if(input.length < 8){
+    } else if (input.length < 8) {
       return "password is too short";
     }
     return null;
@@ -55,7 +58,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
     navigator!.goToForgetPasswordScreen();
   }
 
-  void goToHomeScreen(){
+  void goToHomeScreen() {
     navigator!.goToHomeScreen();
   }
 
@@ -75,55 +78,66 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
               posActionTitle: "Ok",
               posAction: goToHomeScreen);
         } else {
-          await createAccountUseCase.invoke(
-              user: MyUser(
+          await addUserUseCase.invoke(
+              myUser: MyUser(
                   email: response.email ?? "no email",
                   name: response.displayName ?? "no name",
                   password: "private",
-                  phoneNumber: "01000000000"));
+                  phoneNumber: "01000000000"),uid: response.uid);
         }
       } catch (e) {
         navigator!.goBack();
         navigator!.showFailMessage(
-            message: "user doesn't exist",
-            backgroundColor: MyTheme.red,
-            posActionTitle: "cancel",
-            );
+          message: "user doesn't exist",
+          backgroundColor: MyTheme.red,
+          posActionTitle: "cancel",
+        );
       }
     }
   }
 
-  void signInWithGoogle()async{
-      try{
-        var response = await signInWithGoogleUseCase.invoke();
-        provider!.updateUser(user: response);
-        try{
-            var userExist = await checkIfUserExistUseCase.invoke(uid: response.uid);
-            if(userExist){
-                navigator!.showSuccessMessage(message: "Welcome",
-                    backgroundColor: MyTheme.lightPurple,
-                  posActionTitle: "Ok",
-                  posAction: goToHomeScreen,
-                );
-            }else{
-              await createAccountUseCase.invoke(
-                  user: MyUser(
-                      email: response.email ?? "no email",
-                      name: response.displayName ?? "no name",
-                      password: "private",
-                      phoneNumber: "01000000000"));
-            }
-        }catch(e){
-            navigator!.showFailMessage(message: "Email already in use",
-                backgroundColor: MyTheme.red,
-                posActionTitle: "cancel",
-            );
+  void signInWithGoogle() async {
+    try {
+      var response = await signInWithGoogleUseCase.invoke();
+      provider!.updateUser(user: response);
+      try {
+        var userExist = await checkIfUserExistUseCase.invoke(uid: response.uid);
+        if (userExist) {
+          navigator!.showSuccessMessage(
+            message: "Welcome",
+            backgroundColor: MyTheme.lightPurple,
+            posActionTitle: "Ok",
+            posAction: goToHomeScreen,
+          );
+        } else {
+          try {
+            await addUserUseCase.invoke(
+                myUser: MyUser(
+                    email: response.email ?? "no email",
+                    imageURL: response.photoURL ?? "",
+                    name: response.displayName ?? "no name",
+                    password: "private",
+                    phoneNumber: "01000000000"),
+                uid: response.uid);
+          } on FirebaseFireStoreDatabaseException catch (e) {
+            throw FirebaseFireStoreDatabaseException(
+                errorMessage: e.errorMessage);
+          } on TimeoutException catch (e) {
+            throw TimeoutException(e.message);
+          }
         }
-      }catch (e){
-        navigator!.showFailMessage(message: "Error",
-            backgroundColor: MyTheme.red,
-            posActionTitle: "cancel"
+      } catch (e) {
+        navigator!.showFailMessage(
+          message: e.toString(),
+          backgroundColor: MyTheme.red,
+          posActionTitle: "cancel",
         );
       }
+    } catch (e) {
+      navigator!.showFailMessage(
+          message: "Error",
+          backgroundColor: MyTheme.red,
+          posActionTitle: "cancel");
+    }
   }
 }

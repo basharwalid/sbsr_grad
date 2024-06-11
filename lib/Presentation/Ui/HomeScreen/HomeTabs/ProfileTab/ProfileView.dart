@@ -66,10 +66,10 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                         padding: const EdgeInsets.all(20.0),
                         child: Container(
                           clipBehavior: Clip.antiAlias,
-                          width: MediaQuery.sizeOf(context).width * 0.4,
-                          height: MediaQuery.sizeOf(context).width * 0.4,
+                          width: MediaQuery.sizeOf(context).width * 0.35,
+                          height: MediaQuery.sizeOf(context).width * 0.35,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
+                              borderRadius: BorderRadius.circular(80),
                               color: MyTheme.offWhite),
                           child: viewModel.user!.imageURL == null
                               ? Container(
@@ -118,6 +118,7 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
+                              height: MediaQuery.of(context).size.height * 0.5,
                               decoration: BoxDecoration(
                                   color: theme.isPurple()
                                       ? MyTheme.lightPurple
@@ -127,173 +128,176 @@ class _ProfileViewState extends BaseState<ProfileView, ProfileViewModel>
                                       topRight: Radius.circular(25))),
                               child: Padding(
                                 padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Email:",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                  color: value.themeProvider!
-                                                          .isPurple()
-                                                      ? MyTheme.offWhite
-                                                      : MyTheme.darkPurple,
-                                                )),
-                                        Text(value.user!.email,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                  color: value.themeProvider!
-                                                          .isPurple()
-                                                      ? MyTheme.offWhite
-                                                      : MyTheme.darkPurple,
-                                                )),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Phone:",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                  color: value.themeProvider!
-                                                          .isPurple()
-                                                      ? MyTheme.offWhite
-                                                      : MyTheme.darkPurple,
-                                                )),
-                                        Text(value.user!.phoneNumber,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                  color: value.themeProvider!
-                                                          .isPurple()
-                                                      ? MyTheme.offWhite
-                                                      : MyTheme.darkPurple,
-                                                )),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Gender",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                  color: value.themeProvider!
-                                                          .isPurple()
-                                                      ? MyTheme.offWhite
-                                                      : MyTheme.darkPurple,
-                                                )),
-                                        Text("Male",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                  color: value.themeProvider!
-                                                          .isPurple()
-                                                      ? MyTheme.offWhite
-                                                      : MyTheme.darkPurple,
-                                                )),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    const SizedBox(
-                                      height: 100,
-                                    ),
-                                    ElevatedButton(
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    MyTheme.red)),
-                                        onPressed: value.onSignOutPress,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            const Icon(
-                                              Icons.logout_outlined,
-                                              size: 30,
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(20.0),
-                                              child: Text(
-                                                "Log out",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayLarge!
-                                                    .copyWith(fontSize: 22),
-                                              ),
-                                            ),
-                                          ],
-                                        )),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    ElevatedButton(
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    viewModel.themeProvider!
+                                child: Expanded(
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Email:",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge!
+                                                  .copyWith(
+                                                    color: value.themeProvider!
                                                             .isPurple()
                                                         ? MyTheme.offWhite
-                                                        : MyTheme.lightGreen)),
-                                        onPressed: value.goToChangePasswordScreen,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.lock,
+                                                        : MyTheme.darkPurple,
+                                                  )),
+                                          Text(value.user!.email,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge!
+                                                  .copyWith(
+                                                    color: value.themeProvider!
+                                                            .isPurple()
+                                                        ? MyTheme.offWhite
+                                                        : MyTheme.darkPurple,
+                                                  )),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Phone:",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge!
+                                                  .copyWith(
+                                                    color: value.themeProvider!
+                                                            .isPurple()
+                                                        ? MyTheme.offWhite
+                                                        : MyTheme.darkPurple,
+                                                  )),
+                                          Text(value.user!.phoneNumber,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge!
+                                                  .copyWith(
+                                                    color: value.themeProvider!
+                                                            .isPurple()
+                                                        ? MyTheme.offWhite
+                                                        : MyTheme.darkPurple,
+                                                  )),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Gender",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge!
+                                                  .copyWith(
+                                                    color: value.themeProvider!
+                                                            .isPurple()
+                                                        ? MyTheme.offWhite
+                                                        : MyTheme.darkPurple,
+                                                  )),
+                                          Text("Male",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge!
+                                                  .copyWith(
+                                                    color: value.themeProvider!
+                                                            .isPurple()
+                                                        ? MyTheme.offWhite
+                                                        : MyTheme.darkPurple,
+                                                  )),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      const SizedBox(
+                                        height: 100,
+                                      ),
+                                      ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      MyTheme.red)),
+                                          onPressed: value.onSignOutPress,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const Icon(
+                                                Icons.logout_outlined,
                                                 size: 30,
-                                                color: viewModel.themeProvider!
-                                                        .isPurple()
-                                                    ? MyTheme.darkPurple
-                                                    : MyTheme.offWhite),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(20.0),
-                                              child: Text(
-                                                "Change Password",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayLarge!
-                                                    .copyWith(
-                                                        fontSize: 22,
-                                                        color: viewModel
-                                                                .themeProvider!
-                                                                .isPurple()
-                                                            ? MyTheme.darkPurple
-                                                            : MyTheme.offWhite),
                                               ),
-                                            ),
-                                          ],
-                                        )),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                  ],
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(20.0),
+                                                child: Text(
+                                                  "Log out",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displayLarge!
+                                                      .copyWith(fontSize: 22),
+                                                ),
+                                              ),
+                                            ],
+                                          )),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      viewModel.themeProvider!
+                                                              .isPurple()
+                                                          ? MyTheme.offWhite
+                                                          : MyTheme.lightGreen)),
+                                          onPressed:
+                                              value.goToChangePasswordScreen,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.lock,
+                                                  size: 30,
+                                                  color: viewModel.themeProvider!
+                                                          .isPurple()
+                                                      ? MyTheme.darkPurple
+                                                      : MyTheme.offWhite),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(20.0),
+                                                child: Text(
+                                                  "Change Password",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displayLarge!
+                                                      .copyWith(
+                                                          fontSize: 22,
+                                                          color: viewModel
+                                                                  .themeProvider!
+                                                                  .isPurple()
+                                                              ? MyTheme.darkPurple
+                                                              : MyTheme.offWhite),
+                                                ),
+                                              ),
+                                            ],
+                                          )),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             )

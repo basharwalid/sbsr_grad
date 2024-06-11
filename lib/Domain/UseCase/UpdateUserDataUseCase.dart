@@ -17,7 +17,6 @@ class UpdateUserDataUseCase {
       {required MyUser user, required String uid, required XFile? file}) async {
     if (file != null) {
       var response = await repository.uploadUserImage(image: file);
-      await repository.uploadUserImage(image: file);
       user.imageURL = response;
     }
     var response = await repository.updateUserDisplayName(name: user.name);

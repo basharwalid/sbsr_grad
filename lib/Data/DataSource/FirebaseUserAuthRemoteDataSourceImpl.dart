@@ -61,7 +61,7 @@ class FirebaseUserAuthRemoteDataSourceImpl
     try {
       var response = await fireBaseUserAuth
           .signInWithGoogle()
-          .timeout(const Duration(seconds: 60));
+          .timeout(const Duration(seconds: 180));
       return response;
     } on FirebaseAuthException catch (e) {
       throw FirebaseLoginException(errorMessage: e.code);

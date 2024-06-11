@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:sbsr_grad/Core/Notifications/NotificationsManagere.dart';
+import 'package:sbsr_grad/Core/Notifications/NotificationsManager.dart';
 import 'package:sbsr_grad/Core/Providers/AppConfigProvider.dart';
 import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
@@ -35,14 +35,14 @@ void main() async {
   );
 
   var user = FirebaseAuth.instance.currentUser;
-
   NotificationsManager notificationsManager =
-      NotificationsManager.getInstance();
+  NotificationsManager.getInstance();
   notificationsManager.initNotifications();
 
   FirebaseBusRealTimeDatabase firebaseBusRealTimeDatabase =
       injectFirebaseBusRealTimeDatabase();
   firebaseBusRealTimeDatabase.setupFirebaseReference(
+    goalState: "2",
       dataReference: "StationSensor");
 
   var firstTime = prefs.getBool("firstTime");

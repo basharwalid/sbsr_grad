@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -52,18 +53,18 @@ class NotificationsManager {
     String body,
   ) async {
     const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('1', 'SBSR',
-            icon: "assets/images/app_icon",
+        AndroidNotificationDetails('1', 'sbsr',
             channelDescription: 'Bus Stop Reminder',
             channelShowBadge: true,
             color: Color(0xFF29384D),
             colorized: true,
             importance: Importance.max,
             priority: Priority.high,
-            ticker: 'ticker');
+            ticker: 'ticker',showWhen: true);
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
-    await flutterLocalNotificationsPlugin
-        .show(0, title, body, notificationDetails, payload: 'SBSR');
+    await flutterLocalNotificationsPlugin.show(0, body,
+        "your Bus Has arrived to $title", notificationDetails,
+        payload: 'sbsr');
   }
 }

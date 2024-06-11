@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -40,9 +42,9 @@ class _EditProfileViewState
           builder: (context, value, child) {
             if (value.user == null) {
               return Center(
-                child: CircularProgressIndicator(color: theme.isPurple()
-                    ? MyTheme.lightPurple
-                    : MyTheme.green,),
+                child: CircularProgressIndicator(
+                  color: theme.isPurple() ? MyTheme.lightPurple : MyTheme.green,
+                ),
               );
             } else {
               return Scaffold(
@@ -60,6 +62,7 @@ class _EditProfileViewState
                           height: 20,
                         ),
                         Stack(
+                          alignment: Alignment.bottomRight,
                           children: [
                             Container(
                               clipBehavior: Clip.antiAlias,
@@ -68,54 +71,57 @@ class _EditProfileViewState
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   color: MyTheme.offWhite),
-                              child: viewModel.user!.imageURL == null
-                                  ? Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.35,
-                                      height: MediaQuery.sizeOf(context).width *
-                                          0.35,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Lottie.asset(
-                                          "assets/json/UserNotFound.json"),
-                                    )
-                                  : Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.35,
-                                      height: MediaQuery.sizeOf(context).width *
-                                          0.35,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: CachedNetworkImage(
-                                        imageUrl: viewModel.user!.imageURL!,
-                                        fit: BoxFit.cover,
-                                      ),
+                              child: Column(
+                                children: [
+                                  viewModel.image == null? viewModel.user!.imageURL != ""?Container(
+                                    width: MediaQuery.sizeOf(context).width * 0.35,
+                                    height: MediaQuery.sizeOf(context).width * 0.35,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(viewModel.user!.imageURL!),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius: BorderRadius.circular(20)
                                     ),
-                            ),
-                            Positioned(
-                              bottom: 5,
-                              left: 80,
-                              child: InkWell(
-                                onTap: viewModel.pickImageFromGallery,
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: theme.isPurple()
-                                          ? MyTheme.lightPurple
-                                          : MyTheme.green,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Icon(
-                                    Icons.edit,
-                                    color: theme.isPurple()
-                                        ? MyTheme.offWhite
-                                        : MyTheme.darkGrey,
+                                  ):
+                                  Image.asset(
+                                    viewModel.themeProvider!.isPurple()
+                                        ? "Assets/Images/DarkLogo2.png"
+                                        : "Assets/Images/LightLogo2.png",
+                                  ):Container(
+                                    width: MediaQuery.sizeOf(context).width * 0.35,
+                                    height: MediaQuery.sizeOf(context).width * 0.35,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: FileImage(File(viewModel.image!.path)),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
                                   ),
-                                ),
+                                ],
+                              ),
+                            ),
+                            InkWell(
+                              onTap: viewModel.pickImageFromGallery,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                        color: theme.isPurple()
+                                            ? MyTheme.lightPurple
+                                            : MyTheme.green,
+                                        borderRadius: BorderRadius.circular(25)),
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: theme.isPurple()
+                                          ? MyTheme.offWhite
+                                          : MyTheme.darkGrey,
+                                    ),
+                                  ),
+                                ],
                               ),
                             )
                           ],

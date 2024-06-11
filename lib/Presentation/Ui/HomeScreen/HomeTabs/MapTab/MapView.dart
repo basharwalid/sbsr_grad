@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
+import 'package:sbsr_grad/Core/Notifications/NotificationsManager.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/MapTab/MapNavigator.dart';
 import 'package:sbsr_grad/Presentation/Ui/HomeScreen/HomeTabs/MapTab/MapViewModel.dart';

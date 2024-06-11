@@ -68,7 +68,7 @@ class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
       user!.email = emailController.text;
       user!.phoneNumber = phoneController.text;
       var response = await useCase.invoke(
-          user: user!, uid: provider!.getUser()!.uid, file: image);
+          user: user!, uid: provider!.getUser()!.uid, file: image); // Include image variable
       provider!.updateUser(user: response);
       notifyListeners();
       navigator!.goBack();

@@ -3,7 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
-import 'package:sbsr_grad/Domain/UseCase/CreateAccountUseCase.dart';
+import 'package:sbsr_grad/Domain/UseCase/AddUserUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/SignInWithGoogleUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/SigninWithEmailandPassswordUseCase.dart';
 import 'package:sbsr_grad/Domain/UseCase/checkUserExistUseCase.dart';
@@ -116,10 +116,10 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                                 padding: const EdgeInsets.all(12.0),
                                 child: Text(
                                   "Login",
-                                  style:
-                                      Theme.of(context).textTheme.displayLarge!.copyWith(
-                                        color: MyTheme.offWhite
-                                      ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(color: MyTheme.offWhite),
                                 ),
                               ),
                             ],
@@ -140,10 +140,11 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                                 "Sign up",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .displayMedium!.copyWith(
-                                    color: value.themeProvider!.isPurple()
-                                        ? MyTheme.lightPurple : MyTheme.lightGreen
-                                ),
+                                    .displayMedium!
+                                    .copyWith(
+                                        color: value.themeProvider!.isPurple()
+                                            ? MyTheme.lightPurple
+                                            : MyTheme.lightGreen),
                               )),
                         ],
                       ),
@@ -193,7 +194,8 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
                           child: SignInWith(
                             text: "Sign in with Google",
                             image: "assets/images/googleLogo.png",
-                          ))
+                          )
+                      )
                     ],
                   ),
                 ),
@@ -211,8 +213,9 @@ class _LoginScreenViewState extends BaseState<LoginScreenView, LoginViewModel>
         signInWithEmailAndPasswordUseCase:
             injectSignInWithEmailAndPasswordUseCase(),
         checkIfUserExistUseCase: inejctCheckIfUserExistUseCase(),
-        createAccountUseCase: injectCreateAccountUseCase(),
-        signInWithGoogleUseCase: injectSignInWithGoogleUseCase());
+        signInWithGoogleUseCase: injectSignInWithGoogleUseCase(),
+      addUserUseCase: injectAddUserUseCase()
+    );
   }
 
   @override

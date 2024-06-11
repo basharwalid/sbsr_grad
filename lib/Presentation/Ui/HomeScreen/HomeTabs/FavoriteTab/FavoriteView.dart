@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sbsr_grad/Core/Base/BaseState.dart';
+import 'package:sbsr_grad/Core/Notifications/NotificationsManager.dart';
 import 'package:sbsr_grad/Core/Providers/ThemeProvider.dart';
 import 'package:sbsr_grad/Core/Theme/Theme.dart';
 import 'package:sbsr_grad/Domain/UseCase/DeleteBusFromFavoriteUseCase.dart';
